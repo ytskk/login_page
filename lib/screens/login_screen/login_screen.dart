@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'auth_controller.dart';
+import '../../controllers/auth_controller.dart';
 import 'widgets/login_button_widget.dart';
 import 'widgets/preview_button_widget.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+class LogInScreen extends StatefulWidget {
+  LogInScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LogInScreen(),
-    );
-  }
+  State<LogInScreen> createState() => _LogInScreenState();
 }
 
-class LogInScreen extends StatelessWidget {
-  LogInScreen({super.key});
-  final AuthController authController = Get.put(AuthController());
+class _LogInScreenState extends State<LogInScreen> {
+  final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {

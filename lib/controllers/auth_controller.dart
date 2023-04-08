@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'google_user_model.dart';
+import '../models/google_user_model.dart';
 
 class AuthController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn();

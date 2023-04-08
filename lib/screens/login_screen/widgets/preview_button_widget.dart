@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../auth_controller.dart';
+import '../../../controllers/auth_controller.dart';
 
 class PreviewButtonWidget extends StatelessWidget {
   final AuthController authController;
@@ -20,7 +19,7 @@ class PreviewButtonWidget extends StatelessWidget {
             backgroundColor: const Color.fromARGB(176, 64, 67, 75),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30))),
-        onPressed: () => log('go home'),
+        onPressed: () => GoRouter.of(context).goNamed('home_screen'),
         onLongPress: () async => await authController.signOut(),
         child: Row(
           children: [
