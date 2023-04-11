@@ -1,76 +1,115 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../constants/app_colors.dart';
-import '../../../constants/app_images.dart';
+import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/utils/utils.dart';
 
-class StatusBalanceWidget extends StatelessWidget {
-  const StatusBalanceWidget({super.key});
+/// {@template status_balance_widget}
+/// Shows user balance info. Today changes and total balance.
+/// {@endtemplate}
+class StatusBalance extends StatelessWidget {
+  /// {@macro status_balance_widget}
+  const StatusBalance({
+    super.key,
+    required this.todayBalanceChange,
+    required this.totalBalance,
+  });
+
+  /// Today balance change. May be both positive and negative.
+  final double todayBalanceChange;
+  final double totalBalance;
+
+  String get infoBalanceTitle => 'Bonus balance';
+  String get infoBalanceToday => 'Today: ';
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 360,
-      margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.only(top: 65, left: 16, right: 16, bottom: 16),
-      decoration: BoxDecoration(
-        color: AppColors.darkgrey,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return Padding(
+      padding: const EdgeInsets.all(16),
       child: Row(
         children: [
+          // info balance.
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 5),
-                  child: Text(
-                    'Bonus balance',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
-                  ),
+                Text(
+                  infoBalanceTitle,
+                  // TODO: h2
+                  style: h2TextStyle.copyWith(color: Colors.white),
                 ),
+                const SizedBox(height: 4),
                 Row(
                   children: [
                     Text(
-                      'Today: ',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
+                      infoBalanceToday,
+                      style: bodySTextStyle.light.copyWith(
                         color: Colors.white.withOpacity(0.5),
                       ),
                     ),
-                    const Text(
-                      '+150 ',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.yellow,
-                      ),
+                    // today balance change.
+                    Row(
+                      children: [
+                        Text(
+                          '+$todayBalanceChange',
+                          style: bodySTextStyle.semibold.copyWith(
+                            color: AppColors.yellow,
+                          ),
+                        ),
+                        const SizedBox(width: 2),
+                        const CoinLogoWidget(),
+                      ],
                     ),
-                    SvgPicture.asset(AppImages.altenarCoinLogo, width: 10, height: 10,),
                   ],
                 ),
               ],
             ),
           ),
-          const Text(
-            '2150',
-            style: TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.w500,
-              color: AppColors.yellow,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, top: 7),
-            child: SvgPicture.asset(AppImages.altenarCoinLogo),
+          const SizedBox(width: 24),
+          // balance value
+          Row(
+            children: [
+              Text(
+                totalBalance.toStringAsFixed(0),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 40,
+                  height: 1,
+                  color: AppColors.yellow,
+                ),
+              ),
+              const SizedBox(width: 6),
+              const CoinLogoWidget(size: 20),
+            ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CoinLogoWidget extends StatelessWidget {
+  const CoinLogoWidget({
+    super.key,
+    this.size,
+    this.color,
+  });
+
+  final double? size;
+  final Color? color;
+
+  get _size => size ?? 10;
+  get _color => color ?? AppColors.yellow;
+
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset(
+      AppImages.altenarCoinLogo,
+      width: _size,
+      height: _size,
+      colorFilter: ColorFilter.mode(
+        _color,
+        BlendMode.srcIn,
       ),
     );
   }

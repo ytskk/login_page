@@ -51,7 +51,7 @@ class AchievesListWidget extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 16),
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: AppColors.darkgrey,
+            color: AppColors.darkGrey,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Row(

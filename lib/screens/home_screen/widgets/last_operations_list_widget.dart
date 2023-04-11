@@ -90,7 +90,7 @@ class LastOperationsWidget extends StatelessWidget {
             style: ElevatedButton.styleFrom(
                 fixedSize: const Size.fromWidth(174),
                 padding: const EdgeInsets.all(16),
-                backgroundColor: AppColors.darkgrey,
+                backgroundColor: AppColors.darkGrey,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 )),

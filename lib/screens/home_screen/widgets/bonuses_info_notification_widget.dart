@@ -15,7 +15,7 @@ class BonusesInfoNotificationWidget extends StatelessWidget {
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.darkgrey,
+        color: AppColors.darkGrey,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(

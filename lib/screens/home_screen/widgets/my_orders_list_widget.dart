@@ -88,7 +88,7 @@ class NewOrderButton extends StatelessWidget {
     return ElevatedButton(
         onPressed: () => log('New order'),
         style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.darkgrey,
+            backgroundColor: AppColors.darkGrey,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             )),
@@ -172,10 +172,9 @@ class PreviewOrderWidget extends StatelessWidget {
                       child: Text(
                         order['status'] ?? '',
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600
-                        ),
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                   ],

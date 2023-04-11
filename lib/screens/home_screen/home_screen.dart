@@ -3,8 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:training_and_testing/constants/app_colors.dart';
 import 'package:training_and_testing/constants/app_images.dart';
+import 'package:training_and_testing/constants/constants.dart';
 
-import '../../controllers/auth_controller.dart';
+import 'package:training_and_testing/controllers/auth_controller.dart';
+import 'package:training_and_testing/widgets/buttons/buttons.dart';
+import 'package:training_and_testing/widgets/widgets.dart';
 import 'widgets/achieves_list_widget.dart';
 import 'widgets/banner_card_widget.dart';
 import 'widgets/bonuses_get_button.dart';
@@ -22,29 +25,63 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.darkBackground,
-      body: Stack(children: [
-        SvgPicture.asset(AppImages.backgroundLine),
-        ListView(
-          children: [
-            ProfileBar(authController),
-            Stack(
-              clipBehavior: Clip.none,
-              children: const [
-                Positioned(
-                  top: 160,
-                  child: StatusBalanceWidget(),
+      body: Stack(
+        children: [
+          SvgPicture.asset(AppImages.backgroundLine),
+          // TODO: remove
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ListView(
+              children: [
+                ProfileBar(authController),
+                const SizedBox(height: 24),
+                RoundedRectangleBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BannerCard(
+                        title: RichText(
+                          text: TextSpan(
+                            style: heroTextStyle,
+                            children: [
+                              TextSpan(
+                                text: AppStrings.toBuySomething.toUpperCase(),
+                              ),
+                              const TextSpan(text: '\n'),
+                              TextSpan(
+                                text: AppStrings.needToGetBonuses.toUpperCase(),
+                                style: heroTextStyle.copyWith(
+                                  color: AppColors.blueAccent,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        subtitle: AppStrings.infoMainBannerSubtitle,
+                        callToAction: ButtonPrimary(
+                          onPressed: () {},
+                          backgroundColor: Colors.white,
+                          type: ButtonType.secondary,
+                          child: const Text(AppStrings.howToGetBonuses),
+                        ),
+                      ),
+                      StatusBalance(
+                        todayBalanceChange: 150,
+                        totalBalance: 2150,
+                      ),
+                    ],
+                  ),
                 ),
-                BannerCardWidget(),
+                const BonusesGetButton(),
+                const BonusesInfoNotificationWidget(),
+                AchievesListWidget(),
+                MyOrdersListWidget(),
+                LastOperationsListWidget(),
               ],
             ),
-            const BonusesGetButton(),
-            const BonusesInfoNotificationWidget(),
-            AchievesListWidget(),
-            MyOrdersListWidget(),
-            LastOperationsListWidget(),
-          ],
-        ),
-      ]),
+          ),
+        ],
+      ),
     );
   }
 }
