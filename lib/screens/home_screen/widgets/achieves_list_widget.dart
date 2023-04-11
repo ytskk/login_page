@@ -3,14 +3,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:training_and_testing/constants/app_colors.dart';
-import 'package:training_and_testing/constants/app_images.dart';
+import 'package:training_and_testing/constants/app_icons.dart';
 
 class AchievesListWidget extends StatelessWidget {
   AchievesListWidget({super.key});
   final List<Map> _achivesList = [
-    {'image': AppImages.speakerAchieves, 'lable': 'Best Speaker'},
-    {'image': AppImages.writerAchieves, 'lable': 'Writer'},
-    {'image': AppImages.allAchieves, 'lable': 'See all'}
+    {'image': AppIcons.speakerAchieves, 'lable': 'Best Speaker'},
+    {'image': AppIcons.writerAchieves, 'lable': 'Writer'},
+    {'image': AppIcons.allAchieves, 'lable': 'See all'}
   ];
 
   @override
@@ -29,7 +29,7 @@ class AchievesListWidget extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   )),
               const CircleAvatar(
-                backgroundColor: AppColors.middleGray,
+                backgroundColor: AppColors.middleGrey,
                 radius: 11,
                 child: Text(
                   '5',
@@ -43,7 +43,7 @@ class AchievesListWidget extends StatelessWidget {
               const Expanded(child: SizedBox()),
               InkWell(
                   onTap: () => log('my achieves'),
-                  child: SvgPicture.asset(AppImages.circleChevronRight)),
+                  child: SvgPicture.asset(AppIcons.circleChevronRight)),
             ],
           ),
         ),

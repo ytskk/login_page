@@ -11,8 +11,22 @@ enum ButtonType {
   secondary,
 }
 
-class ButtonPrimary extends StatelessWidget {
-  const ButtonPrimary({
+/// {@template brand_button}
+/// A button with a brand style. It has two types: primary and secondary.
+/// Primary button has a solid background color and secondary button has a
+/// transparent background with a border.
+///
+/// Buttons can have an icon and a text. If you want to use an icon, use
+/// [BrandButton.icon] constructor.
+///
+/// Buttons have two sizes: small and large.
+///
+/// See also:
+/// - [ButtonSize]
+/// - [ButtonType]
+/// {@endtemplate}
+class BrandButton extends StatelessWidget {
+  const BrandButton({
     super.key,
     required this.child,
     this.size = ButtonSize.small,
@@ -22,7 +36,7 @@ class ButtonPrimary extends StatelessWidget {
     this.type = ButtonType.primary,
   });
 
-  factory ButtonPrimary.icon({
+  factory BrandButton.icon({
     required Widget icon,
     required Widget child,
     ButtonSize size,
@@ -31,7 +45,7 @@ class ButtonPrimary extends StatelessWidget {
     Color? backgroundColor,
     Color? foregroundColor,
     ButtonType type,
-  }) = _ButtonPrimaryIcon;
+  }) = _BrandButtonWithIcon;
 
   final ButtonSize size;
   final Widget child;
@@ -177,8 +191,8 @@ class ButtonPrimary extends StatelessWidget {
   }
 }
 
-class _ButtonPrimaryIcon extends ButtonPrimary {
-  _ButtonPrimaryIcon({
+class _BrandButtonWithIcon extends BrandButton {
+  _BrandButtonWithIcon({
     required Widget icon,
     required Widget child,
     super.size = ButtonSize.small,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/utils/utils.dart';
+import 'package:training_and_testing/widgets/widgets.dart';
 
 class BannerCard extends StatelessWidget {
   const BannerCard({
@@ -10,12 +10,14 @@ class BannerCard extends StatelessWidget {
     this.subtitle,
     this.callToAction,
     this.backgroundColor,
+    this.patternColor,
   });
 
   final Widget title;
   final String? subtitle;
   final Widget? callToAction;
   final Color? backgroundColor;
+  final Color? patternColor;
 
   Color get _backgroundColor => backgroundColor ?? AppColors.blueSecondary;
 
@@ -24,34 +26,41 @@ class BannerCard extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(mediumPadding),
         child: ColoredBox(
           color: _backgroundColor,
           child: Stack(
             alignment: Alignment.bottomRight,
             children: [
               // banner pattern
-              SvgPicture.asset(
-                AppImages.bannerFigure,
+              SvgAsset(
+                assetName: AppIcons.bannerFigure,
+                color: patternColor,
               ),
+
               // banner texts & button
               Padding(
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(largePadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     title,
                     if (subtitle != null) ...[
-                      const SizedBox(height: 4),
+                      const SizedBox(height: smallSpacing1),
                       Text(
                         subtitle!,
                         style: bodyMTextStyle.medium.copyWith(
                           color: AppColors.lightGrey,
                         ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                     if (callToAction != null) ...[
-                      const SizedBox(height: 16),
+                      // careful! this spacer is needed to push the button to
+                      // the bottom means BannerCard must have a fixed height!
+                      const Spacer(),
+                      const SizedBox(height: mediumSpacing2),
                       callToAction!,
                     ],
                   ],

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../constants/app_images.dart';
+import '../../../constants/app_icons.dart';
 import '../../../controllers/auth_controller.dart';
 
 class ProfileBar extends StatelessWidget {
@@ -42,7 +42,7 @@ class ProfileBar extends StatelessWidget {
           ),
           InkWell(
               onTap: () => log('click notification'),
-              child: SvgPicture.asset(AppImages.notificationIcon)),
+              child: SvgPicture.asset(AppIcons.notificationIcon)),
         ],
       ),
     );

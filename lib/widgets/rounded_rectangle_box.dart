@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:training_and_testing/constants/app_colors.dart';
+import 'package:training_and_testing/constants/constants.dart';
 
+/// {@template rounded_rectangle_box}
+/// A widget that displays its [child] with a rounded rectangle border.
+///
+/// The [borderRadius] defaults to [largeBorderRadius].
+/// The [backgroundColor] defaults to [AppColors.darkGrey].
+/// {@endtemplate}
 class RoundedRectangleBox extends StatelessWidget {
+  /// {@macro rounded_rectangle_box}
   const RoundedRectangleBox({
     super.key,
     required this.child,
@@ -13,15 +20,16 @@ class RoundedRectangleBox extends StatelessWidget {
   final Color? backgroundColor;
   final double? borderRadius;
 
-  get _borderRadius => borderRadius ?? 16;
+  get _borderRadius => borderRadius ?? largeBorderRadius;
   get _backgroundColor => backgroundColor ?? AppColors.darkGrey;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(_borderRadius),
-      child: ColoredBox(
-        color: _backgroundColor,
+      child: DecoratedBox(
+        // color: _backgroundColor,
+        decoration: BoxDecoration(color: backgroundColor),
         child: child,
       ),
     );
