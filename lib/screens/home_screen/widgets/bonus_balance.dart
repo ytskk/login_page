@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/utils/utils.dart';
-import 'package:training_and_testing/widgets/widgets.dart';
+import 'package:training_and_testing/widgets/coin_icon.dart';
 
 /// {@template status_balance_widget}
 /// Shows user balance info. Today changes and total balance.
@@ -32,7 +32,7 @@ class BonusBalance extends StatelessWidget {
               children: [
                 Text(
                   AppStrings.infoBalanceTitle,
-                  style: h2TextStyle.copyWith(color: Colors.white),
+                  style: h2TextStyle,
                 ),
                 const SizedBox(height: smallSpacing1),
                 Row(
@@ -47,16 +47,15 @@ class BonusBalance extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '+$todayBalanceChange',
+                          '$todayBalanceChange',
                           style: bodySTextStyle.semibold.copyWith(
                             color: AppColors.yellow,
                           ),
                         ),
                         const SizedBox(width: extraSmallSpacing),
-                        SvgAsset.squared(
-                          assetName: AppIcons.coinIcon,
+                        const CoinIcon(
+                          size: smallIconSize1,
                           color: AppColors.yellow,
-                          size: smallIconSize,
                         ),
                       ],
                     ),
@@ -69,16 +68,17 @@ class BonusBalance extends StatelessWidget {
           // balance value
           Row(
             children: [
-              Text(totalBalance.toStringAsFixed(0),
-                  style: heroTextStyle.medium.copyWith(
-                    fontSize: 40,
-                    color: AppColors.yellow,
-                  )),
+              Text(
+                totalBalance.toStringAsFixed(0),
+                style: heroTextStyle.medium.copyWith(
+                  fontSize: 40,
+                  color: AppColors.yellow,
+                ),
+              ),
               const SizedBox(width: smallSpacing2),
-              SvgAsset.squared(
-                assetName: AppIcons.coinIcon,
-                color: AppColors.yellow,
+              const CoinIcon(
                 size: mediumIconSize,
+                color: AppColors.yellow,
               ),
             ],
           ),

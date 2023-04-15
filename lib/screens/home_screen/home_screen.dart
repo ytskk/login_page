@@ -123,7 +123,7 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     children: [
                       BonusesOptionButton(
-                        iconPath: AppIcons.writeIcon,
+                        // iconPath: AppIcons.writeIcon,
                         title: AppStrings.writeAnArticle,
                         onPressed: () {},
                       ),
@@ -131,11 +131,16 @@ class HomeScreen extends StatelessWidget {
                       BonusesOptionButton(
                         iconPath: AppIcons.speakerIcon,
                         title: AppStrings.speakAtTheConference,
+                        onPressed: () {},
                       ),
                     ],
                   ),
                 ),
               ),
+              AchievementsBlock(
+                achievementsCount: 6,
+              ),
+
               // const BonusesInfoNotificationWidget(),
               // AchievesListWidget(),
               // MyOrdersListWidget(),

@@ -18,16 +18,11 @@ class SvgAsset extends StatelessWidget {
     this.height,
   });
 
-  factory SvgAsset.squared({
+  const factory SvgAsset.squared({
     required String assetName,
     Color? color,
     double? size,
-  }) =>
-      _SvgAssetSquare(
-        assetName: assetName,
-        size: size,
-        color: color,
-      );
+  }) = _SvgAssetSquare;
 
   final String assetName;
   final Color? color;

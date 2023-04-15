@@ -19,4 +19,6 @@ abstract class AppStrings {
 
   static const String writeAnArticle = 'Write an article';
   static const String speakAtTheConference = 'To speak at the conference';
+
+  static const String achievements = 'Achieves';
 }

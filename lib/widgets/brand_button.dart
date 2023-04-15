@@ -142,7 +142,7 @@ class BrandButton extends StatelessWidget {
       backgroundColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return Colors.white.withOpacity(0.3);
+            return AppColors.white.withOpacity(0.3);
           }
 
           return backgroundColor;

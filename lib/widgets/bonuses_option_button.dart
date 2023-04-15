@@ -52,9 +52,7 @@ class BonusesOptionButton extends StatelessWidget {
                   const SizedBox(width: mediumSpacing1),
                   Text(
                     title,
-                    style: bodySTextStyle.semibold.copyWith(
-                      color: Colors.white,
-                    ),
+                    style: bodySTextStyle.semibold,
                   ),
                 ],
               ),

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
 
 TextStyle baseTextStyle = const TextStyle(
-  fontSize: 14,
+  fontSize: 16,
   height: 1.4,
-  color: AppColors.lightGrey,
+  color: AppColors.white,
 );
 
 // hero
@@ -67,4 +67,11 @@ TextStyle buttonSTextStyle = baseTextStyle.copyWith(
   fontWeight: FontWeight.w700,
   fontSize: 14,
   height: 1.14,
+);
+
+// caption
+TextStyle captionTextStyle = baseTextStyle.copyWith(
+  fontWeight: FontWeight.w600,
+  fontSize: 10,
+  height: 1.4,
 );
