@@ -4,5 +4,3 @@ import 'screens/BonusesApp.dart';
 void main() {
   runApp(BonusesApp());
 }
-
-

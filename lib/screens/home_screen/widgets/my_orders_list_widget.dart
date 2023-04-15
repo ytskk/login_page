@@ -3,25 +3,25 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:training_and_testing/constants/app_colors.dart';
-import '../../../constants/app_images.dart';
+import '../../../constants/app_icons.dart';
 
 class MyOrdersListWidget extends StatelessWidget {
   MyOrdersListWidget({super.key});
   final List<Map<String, String>> _ordersList = [
     {
-      'image': AppImages.blueCup,
+      'image': AppIcons.blueCup,
       'lable': 'Blue cup with Altenar logo',
       'date': '12.12.2012',
       'status': 'Waiting for delivery',
     },
     {
-      'image': AppImages.blueCup,
+      'image': AppIcons.blueCup,
       'lable': 'Blue cup with Altenar logo',
       'date': '12.12.2015',
       'status': 'Delivered',
     },
     {
-      'image': AppImages.blueCup,
+      'image': AppIcons.blueCup,
       'lable': 'Blue cup with Altenar logo',
       'date': '12.12.2015',
       'status': 'Waiting for delivery',
@@ -45,7 +45,7 @@ class MyOrdersListWidget extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   )),
               const CircleAvatar(
-                backgroundColor: AppColors.middleGray,
+                backgroundColor: AppColors.middleGrey,
                 radius: 11,
                 child: Text(
                   '3',
@@ -59,7 +59,7 @@ class MyOrdersListWidget extends StatelessWidget {
               const Expanded(child: SizedBox()),
               InkWell(
                   onTap: () => log('My orders'),
-                  child: SvgPicture.asset(AppImages.circleChevronRight)),
+                  child: SvgPicture.asset(AppIcons.circleChevronRight)),
             ],
           ),
         ),
@@ -88,7 +88,7 @@ class NewOrderButton extends StatelessWidget {
     return ElevatedButton(
         onPressed: () => log('New order'),
         style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.darkgrey,
+            backgroundColor: AppColors.darkGrey,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             )),
@@ -172,10 +172,9 @@ class PreviewOrderWidget extends StatelessWidget {
                       child: Text(
                         order['status'] ?? '',
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600
-                        ),
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                   ],

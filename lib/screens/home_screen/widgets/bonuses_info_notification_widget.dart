@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/app_colors.dart';
-import '../../../constants/app_images.dart';
+import '../../../constants/app_icons.dart';
 
 class BonusesInfoNotificationWidget extends StatelessWidget {
   const BonusesInfoNotificationWidget({super.key});
@@ -15,7 +15,7 @@ class BonusesInfoNotificationWidget extends StatelessWidget {
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.darkgrey,
+        color: AppColors.darkGrey,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -27,9 +27,9 @@ class BonusesInfoNotificationWidget extends StatelessWidget {
               const SizedBox(
                 width: 21,
               ),
-              SvgPicture.asset(AppImages.flyingStar),
+              SvgPicture.asset(AppIcons.flyingStar),
               InkWell(
-                child: SvgPicture.asset(AppImages.closingIcon),
+                child: SvgPicture.asset(AppIcons.closingIcon),
                 onTap: () => log('close info notification'),
               ),
             ],

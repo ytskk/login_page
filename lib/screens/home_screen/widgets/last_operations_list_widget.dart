@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:training_and_testing/constants/app_colors.dart';
 
-import '../../../constants/app_images.dart';
+import '../../../constants/app_icons.dart';
 
 class LastOperationsListWidget extends StatelessWidget {
   LastOperationsListWidget({super.key});
@@ -43,7 +43,7 @@ class LastOperationsListWidget extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   )),
               const CircleAvatar(
-                backgroundColor: AppColors.middleGray,
+                backgroundColor: AppColors.middleGrey,
                 radius: 11,
                 child: Text(
                   '10',
@@ -57,7 +57,7 @@ class LastOperationsListWidget extends StatelessWidget {
               const Expanded(child: SizedBox()),
               InkWell(
                   onTap: () => log('Last operations'),
-                  child: SvgPicture.asset(AppImages.circleChevronRight)),
+                  child: SvgPicture.asset(AppIcons.circleChevronRight)),
             ],
           ),
         ),
@@ -90,7 +90,7 @@ class LastOperationsWidget extends StatelessWidget {
             style: ElevatedButton.styleFrom(
                 fixedSize: const Size.fromWidth(174),
                 padding: const EdgeInsets.all(16),
-                backgroundColor: AppColors.darkgrey,
+                backgroundColor: AppColors.darkGrey,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 )),
@@ -121,12 +121,12 @@ class LastOperationsWidget extends StatelessWidget {
                     ((operation['value'] != null) &&
                             (operation['value']!.contains('+')))
                         ? SvgPicture.asset(
-                            AppImages.altenarCoinLogo,
+                            AppIcons.coinIcon,
                             width: 10,
                             height: 10,
                           )
                         : SvgPicture.asset(
-                            AppImages.altenarCoinLogo,
+                            AppIcons.coinIcon,
                             width: 10,
                             height: 10,
                           ),
