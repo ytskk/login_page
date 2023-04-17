@@ -45,6 +45,7 @@ const double iconSize10 = 10;
 const double iconSize12 = 12;
 const double iconSize20 = 20;
 const double iconSize24 = 24;
+const double iconSize32 = 32;
 
 const double smallIconSize1 = 10;
 const double smallIconSize2 = 12;

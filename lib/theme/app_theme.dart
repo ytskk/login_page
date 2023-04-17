@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/constants/constants.dart' hide AppColors;
+import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 
 abstract class AppThemeBase {
@@ -11,13 +14,13 @@ abstract class AppThemeBase {
 
   ColorScheme get colorScheme;
   Brightness get brightness;
+  bool? get useMaterial3;
 
-  ThemeData? themeData() {
-    return ThemeData(
-      brightness: brightness,
-      useMaterial3: true,
-    ).copyWith(
-      colorScheme: colorScheme,
+  ThemeData themeData();
+
+  ThemeData buildThemeData() {
+    return themeData().copyWith(
+      // colorScheme: colorScheme,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: elevatedButtonStyle(),
       ),
@@ -29,38 +32,72 @@ abstract class AppThemeBase {
 }
 
 class BrandThemeData extends AppThemeBase {
-  const BrandThemeData({
+  BrandThemeData({
     required this.colorScheme,
     this.brightness = Brightness.light,
+    this.useMaterial3 = true,
   });
 
-  factory BrandThemeData.dark() {
-    return const BrandThemeData(
+  static ThemeData dark({
+    bool? useMaterial3,
+  }) {
+    return BrandThemeData(
       colorScheme: brandDarkColorScheme,
       brightness: Brightness.dark,
-    );
+      useMaterial3: useMaterial3,
+    ).buildThemeData();
   }
 
-  factory BrandThemeData.light() {
-    return const BrandThemeData(
-      colorScheme: ColorScheme.light(),
-    );
+  static ThemeData light({
+    bool? useMaterial3,
+  }) {
+    return BrandThemeData(
+      colorScheme: brandLightColorScheme,
+      useMaterial3: useMaterial3,
+    ).buildThemeData();
   }
 
   @override
   final ColorScheme colorScheme;
   @override
   final Brightness brightness;
+  @override
+  final bool? useMaterial3;
+
+  late ThemeData _themeData;
 
   @override
-  ThemeData? themeData() {
-    final theme = super.themeData()?.copyWith(
-      extensions: [
+  ThemeData themeData() {
+    log(
+      'Rebuilding theme data...',
+      name: 'BrandThemeData::themeData',
+    );
+    final _useMaterial3 = useMaterial3 ?? true;
+
+    final theme = ThemeData(
+      useMaterial3: _useMaterial3,
+      brightness: brightness,
+      extensions: const [
         AppTypography.appTypography,
+        AppColors.appColors,
       ],
     );
 
-    return theme?.copyWith(
+    final appColors = theme.extension<AppColors>()!;
+
+    _themeData = theme.copyWith(
+      scaffoldBackgroundColor:
+          appColors.background?.resolveFromBrightness(brightness),
+      colorScheme: colorScheme.copyWith(
+        primary: appColors.blueMain?.resolveFromBrightness(brightness),
+        onPrimary: appColors.white?.resolveFromBrightness(brightness),
+        secondary: appColors.yellow?.resolveFromBrightness(brightness),
+        onSecondary: appColors.black?.resolveFromBrightness(brightness),
+        surface: appColors.background?.resolveFromBrightness(brightness),
+        surfaceTint: appColors.background?.resolveFromBrightness(brightness),
+      ),
+    );
+    _themeData = _themeData.copyWith(
       textTheme: theme.textTheme
           .copyWith(
             bodyMedium: theme.extension<AppTypography>()?.bodyM,
@@ -68,10 +105,14 @@ class BrandThemeData extends AppThemeBase {
           )
           // actual for light theme, because default color is onPrimary.
           .apply(
-            bodyColor: colorScheme.onBackground,
-            displayColor: colorScheme.onBackground,
+            bodyColor:
+                appColors.backgroundInverse?.resolveFromBrightness(brightness),
+            displayColor:
+                appColors.backgroundInverse?.resolveFromBrightness(brightness),
           ),
     );
+
+    return _themeData;
   }
 
   // Buttons.
@@ -86,6 +127,9 @@ class BrandThemeData extends AppThemeBase {
   /// (elevated and outlined).
   ButtonStyle _buildBaseButtonStyle() {
     return ButtonStyle(
+      textStyle: MaterialStatePropertyAll(
+        _themeData.extension<AppTypography>()?.buttonS,
+      ),
       elevation: const MaterialStatePropertyAll(0),
       shape: MaterialStatePropertyAll(
         RoundedRectangleBorder(
@@ -97,55 +141,65 @@ class BrandThemeData extends AppThemeBase {
   }
 
   ButtonStyle _buildElevatedButtonStyle() {
+    final appColors = _themeData.extension<AppColors>()!;
+
     return _buildBaseButtonStyle().copyWith(
       iconColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return colorScheme.background;
+            return appColors.darkGrey?.resolveFromBrightness(brightness);
           }
 
-          return colorScheme.onPrimary;
+          return _themeData.colorScheme.onPrimary;
         },
       ),
       foregroundColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return colorScheme.background;
+            return appColors.darkGrey?.resolveFromBrightness(brightness);
           }
 
-          return colorScheme.onPrimary;
+          return _themeData.colorScheme.onPrimary;
         },
       ),
       backgroundColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return colorScheme.onSurface.withOpacity(0.3);
+            return appColors.backgroundInverse
+                ?.resolveFromBrightness(brightness)
+                .withOpacity(0.3);
           }
 
-          return colorScheme.primary;
+          return _themeData.colorScheme.primary;
         },
       ),
     );
   }
 
   ButtonStyle _buildOutlinedButtonStyle() {
+    final appColors = _themeData.extension<AppColors>()!;
+
     return _buildBaseButtonStyle().copyWith(
       iconColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return colorScheme.outlineVariant.withOpacity(0.3);
+            return appColors.backgroundInverse
+                ?.resolveFromBrightness(brightness)
+                .withOpacity(0.3);
           }
 
-          return colorScheme.primary;
+          return _themeData.colorScheme.primary;
         },
       ),
       foregroundColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return colorScheme.outlineVariant.withOpacity(0.3);
+            return appColors.backgroundInverse
+                ?.resolveFromBrightness(brightness)
+                .withOpacity(0.3);
           }
 
-          return colorScheme.primary;
+          return _themeData.colorScheme.primary;
         },
       ),
       backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
@@ -153,12 +207,14 @@ class BrandThemeData extends AppThemeBase {
         (states) {
           if (states.contains(MaterialState.disabled)) {
             return BorderSide(
-              color: colorScheme.outlineVariant.withOpacity(0.3),
+              color: appColors.backgroundInverse!
+                  .resolveFromBrightness(brightness)
+                  .withOpacity(0.3),
             );
           }
 
           return BorderSide(
-            color: colorScheme.primary,
+            color: _themeData.colorScheme.primary,
           );
         },
       ),
@@ -166,9 +222,16 @@ class BrandThemeData extends AppThemeBase {
   }
 }
 
-const brandDarkColorScheme = ColorScheme.dark(
-  primary: AppColors.blueMain,
-  onPrimary: AppColors.white,
-  secondary: AppColors.yellow,
-  onSecondary: AppColors.black,
+final brandLightColorScheme = ColorScheme.fromSeed(
+  seedColor: AppColors.appColors.blueMain!.resolveFromBrightness(
+    Brightness.light,
+  ),
+  brightness: Brightness.light,
+);
+
+final brandDarkColorScheme = ColorScheme.fromSeed(
+  seedColor: AppColors.appColors.blueMain!.resolveFromBrightness(
+    Brightness.dark,
+  ),
+  brightness: Brightness.dark,
 );
