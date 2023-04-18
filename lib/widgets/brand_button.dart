@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/theme/app_typography.dart';
 
 enum ButtonSize {
   small,
@@ -51,142 +52,157 @@ class BrandButton extends StatelessWidget {
   final Widget child;
   final VoidCallback? onPressed;
 
-  /// Color for primary button type. Color for border color and content color
-  /// for secondary button type.
+  /// Background color for [ButtonType.primary]. Does not affect
+  /// on [ButtonType.secondary].
   final Color? backgroundColor;
 
-  /// Color for icon and text for primary button type. Does not affect secondary
-  /// button type.
+  /// Color for icon and text. Color for border in [ButtonType.secondary].
   final Color? foregroundColor;
   final ButtonType type;
 
-  static const double _smallIconSize = 20;
-  static const double _largeIconSize = 24;
-
-  Color get _backgroundColor => backgroundColor ?? AppColors.blueMain;
-  Color get _foregroundColor => foregroundColor ?? Colors.white;
-
-  EdgeInsets get _buttonPadding {
+  EdgeInsets? get _buttonPadding {
     if (size == ButtonSize.small) {
       return const EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: 12,
+        horizontal: padding24,
+        vertical: padding12,
       );
     }
 
     return const EdgeInsets.symmetric(
-      horizontal: 24,
-      vertical: 16,
+      horizontal: padding24,
+      vertical: padding16,
     );
   }
 
-  TextStyle get _buttonTextStyle {
+  TextStyle? _buttonTextStyle(BuildContext context) {
+    final typography = getAppTypography(context);
+
     if (size == ButtonSize.small) {
-      return buttonSTextStyle;
+      return typography.buttonS;
     }
 
-    return buttonLTextStyle;
+    return typography.buttonL;
   }
+
+  double get _iconSize => size == ButtonSize.small ? iconSize20 : iconSize24;
 
   @override
   Widget build(BuildContext context) {
-    final _buttonStyle = type == ButtonType.primary
-        ? _buildPrimaryButtonStyle()
-        : _buildSecondaryButtonStyle();
+    final colorScheme = Theme.of(context).colorScheme;
+    final sizedTextStyle = _buttonTextStyle(context);
+
+    if (type == ButtonType.secondary) {
+      return OutlinedButton(
+        style: _buildOutlinedButtonStyle(
+          colorScheme,
+          sizedTextStyle,
+        ),
+        onPressed: onPressed,
+        child: child,
+      );
+    }
 
     return ElevatedButton(
-      style: _buttonStyle,
+      style: _buildElevatedButtonStyle(
+        colorScheme,
+        sizedTextStyle,
+      ),
       onPressed: onPressed,
       child: child,
     );
   }
 
-  /// Defines base style with common properties for both button types
-  /// (primary and secondary).
-  ButtonStyle _buildBaseButtonStyle() {
+  /// Applies base button style to [BrandButton]. It applies padding and text
+  /// style.
+  ButtonStyle _buildBaseButtonStyle(TextStyle? textStyle) {
     return ButtonStyle(
-      elevation: const MaterialStatePropertyAll(0),
-      shape: MaterialStatePropertyAll(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100),
-        ),
-      ),
-      textStyle: MaterialStateProperty.all(_buttonTextStyle),
-      padding: MaterialStatePropertyAll(_buttonPadding),
-      iconSize: MaterialStatePropertyAll(
-        size == ButtonSize.small ? _smallIconSize : _largeIconSize,
-      ),
+      padding: MaterialStateProperty.all(_buttonPadding),
+      textStyle: MaterialStateProperty.all(textStyle),
+      iconSize: MaterialStatePropertyAll(_iconSize),
     );
   }
 
-  _buildPrimaryButtonStyle() {
-    return _buildBaseButtonStyle().copyWith(
-      iconColor: MaterialStateProperty.resolveWith(
+  _buildElevatedButtonStyle(
+    ColorScheme colorScheme,
+    TextStyle? textStyle,
+  ) {
+    return _buildBaseButtonStyle(textStyle).copyWith(
+      overlayColor: MaterialStateProperty.resolveWith(
         (states) {
-          if (states.contains(MaterialState.disabled)) {
-            return AppColors.darkGrey;
+          if (!states.contains(MaterialState.disabled)) {
+            return backgroundColor?.withOpacity(0.12);
           }
-
-          return _foregroundColor;
-        },
-      ),
-      foregroundColor: MaterialStateProperty.resolveWith(
-        (states) {
-          if (states.contains(MaterialState.disabled)) {
-            return AppColors.darkGrey;
-          }
-
-          return foregroundColor;
+          return null;
         },
       ),
       backgroundColor: MaterialStateProperty.resolveWith(
         (states) {
-          if (states.contains(MaterialState.disabled)) {
-            return AppColors.white.withOpacity(0.3);
+          if (!states.contains(MaterialState.disabled)) {
+            return backgroundColor;
           }
-
-          return backgroundColor;
+          return null;
+        },
+      ),
+      foregroundColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (!states.contains(MaterialState.disabled)) {
+            return foregroundColor;
+          }
+          return null;
+        },
+      ),
+      iconColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (!states.contains(MaterialState.disabled)) {
+            return foregroundColor;
+          }
+          return null;
         },
       ),
     );
   }
 
-  _buildSecondaryButtonStyle() {
-    return _buildBaseButtonStyle().copyWith(
-      side: MaterialStateProperty.resolveWith(
+  _buildOutlinedButtonStyle(
+    ColorScheme colorScheme,
+    TextStyle? textStyle,
+  ) {
+    return _buildBaseButtonStyle(textStyle).copyWith(
+      overlayColor: MaterialStateProperty.resolveWith(
         (states) {
-          if (states.contains(MaterialState.disabled)) {
-            return BorderSide(
-              color: _backgroundColor.withOpacity(0.3),
-              width: 1,
-            );
+          if (!states.contains(MaterialState.disabled)) {
+            return foregroundColor?.withOpacity(0.12);
           }
-
-          return BorderSide(
-            color: _backgroundColor,
-            width: 1,
-          );
-        },
-      ),
-      iconColor: MaterialStateProperty.resolveWith(
-        (states) {
-          if (states.contains(MaterialState.disabled)) {
-            return _backgroundColor.withOpacity(0.3);
-          }
-
-          return _backgroundColor;
+          return null;
         },
       ),
       foregroundColor: MaterialStateProperty.resolveWith(
         (states) {
-          if (states.contains(MaterialState.disabled)) {
-            return _backgroundColor.withOpacity(0.3);
+          if (!states.contains(MaterialState.disabled)) {
+            return foregroundColor;
           }
-
-          return _backgroundColor;
+          return null;
         },
       ),
-      backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
+      iconColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (!states.contains(MaterialState.disabled)) {
+            return foregroundColor;
+          }
+          return null;
+        },
+      ),
+      side: MaterialStateProperty.resolveWith(
+        (states) {
+          if (!states.contains(MaterialState.disabled)) {
+            if (foregroundColor != null) {
+              return BorderSide(
+                color: foregroundColor!,
+              );
+            }
+          }
+          return null;
+        },
+      ),
     );
   }
 }
@@ -195,9 +211,9 @@ class _BrandButtonWithIcon extends BrandButton {
   _BrandButtonWithIcon({
     required Widget icon,
     required Widget child,
-    super.size = ButtonSize.small,
+    super.size,
     super.onPressed,
-    double? gap = _defaultIconGap,
+    double? gap = spacing4,
     super.backgroundColor,
     super.foregroundColor,
     super.type = ButtonType.primary,
@@ -211,6 +227,4 @@ class _BrandButtonWithIcon extends BrandButton {
             ],
           ),
         );
-
-  static const double _defaultIconGap = 8;
 }

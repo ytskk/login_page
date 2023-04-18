@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:training_and_testing/constants/constants.dart';
-
-import 'package:training_and_testing/controllers/auth_controller.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/widgets.dart';
+import 'package:training_and_testing/test_room/test_app.dart';
+import 'package:training_and_testing/theme/app_colors.dart' as appColorsTest;
 import 'package:training_and_testing/widgets/widgets.dart';
-import 'widgets/profile_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  final AuthController authController = Get.find<AuthController>();
+  // final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final appColors = appColorsTest.getAppColors(context);
+
     return Scaffold(
       backgroundColor: AppColors.darkBackground,
       body: Stack(
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    ProfileBar(authController),
+                    // ProfileBar(authController),
                     const SizedBox(height: largeSpacing),
                     // banner card
                     RoundedRectangleBox(
@@ -38,66 +39,61 @@ class HomeScreen extends StatelessWidget {
                           BannerPageView(
                             items: [
                               BannerCard(
-                                title: RichText(
-                                  text: TextSpan(
-                                    style: heroTextStyle,
+                                cardColor: colorScheme.blueSecondary
+                                    .resolveFrom(context),
+                                backgroundImageAlignment: Alignment.bottomRight,
+                                backgroundImage: const SvgAsset(
+                                  assetName: AppIcons.bannerFigure,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(padding16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      TextSpan(
-                                        text: AppStrings.toBuySomething
-                                            .toUpperCase(),
+                                      Text(
+                                        AppStrings.toBuySomething.toUpperCase(),
                                       ),
-                                      const TextSpan(text: '\n'),
-                                      TextSpan(
-                                        text: AppStrings.needToGetBonuses
-                                            .toUpperCase(),
-                                        style: heroTextStyle.copyWith(
-                                          color: AppColors.blueAccent,
-                                        ),
-                                      ),
+                                      const Text(AppStrings.needToGetBonuses),
                                     ],
                                   ),
-                                ),
-                                subtitle: AppStrings.infoMainBannerSubtitle,
-                                callToAction: BrandButton(
-                                  onPressed: () {},
-                                  backgroundColor: Colors.white,
-                                  type: ButtonType.secondary,
-                                  child: const Text(AppStrings.howToGetBonuses),
                                 ),
                               ),
                               BannerCard(
-                                backgroundColor: AppColors.grey,
-                                patternColor: AppColors.middleGrey,
-                                title: RichText(
-                                  text: TextSpan(
-                                    style: heroTextStyle,
+                                cardColor: appColors.grey?.resolveFrom(context),
+                                backgroundImageAlignment: Alignment.bottomRight,
+                                backgroundImage: SvgAsset(
+                                  assetName: AppIcons.bannerFigure,
+                                  color: appColors.middleGrey
+                                      ?.resolveFrom(context),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(padding16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      TextSpan(
-                                        text: AppStrings.toSpendBonuses
-                                            .toUpperCase(),
+                                      Text(
+                                        AppStrings.toBuySomething.toUpperCase(),
                                       ),
-                                      const TextSpan(text: '\n'),
-                                      TextSpan(
-                                        text: AppStrings.selectSomething
-                                            .toUpperCase(),
-                                        style: heroTextStyle.copyWith(
-                                          color: AppColors.yellow,
-                                        ),
+                                      const Text(AppStrings.needToGetBonuses),
+                                      const SizedBox(height: spacing24),
+                                      BrandButton(
+                                        backgroundColor: appColors.yellow
+                                            ?.resolveFrom(context),
+                                        foregroundColor: appColors.black
+                                            ?.resolveFrom(context),
+                                        onPressed: () {},
+                                        child:
+                                            const Text(AppStrings.goToCatalog),
                                       ),
                                     ],
                                   ),
-                                ),
-                                subtitle: AppStrings.infoMainBannerSubtitle2,
-                                callToAction: BrandButton(
-                                  onPressed: () {},
-                                  backgroundColor: AppColors.yellow,
-                                  foregroundColor: AppColors.darkGrey,
-                                  child: const Text(AppStrings.goToCatalog),
                                 ),
                               ),
                             ],
                           ),
-                          BonusBalance(
+                          const BonusBalance(
                             todayBalanceChange: 150,
                             totalBalance: 2150,
                           ),
@@ -105,6 +101,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: largeSpacing),
+                    const Text('hello'),
                     BrandButton(
                       onPressed: () {},
                       size: ButtonSize.large,
@@ -137,7 +134,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              AchievementsBlock(
+              const AchievementsBlock(
                 achievementsCount: 6,
               ),
               OrdersBlock(
