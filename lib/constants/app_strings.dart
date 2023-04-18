@@ -21,4 +21,7 @@ abstract class AppStrings {
   static const String speakAtTheConference = 'To speak at the conference';
 
   static const String achievements = 'Achieves';
+  static const String myOrders = 'My orders';
+  static const String placeNewOrder= 'Place new order';
+  
 }

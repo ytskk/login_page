@@ -25,13 +25,44 @@ class AchievementsBlock extends StatelessWidget {
           ),
           const SizedBox(height: mediumSpacing2),
           RoundedRectangleBox(
-            innerPadding: const EdgeInsets.all(mediumPadding),
             backgroundColor: AppColors.darkGrey,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LabelBadge.attentionLabel(content: 'Attention'),
-                LabelBadge.defaultLabel(content: 'Waiting for content'),
-                LabelBadge.newLabel(content: 'New'),
+                AchievementCard(
+                  achievementIcon: AppIcons.writerAchieves,
+                  achievementIconSize: smallAchievementIconSize,
+                  achievementName: Text(
+                    'Speaker',
+                    style: bodyMTextStyle,
+                  ),
+                  padding: mediumPadding,
+                ),
+                AchievementCard(
+                  achievementIcon: AppIcons.writerAchieves,
+                  achievementIconSize: smallAchievementIconSize,
+                  achievementName: Text(
+                    'Writer',
+                    style: bodyMTextStyle,
+                  ),
+                  padding: mediumPadding,
+                  achievementStatus: const PointsBadge(
+                    content: '300 more',
+                    contentColor: AppColors.yellow,
+                    backgroundColor: AppColors.middleGrey,
+                    padding: EdgeInsets.symmetric(horizontal: smallPadding2),
+                  ),
+                ),
+                AchievementCard(
+                  achievementIcon: AppIcons.allAchieves,
+                  achievementIconSize: smallAchievementIconSize,
+                  achievementName: Text(
+                    'See all',
+                    style: bodyMTextStyle,
+                  ),
+                  padding: mediumPadding,
+                )
               ],
             ),
           ),
@@ -40,3 +71,4 @@ class AchievementsBlock extends StatelessWidget {
     );
   }
 }
+

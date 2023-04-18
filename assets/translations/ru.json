@@ -1,0 +1,21 @@
+{
+    "my_achieves": "Мои достижения",
+    "you_havent_ordered_in_a_while": "Вы давно ничего не заказовали",
+    "you_have_a_lot_of_bonuses_you_can_order_something_for_yourself": "У вас есть множество бонусов. Вы могли бы заказать что-то себе",
+    "go_to_catalog": "Открыть каталог",
+    "get_bonuses": "Заработать бонусы",
+    "learn_more_about_how_to_get_bonuses_and_what_you_can_spend_them_on": "Узнайте больше о том, как получить бонусы и на что их можно потратить",
+    "how_to_get_the_bonuses": "Как получить бонусы",
+    "last_operations": "Последние операции",
+    "my_orders": "Мои заказы",
+    "place_new_order": "Сделать заказ",
+    "bonus_balance": "Бонусный остаток",
+    "today": "Сегодня:",
+    "authorization_was_successful": "Авторизация успешна",
+    "authorization_failed": "Авторизация не пройдена",
+    "login_with_Google": "Войти через Google",
+    "canceled": "Отменен",
+    "delivered": "Доставлен",
+    "waiting_for_delivery": "В процессе доставки",
+    "unknown" : "Неизвестно"
+}

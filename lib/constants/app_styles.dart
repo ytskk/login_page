@@ -25,3 +25,6 @@ const double smallIconSize1 = 10;
 const double smallIconSize2 = 12;
 const double mediumIconSize = 20;
 const double largeIconSize = 24;
+
+const double smallAchievementIconSize = 80;
+const double largeAchievementIconSize = 160;

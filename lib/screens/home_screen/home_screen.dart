@@ -140,6 +140,9 @@ class HomeScreen extends StatelessWidget {
               AchievementsBlock(
                 achievementsCount: 6,
               ),
+              OrdersBlock(
+                ordersCount: 3,
+              ),
 
               // const BonusesInfoNotificationWidget(),
               // AchievesListWidget(),

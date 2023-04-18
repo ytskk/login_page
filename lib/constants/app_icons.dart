@@ -19,4 +19,6 @@ abstract class AppIcons {
   static const String speakerIcon = 'assets/icons/speaker_icon.svg';
   static const String chevronRightBorderIcon =
       'assets/icons/chevron_right_border_icon.svg';
+  
+  static const String addCircleOutlineIcon = 'assets/icons/add_circle_outline_icon.svg'; 
 }
