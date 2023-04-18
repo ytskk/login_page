@@ -7,20 +7,20 @@ class RoutesBonusesApp {
   GoRouter get router => _router;
 
   final _router = GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/home',
     routes: [
       GoRoute(
-          path: '/login',
-          name: 'login_screen',
-          builder: (context, state) => LogInScreen(),
-          ),
+        path: '/login',
+        name: 'login_screen',
+        builder: (context, state) => LogInScreen(),
+      ),
       GoRoute(
-          path: '/home',
-          name: 'home_screen',
-          builder: (context, state) => HomeScreen(),
-          ),
+        path: '/home',
+        name: 'home_screen',
+        builder: (context, state) => HomeScreen(),
+      ),
     ],
     // redirect: (context, state) => ,
-    // refreshListenable: 
+    // refreshListenable:
   );
 }
