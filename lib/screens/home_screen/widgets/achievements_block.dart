@@ -28,7 +28,7 @@ class AchievementsBlock extends StatelessWidget {
             innerPadding: const EdgeInsets.all(mediumPadding),
             backgroundColor: AppColors.darkGrey,
             child: Row(
-              children: [
+              children: const [
                 LabelBadge.attentionLabel(content: 'Attention'),
                 LabelBadge.defaultLabel(content: 'Waiting for content'),
                 LabelBadge.newLabel(content: 'New'),

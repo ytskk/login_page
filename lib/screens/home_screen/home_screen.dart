@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/widgets.dart';
-import 'package:training_and_testing/test_room/test_app.dart';
-import 'package:training_and_testing/theme/app_colors.dart' as appColorsTest;
+import 'package:training_and_testing/theme/theme.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
   // final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final appColors = appColorsTest.getAppColors(context);
 
     return Scaffold(
       backgroundColor: AppColors.darkBackground,
@@ -31,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: largeSpacing),
                     // banner card
                     RoundedRectangleBox(
-                      backgroundColor: AppColors.darkGrey,
+                      backgroundColor: colorScheme.grey90,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -39,8 +37,7 @@ class HomeScreen extends StatelessWidget {
                           BannerPageView(
                             items: [
                               BannerCard(
-                                cardColor: colorScheme.blueSecondary
-                                    .resolveFrom(context),
+                                cardColor: colorScheme.blue70,
                                 backgroundImageAlignment: Alignment.bottomRight,
                                 backgroundImage: const SvgAsset(
                                   assetName: AppIcons.bannerFigure,
@@ -60,12 +57,11 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                               BannerCard(
-                                cardColor: appColors.grey?.resolveFrom(context),
-                                backgroundImageAlignment: Alignment.bottomRight,
+                                cardColor: colorScheme.grey50,
+                                backgroundImageAlignment: Alignment.topCenter,
                                 backgroundImage: SvgAsset(
                                   assetName: AppIcons.bannerFigure,
-                                  color: appColors.middleGrey
-                                      ?.resolveFrom(context),
+                                  color: colorScheme.grey60,
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(padding16),
@@ -79,10 +75,8 @@ class HomeScreen extends StatelessWidget {
                                       const Text(AppStrings.needToGetBonuses),
                                       const SizedBox(height: spacing24),
                                       BrandButton(
-                                        backgroundColor: appColors.yellow
-                                            ?.resolveFrom(context),
-                                        foregroundColor: appColors.black
-                                            ?.resolveFrom(context),
+                                        backgroundColor: colorScheme.yellow,
+                                        foregroundColor: colorScheme.black,
                                         onPressed: () {},
                                         child:
                                             const Text(AppStrings.goToCatalog),
@@ -101,7 +95,6 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: largeSpacing),
-                    const Text('hello'),
                     BrandButton(
                       onPressed: () {},
                       size: ButtonSize.large,
@@ -120,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     children: [
                       BonusesOptionButton(
-                        // iconPath: AppIcons.writeIcon,
+                        iconPath: AppIcons.writeIcon,
                         title: AppStrings.writeAnArticle,
                         onPressed: () {},
                       ),

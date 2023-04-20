@@ -75,7 +75,7 @@ class BrandButton extends StatelessWidget {
   }
 
   TextStyle? _buttonTextStyle(BuildContext context) {
-    final typography = getAppTypography(context);
+    final typography = Theme.of(context).textTheme;
 
     if (size == ButtonSize.small) {
       return typography.buttonS;

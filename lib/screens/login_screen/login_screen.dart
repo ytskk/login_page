@@ -5,9 +5,8 @@ import '../../controllers/auth_controller.dart';
 import 'widgets/login_button_widget.dart';
 import 'widgets/preview_button_widget.dart';
 
-
 class LogInScreen extends StatefulWidget {
-  LogInScreen({super.key});
+  const LogInScreen({super.key});
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -33,7 +32,8 @@ class _LogInScreenState extends State<LogInScreen> {
             );
           }
           return Center(
-            child: Obx(()=> Column(
+              child: Obx(
+            () => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (authController.isAuth.value)
