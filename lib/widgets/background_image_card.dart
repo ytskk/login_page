@@ -10,17 +10,23 @@ class BackgroundImageCard extends StatelessWidget {
     super.key,
     required this.child,
     this.backgroundImage,
+    this.backgroundImageAlignment,
   });
 
   final Widget child;
   final Widget? backgroundImage;
+  final AlignmentGeometry? backgroundImageAlignment;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
-        if (backgroundImage != null) backgroundImage!,
+        if (backgroundImage != null)
+          Align(
+            alignment: backgroundImageAlignment ?? Alignment.center,
+            child: backgroundImage!,
+          ),
         child,
       ],
     );

@@ -12,12 +12,12 @@ class RoutesBonusesApp {
       GoRoute(
         path: '/login',
         name: 'login_screen',
-        builder: (context, state) => LogInScreen(),
+        builder: (context, state) => const LogInScreen(),
       ),
       GoRoute(
         path: '/home',
         name: 'home_screen',
-        builder: (context, state) => HomeScreen(),
+        builder: (context, state) => const HomeScreen(),
       ),
     ],
     // redirect: (context, state) => ,

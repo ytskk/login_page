@@ -66,6 +66,9 @@ class BrandThemeData extends AppThemeBase {
 
   late ThemeData _themeData;
 
+  // BrandAppColors get colors => BrandAppColors.fromBrightness(brightness);
+  ColorScheme get colors => _themeData.colorScheme;
+
   @override
   ThemeData themeData() {
     log(
@@ -77,42 +80,40 @@ class BrandThemeData extends AppThemeBase {
     final theme = ThemeData(
       useMaterial3: _useMaterial3,
       brightness: brightness,
-      extensions: const [
-        AppTypography.appTypography,
-        AppColors.appColors,
-      ],
     );
 
-    final appColors = theme.extension<AppColors>()!;
-
+    // build colors
     _themeData = theme.copyWith(
-      scaffoldBackgroundColor:
-          appColors.background?.resolveFromBrightness(brightness),
+      scaffoldBackgroundColor: colors.background,
       colorScheme: colorScheme.copyWith(
-        primary: appColors.blueMain?.resolveFromBrightness(brightness),
-        onPrimary: appColors.white?.resolveFromBrightness(brightness),
-        secondary: appColors.yellow?.resolveFromBrightness(brightness),
-        onSecondary: appColors.black?.resolveFromBrightness(brightness),
-        surface: appColors.background?.resolveFromBrightness(brightness),
-        surfaceTint: appColors.background?.resolveFromBrightness(brightness),
+        primary: colors.blue50,
+        onPrimary: colors.white,
+        secondary: colors.yellow,
+        onSecondary: colors.black,
+        surface: colors.background,
+        surfaceTint: colors.background,
       ),
     );
+
+    // build text theme
     _themeData = _themeData.copyWith(
-      textTheme: theme.textTheme
-          .copyWith(
-            bodyMedium: theme.extension<AppTypography>()?.bodyM,
-            labelLarge: theme.extension<AppTypography>()?.buttonL,
-          )
-          // actual for light theme, because default color is onPrimary.
-          .apply(
-            bodyColor:
-                appColors.backgroundInverse?.resolveFromBrightness(brightness),
-            displayColor:
-                appColors.backgroundInverse?.resolveFromBrightness(brightness),
-          ),
+      textTheme: _buildTextTheme(),
     );
 
     return _themeData;
+  }
+
+  _buildTextTheme() {
+    final textTheme = _themeData.textTheme;
+
+    return _themeData.textTheme
+        .copyWith(
+          bodyMedium: textTheme.bodyL,
+        )
+        .apply(
+          bodyColor: colors.backgroundInverse,
+          displayColor: colors.backgroundInverse,
+        );
   }
 
   // Buttons.
@@ -128,7 +129,7 @@ class BrandThemeData extends AppThemeBase {
   ButtonStyle _buildBaseButtonStyle() {
     return ButtonStyle(
       textStyle: MaterialStatePropertyAll(
-        _themeData.extension<AppTypography>()?.buttonS,
+        _themeData.textTheme.bodyS,
       ),
       elevation: const MaterialStatePropertyAll(0),
       shape: MaterialStatePropertyAll(
@@ -141,33 +142,29 @@ class BrandThemeData extends AppThemeBase {
   }
 
   ButtonStyle _buildElevatedButtonStyle() {
-    final appColors = _themeData.extension<AppColors>()!;
-
     return _buildBaseButtonStyle().copyWith(
       iconColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return appColors.darkGrey?.resolveFromBrightness(brightness);
+            return colors.grey90;
           }
 
-          return _themeData.colorScheme.onPrimary;
+          return colors.white;
         },
       ),
       foregroundColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return appColors.darkGrey?.resolveFromBrightness(brightness);
+            return colors.grey90;
           }
 
-          return _themeData.colorScheme.onPrimary;
+          return colors.white;
         },
       ),
       backgroundColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return appColors.backgroundInverse
-                ?.resolveFromBrightness(brightness)
-                .withOpacity(0.3);
+            return colors.backgroundInverse.withOpacity(0.3);
           }
 
           return _themeData.colorScheme.primary;
@@ -177,15 +174,11 @@ class BrandThemeData extends AppThemeBase {
   }
 
   ButtonStyle _buildOutlinedButtonStyle() {
-    final appColors = _themeData.extension<AppColors>()!;
-
     return _buildBaseButtonStyle().copyWith(
       iconColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return appColors.backgroundInverse
-                ?.resolveFromBrightness(brightness)
-                .withOpacity(0.3);
+            return colors.backgroundInverse.withOpacity(0.3);
           }
 
           return _themeData.colorScheme.primary;
@@ -194,9 +187,7 @@ class BrandThemeData extends AppThemeBase {
       foregroundColor: MaterialStateProperty.resolveWith(
         (states) {
           if (states.contains(MaterialState.disabled)) {
-            return appColors.backgroundInverse
-                ?.resolveFromBrightness(brightness)
-                .withOpacity(0.3);
+            return colors.backgroundInverse.withOpacity(0.3);
           }
 
           return _themeData.colorScheme.primary;
@@ -207,9 +198,7 @@ class BrandThemeData extends AppThemeBase {
         (states) {
           if (states.contains(MaterialState.disabled)) {
             return BorderSide(
-              color: appColors.backgroundInverse!
-                  .resolveFromBrightness(brightness)
-                  .withOpacity(0.3),
+              color: colors.backgroundInverse.withOpacity(0.3),
             );
           }
 
@@ -223,15 +212,11 @@ class BrandThemeData extends AppThemeBase {
 }
 
 final brandLightColorScheme = ColorScheme.fromSeed(
-  seedColor: AppColors.appColors.blueMain!.resolveFromBrightness(
-    Brightness.light,
-  ),
+  seedColor: const ColorScheme.light().blue50,
   brightness: Brightness.light,
 );
 
 final brandDarkColorScheme = ColorScheme.fromSeed(
-  seedColor: AppColors.appColors.blueMain!.resolveFromBrightness(
-    Brightness.dark,
-  ),
+  seedColor: const ColorScheme.dark().blue50,
   brightness: Brightness.dark,
 );

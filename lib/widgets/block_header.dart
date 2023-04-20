@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
-import 'package:training_and_testing/widgets/badges/status_badge.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 class BlockHeader extends StatelessWidget {
