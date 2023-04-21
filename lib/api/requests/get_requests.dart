@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 
-
 import '../../models/models.dart';
 import '../services/get_request_handler.dart';
 import 'bonuses_api_requests.dart';

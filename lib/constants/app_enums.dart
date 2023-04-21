@@ -1,6 +1,6 @@
 
-enum OrderSatus{
-  canceled,
+enum OrderStatus{
+  canceled, 
   delivered,
   waitingForDelivery,
   unknown

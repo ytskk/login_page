@@ -14,8 +14,17 @@
     "authorization_was_successful": "Авторизация успешна",
     "authorization_failed": "Авторизация не пройдена",
     "login_with_Google": "Войти через Google",
+    "get_bonuses_and_exchange_them_for_branded_products" : "Получайте бонусы и обменивайте их на фирменные товары",
     "canceled": "Отменен",
     "delivered": "Доставлен",
     "waiting_for_delivery": "В процессе доставки",
-    "unknown" : "Неизвестно"
+    "unknown" : "Неизвестно",
+    "enums": {
+        "OrderStatus":{
+            "canceled" : "Отменен",
+            "delivered" : "Доставлен",
+            "waitingForDelivery" : "В процессе доставки",
+            "unknown" : "Неизвестно"
+        }
+    }
 }

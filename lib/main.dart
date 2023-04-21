@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:training_and_testing/test_room/test_room.dart';
-import 'screens/BonusesApp.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get.dart';
+import 'constants/generated/codegen_loader.g.dart';
+import 'controllers/auth_controller.dart';
+import 'screens/bonusesApp.dart';
 
-void main() {
-  const isTest = false;
-  // const isTest = true;
-
-  if (isTest) {
-    runApp(const TestApp());
-    return;
-  }
-
-  runApp(BonusesApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  AuthController authController = Get.put(AuthController());
+  await authController.verifyingUserAuthorization();
+  
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en',''),Locale('ru','')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      assetLoader: const CodegenLoader(),
+      child: BonusesApp()
+    ),
+  );
 }

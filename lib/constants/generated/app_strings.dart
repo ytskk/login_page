@@ -16,8 +16,16 @@ abstract class  LocaleKeys {
   static const authorization_was_successful = 'authorization_was_successful';
   static const authorization_failed = 'authorization_failed';
   static const login_with_Google = 'login_with_Google';
+  static const get_bonuses_and_exchange_them_for_branded_products = 'get_bonuses_and_exchange_them_for_branded_products';
   static const canceled = 'canceled';
   static const delivered = 'delivered';
   static const waiting_for_delivery = 'waiting_for_delivery';
   static const unknown = 'unknown';
+  static const enums_OrderStatus_canceled = 'enums.OrderStatus.canceled';
+  static const enums_OrderStatus_delivered = 'enums.OrderStatus.delivered';
+  static const enums_OrderStatus_waitingForDelivery = 'enums.OrderStatus.waitingForDelivery';
+  static const enums_OrderStatus_unknown = 'enums.OrderStatus.unknown';
+  static const enums_OrderStatus = 'enums.OrderStatus';
+  static const enums = 'enums';
+
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../constants/constants.dart';
 import '../../../controllers/auth_controller.dart';
+import '../../../widgets/widgets.dart';
 
 class PreviewButtonWidget extends StatelessWidget {
   final AuthController authController;
@@ -12,31 +14,34 @@ class PreviewButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.only(left: 4),
-            fixedSize: const Size(380, 60),
-            backgroundColor: const Color.fromARGB(176, 64, 67, 75),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30))),
-        onPressed: () => GoRouter.of(context).goNamed('home_screen'),
-        onLongPress: () async => await authController.signOut(),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: Image.network(
-                authController.googleProfileInfo.value.photoUrl,
-                width: 55,
-                height: 55,
-                fit: BoxFit.cover,
-              ),
+    final profileInfo = authController.googleProfileInfo.value;
+    if (profileInfo == null) return const SizedBox();
+    return BrandButton(
+      padding: const EdgeInsets.all(padding4),
+      backgroundColor: AppColors.grey,
+      size: ButtonSize.small,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          // Google Avatar
+          ClipOval(
+            child: Image.network(
+              profileInfo.photoUrl,
+              width: profileIconSize,
+              height: profileIconSize,
+              fit: BoxFit.cover,
             ),
-            Text(
-              "  ${authController.googleProfileInfo.value.firstName} ${authController.googleProfileInfo.value.lastName}",
-              style: const TextStyle(fontSize: 17),
-            ),
-          ],
-        ));
+          ),
+          const SizedBox(width: spacing16),
+          // Prifile name 
+          Text(
+            "${authController.googleProfileInfo.value?.firstName} ${authController.googleProfileInfo.value?.lastName}",
+            style: h2TextStyle,
+          ),
+        ],
+      ),
+      onPressed: () => GoRouter.of(context).goNamed('home_screen')
+    );
   }
 }

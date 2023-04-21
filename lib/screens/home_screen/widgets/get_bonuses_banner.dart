@@ -15,7 +15,7 @@ class GetBonusesBanner extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: mediumPadding),
+          padding: const EdgeInsets.symmetric(horizontal: padding16),
           child: RichText(
             text: TextSpan(
               style: h1TextStyle,

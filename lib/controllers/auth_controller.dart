@@ -6,14 +6,20 @@ import '../models/google_user_model.dart';
 
 class AuthController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final RxBool isAuth = false.obs;
-  late Rx<GoogleUserModel> googleProfileInfo;
+  Rx<bool> isLoggedIn = Rx<bool>(false);
+  Rx<bool> startedAuth = Rx<bool>(false);
+  Rx<GoogleUserModel?> googleProfileInfo = null.obs;
+  
 
-  Future<void> checkAuth() async {
-    final GoogleSignInAccount? googleUser =
-        await _googleSignIn.signInSilently();
-    if (googleUser != null) {
-      _setGoogleProfileInfo(googleUser);
+  Future<void> verifyingUserAuthorization() async {
+    try {
+      final GoogleSignInAccount? googleUser =
+          await _googleSignIn.signInSilently();
+      if (googleUser != null) {
+        _setGoogleProfileInfo(googleUser);
+      }
+    } catch (err) {
+      log(err.toString());
     }
   }
 
@@ -37,11 +43,18 @@ class AuthController extends GetxController {
             photoUrl: googleUser.photoUrl ??
                 'https://pixelbox.ru/wp-content/uploads/2021/04/cats-ava-steam-18.jpg')
         .obs;
-    isAuth.value = true;
+    isLoggedIn.value = true;
+    update();
   }
 
   Future<void> signOut() async {
-    await _googleSignIn.signOut();
-    isAuth.value = false;
+    try {
+      await _googleSignIn.signOut();
+      isLoggedIn.value = false;
+      update();
+    } catch (err) {
+      log(err.toString());
+    }
   }
 }
+

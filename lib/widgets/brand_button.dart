@@ -35,6 +35,7 @@ class BrandButton extends StatelessWidget {
     this.backgroundColor,
     this.foregroundColor,
     this.type = ButtonType.primary,
+    this.padding 
   });
 
   factory BrandButton.icon({
@@ -60,7 +61,13 @@ class BrandButton extends StatelessWidget {
   final Color? foregroundColor;
   final ButtonType type;
 
+  // Castom padding
+  final EdgeInsets? padding;
+
   EdgeInsets? get _buttonPadding {
+    
+    if (padding != null) return padding; 
+
     if (size == ButtonSize.small) {
       return const EdgeInsets.symmetric(
         horizontal: padding24,

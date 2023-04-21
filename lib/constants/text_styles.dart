@@ -75,3 +75,11 @@ TextStyle captionTextStyle = baseTextStyle.copyWith(
   fontSize: 10,
   height: 1.4,
 );
+
+// Title
+TextStyle titleTextStyle = baseTextStyle.copyWith(
+  fontWeight: FontWeight.w800,
+  fontSize: 40,
+  height: 1.2,
+  letterSpacing: 2
+);

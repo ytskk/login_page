@@ -21,4 +21,9 @@ abstract class AppIcons {
       'assets/icons/chevron_right_border_icon.svg';
   
   static const String addCircleOutlineIcon = 'assets/icons/add_circle_outline_icon.svg'; 
+
+  static const String authScreenFigure = 'assets/images/auth_screen_figure.svg';
+  static const String altenarLogo = 'assets/images/altenar_logo.svg';
+  static const String googleIcon = 'assets/icons/google_icon.svg';
+
 }

@@ -14,8 +14,8 @@ class AchievementsBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: mediumPadding,
-        vertical: largePadding,
+        horizontal: padding16,
+        vertical: padding20,
       ),
       child: Column(
         children: [
@@ -23,7 +23,7 @@ class AchievementsBlock extends StatelessWidget {
             title: AppStrings.achievements,
             label: achievementsCount,
           ),
-          const SizedBox(height: mediumSpacing2),
+          const SizedBox(height: spacing16),
           RoundedRectangleBox(
             backgroundColor: AppColors.darkGrey,
             child: Row(
@@ -31,22 +31,18 @@ class AchievementsBlock extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AchievementCard(
+                  achievementLable: 'Speaker',
+                  textStyle: bodyMTextStyle,
                   achievementIcon: AppIcons.writerAchieves,
                   achievementIconSize: smallAchievementIconSize,
-                  achievementName: Text(
-                    'Speaker',
-                    style: bodyMTextStyle,
-                  ),
-                  padding: mediumPadding,
+                  padding: padding16,
                 ),
                 AchievementCard(
+                  achievementLable: 'Games',
+                  textStyle: bodyMTextStyle,
                   achievementIcon: AppIcons.writerAchieves,
                   achievementIconSize: smallAchievementIconSize,
-                  achievementName: Text(
-                    'Writer',
-                    style: bodyMTextStyle,
-                  ),
-                  padding: mediumPadding,
+                  padding: padding16,
                   achievementStatus: const PointsBadge(
                     content: '300 more',
                     contentColor: AppColors.yellow,
@@ -55,13 +51,11 @@ class AchievementsBlock extends StatelessWidget {
                   ),
                 ),
                 AchievementCard(
+                  achievementLable: 'See all',
+                  textStyle: bodyMTextStyle,
                   achievementIcon: AppIcons.allAchieves,
                   achievementIconSize: smallAchievementIconSize,
-                  achievementName: Text(
-                    'See all',
-                    style: bodyMTextStyle,
-                  ),
-                  padding: mediumPadding,
+                  padding: padding16,
                 )
               ],
             ),

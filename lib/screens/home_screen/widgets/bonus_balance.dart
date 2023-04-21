@@ -15,13 +15,13 @@ class BonusBalance extends StatelessWidget {
   });
 
   /// Today balance change. May be both positive and negative.
-  final double todayBalanceChange;
-  final double totalBalance;
+  final int todayBalanceChange;
+  final int totalBalance;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(mediumPadding),
+      padding: const EdgeInsets.all(padding16),
       child: Row(
         children: [
           // info balance.

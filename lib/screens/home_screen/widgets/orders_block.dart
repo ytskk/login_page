@@ -1,95 +1,93 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/constants/generated/app_strings.dart';
 import 'package:training_and_testing/utils/utils.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
+import '../../../controllers/controllers.dart';
+import '../../../models/order_model.dart';
+
 class OrdersBlock extends StatelessWidget {
-  OrdersBlock({
+  const OrdersBlock({
     super.key,
-    this.ordersCount,
+    required this.homeScreenController,
   });
 
-  final int? ordersCount;
-
-  final List<Map<String, String>> _ordersList = [
-    {
-      'image': AppIcons.blueCup,
-      'lable': 'Blue cup with Altenar logo',
-      'date': '12.12.2012',
-      'status': 'Waiting for delivery',
-    },
-    {
-      'image': AppIcons.blueCup,
-      'lable': 'Blue cup with Altenar logo',
-      'date': '12.12.2015',
-      'status': 'Delivered',
-    },
-    {
-      'image': AppIcons.blueCup,
-      'lable': 'Blue cup with Altenar logo',
-      'date': '12.12.2015',
-      'status': 'Waiting for delivery',
-    }
-  ];
+  final HomeScreenController homeScreenController;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: largePadding),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: mediumPadding),
-            child: BlockHeader(
-              title: AppStrings.myOrders,
-              label: ordersCount,
-            ),
-          ),
-          const SizedBox(height: mediumSpacing2),
-          ConstrainedBox(
-            constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.width * 0.26),
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: _ordersList.length + 1,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return PlaceOrderButton(
-                      textStyle: buttonSTextStyle,
-                      contentColor: AppColors.blueMain,
+    return Obx(() {
+      final userOrders = homeScreenController.userOrders.value;
+
+      if (userOrders == null) return const SizedBox();
+
+      const double orderBlockHeight = 103; 
+      const double placeOrderButtonWidth = 115;
+      const double lableLineMaxWidth = 150;
+
+      return Padding(
+          padding: const EdgeInsets.symmetric(vertical: padding20),
+          child: Column(
+            children: [
+              // Header 
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: padding16),
+                child: BlockHeader(
+                  title: LocaleKeys.my_orders.tr(),
+                  label: userOrders.totalOrders,
+                ),
+              ),
+              const SizedBox(height: mediumSpacing2),
+              // Scroll
+              SizedBox(
+                height: orderBlockHeight,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: userOrders.totalOrders + 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                      return _PlaceOrderButton(
+                        buttonWidth: placeOrderButtonWidth,
+                        textStyle: buttonSTextStyle,
+                        contentColor: AppColors.blueMain,
+                      );
+                    }
+                    return _PreviewOrderWidget(
+                      userOrders.orders[index - 1],
+                      lableLineMaxWidth,
                     );
-                  }
-                  return PreviewOrderWidget(
-                    countItems: 3,
-                    date: '12.12.2222',
-                    image: '',
-                    name: 'asdkasdsfsdfsdfsdfsdfsdfsdfds',
-                    status: 'waiting',
-                  );
-                }),
-          ),
-        ],
-      ),
-    );
+                  },
+                ),
+              ),
+            ],
+          ));
+    });
   }
 }
 
-class PlaceOrderButton extends StatelessWidget {
-  const PlaceOrderButton(
-      {super.key, this.contentColor, this.textStyle, this.iconSize});
+class _PlaceOrderButton extends StatelessWidget {
+  const _PlaceOrderButton({
+    this.contentColor,
+    this.textStyle,
+    this.iconSize,
+    required this.buttonWidth,
+  });
 
   final Color? contentColor;
   final TextStyle? textStyle;
   final double? iconSize;
+  final double buttonWidth;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: mediumPadding),
-      constraints:
-          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.30),
+      width: buttonWidth,
+      margin: const EdgeInsets.only(left: padding16),
       child: RoundedRectangleBox(
-        innerPadding: const EdgeInsets.symmetric(horizontal: largePadding),
+        innerPadding: const EdgeInsets.symmetric(horizontal: padding24),
         backgroundColor: AppColors.darkGrey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -112,63 +110,45 @@ class PlaceOrderButton extends StatelessWidget {
   }
 }
 
-class PreviewOrderWidget extends StatelessWidget {
-  const PreviewOrderWidget(
-      {super.key,
-      required this.date,
-      required this.name,
-      required this.image,
-      required this.status,
-      required this.countItems});
+class _PreviewOrderWidget extends StatelessWidget {
+  const _PreviewOrderWidget(this.order, this.lableLineMaxWidth);
 
-  final String date;
-  final String name;
-  final String image;
-  final String status;
-  final int countItems;
+  final OrderModel order;
+  final double lableLineMaxWidth;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: smallPadding2),
-      constraints:
-          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.80),
       child: RoundedRectangleBox(
-          innerPadding: const EdgeInsets.all(mediumPadding),
+          innerPadding: const EdgeInsets.all(padding16),
           backgroundColor: AppColors.grey,
           child: Row(
             children: [
-              SvgAsset(assetName: AppIcons.speakerAchieves),
-              Flexible(
+              const SvgAsset(assetName: AppIcons.speakerAchieves),
+              Padding(
+                padding: const EdgeInsets.only(left: padding16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(date,
-                        style: bodySTextStyle.semibold
-                            .copyWith(color: AppColors.white.withOpacity(0.5))),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Text(
-                            name,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style:
-                                bodyMTextStyle.copyWith(color: AppColors.white),
-                          ),
-                        ),
-                        if (countItems > 1)
-                          Text(
-                            '+${countItems - 1}',
-                            style:
-                                bodyMTextStyle.copyWith(color: AppColors.white),
-                          )
-                      ],
+                    // Order date display
+                    Text(
+                      order.orderDated.trd(context),
+                      style: bodySTextStyle.semibold.copyWith(
+                        color: AppColors.white.withOpacity(0.5),
+                      ),
                     ),
+                    // Оrder lable with the count of items
+                    _buildOrderLableRow(lableLineMaxWidth, order),
                     const SizedBox(height: mediumSpacing1),
-                    Row(
-                      children: const [StatusBadge(text: 'daad')],
-                    ),
+                    // Order status display
+                    StatusBadge(
+                        text: order.orderStatus.trEnum(),
+                        type: (order.orderStatus == OrderStatus.delivered)
+                            ? StatusBadgeType.positive
+                            : (order.orderStatus == OrderStatus.canceled)
+                                ? StatusBadgeType.negative
+                                : StatusBadgeType.waiting)
                   ],
                 ),
               )
@@ -176,4 +156,25 @@ class PreviewOrderWidget extends StatelessWidget {
           )),
     );
   }
+}
+
+_buildOrderLableRow(lableLineMaxWidth, order) {
+  return Row(
+    children: [
+      ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: lableLineMaxWidth),
+        child: Text(
+          order.items[0].name,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: bodyMTextStyle.copyWith(color: AppColors.white),
+        ),
+      ),
+      if (order.totalItems > 1) ...[
+        const SizedBox(width: spacing8),
+        Text(' +${order.totalItems - 1}',
+            style: bodyMTextStyle.copyWith(color: AppColors.white))
+      ]
+    ],
+  );
 }

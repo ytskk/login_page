@@ -1,14 +1,25 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/widgets.dart';
 import 'package:training_and_testing/test_room/test_app.dart';
 import 'package:training_and_testing/theme/app_colors.dart' as appColorsTest;
+import 'package:training_and_testing/widgets/future_widget.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
+
+import '../../api/bonuses_api.dart';
+import '../../controllers/controllers.dart';
+import '../../widgets/snack_bar_notification.dart';
+import 'widgets/profile_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  // final AuthController authController = Get.find<AuthController>();
+  final AuthController authController = Get.find<AuthController>();
+
+  final HomeScreenController homeScreenController =
+      Get.put(HomeScreenController(BonusesApi(), '1'));
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +34,11 @@ class HomeScreen extends StatelessWidget {
           ListView(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: mediumPadding),
+                padding: const EdgeInsets.symmetric(horizontal: padding16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // ProfileBar(authController),
+                    ProfileBar(authController),
                     const SizedBox(height: largeSpacing),
                     // banner card
                     RoundedRectangleBox(
@@ -93,15 +104,22 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const BonusBalance(
-                            todayBalanceChange: 150,
-                            totalBalance: 2150,
-                          ),
+                          FutureWidget(
+                              homeScreenController.updateUserBalance(),
+                              Obx(
+                                () => BonusBalance(
+                                  todayBalanceChange: homeScreenController
+                                          .userBalance.value?.todayChanges ??
+                                      0,
+                                  totalBalance: homeScreenController
+                                          .userBalance.value?.totalBalance ??
+                                      0,
+                                ),
+                              ))
                         ],
                       ),
                     ),
                     const SizedBox(height: largeSpacing),
-                    const Text('hello'),
                     BrandButton(
                       onPressed: () {},
                       size: ButtonSize.large,
@@ -115,8 +133,7 @@ class HomeScreen extends StatelessWidget {
                 options: SizedBox(
                   height: 56,
                   child: ListView(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: mediumPadding),
+                    padding: const EdgeInsets.symmetric(horizontal: padding16),
                     scrollDirection: Axis.horizontal,
                     children: [
                       BonusesOptionButton(
@@ -137,13 +154,25 @@ class HomeScreen extends StatelessWidget {
               const AchievementsBlock(
                 achievementsCount: 6,
               ),
-              OrdersBlock(
-                ordersCount: 3,
+              // test buttons
+              Row(
+                children: [
+                  IconButton(
+                      // test localizations ru
+                      onPressed: () => context.setLocale(Locale('ru')),
+                      icon: Icon(Icons.rule_folder_rounded)),
+                  IconButton(
+                      // test localizations en
+                      onPressed: () => context.setLocale(Locale('en')),
+                      // onPressed: () async =>  homeScreenController.updateUserOrders(),
+                      icon: Icon(Icons.twelve_mp)),
+                ],
               ),
 
-              // const BonusesInfoNotificationWidget(),
-              // AchievesListWidget(),
-              // MyOrdersListWidget(),
+              FutureWidget(homeScreenController.updateUserOrders(),
+                  OrdersBlock(homeScreenController: homeScreenController)),
+              FutureWidget(homeScreenController.updateUserOperations(),
+                  OperationsBlock(homeScreenController: homeScreenController))
               // LastOperationsListWidget(),
             ],
           ),

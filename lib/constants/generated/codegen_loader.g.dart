@@ -27,13 +27,22 @@ class CodegenLoader extends AssetLoader{
   "place_new_order": "Place new order",
   "bonus_balance": "Bonus balance",
   "today": "Today:",
-  "authorization_was_successful": "authorization_was_successful",
+  "authorization_was_successful": "Authorization was successful",
   "authorization_failed": "Authorization failed",
   "login_with_Google": "Login with Google",
+  "get_bonuses_and_exchange_them_for_branded_products": "Get bonuses and exchange them for branded products",
   "canceled": "Canceled",
   "delivered": "Delivered",
   "waiting_for_delivery": "Waiting for delivery",
-  "unknown": "unknown"
+  "unknown": "Unknown",
+  "enums": {
+    "OrderStatus": {
+      "canceled": "Canceled",
+      "delivered": "Delivered",
+      "waitingForDelivery": "Waiting For Delivery",
+      "unknown": "Unknown"
+    }
+  }
 };
 static const Map<String,dynamic> ru = {
   "my_achieves": "Мои достижения",
@@ -51,10 +60,19 @@ static const Map<String,dynamic> ru = {
   "authorization_was_successful": "Авторизация успешна",
   "authorization_failed": "Авторизация не пройдена",
   "login_with_Google": "Войти через Google",
+  "get_bonuses_and_exchange_them_for_branded_products": "Получайте бонусы и обменивайте их на фирменные товары",
   "canceled": "Отменен",
   "delivered": "Доставлен",
   "waiting_for_delivery": "В процессе доставки",
-  "unknown": "Неизвестно"
+  "unknown": "Неизвестно",
+  "enums": {
+    "OrderStatus": {
+      "canceled": "Отменен",
+      "delivered": "Доставлен",
+      "waitingForDelivery": "В процессе доставки",
+      "unknown": "Неизвестно"
+    }
+  }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ru": ru};
 }

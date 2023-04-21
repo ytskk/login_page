@@ -38,8 +38,8 @@ class BonusesOptionButton extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: largePadding,
-                vertical: mediumPadding,
+                horizontal: padding24,
+                vertical: padding16,
               ),
               child: Row(
                 children: [
