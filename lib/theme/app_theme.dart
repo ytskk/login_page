@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart' hide AppColors;
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
+import 'package:training_and_testing/utils/utils.dart';
 
 abstract class AppThemeBase {
   const AppThemeBase();
@@ -66,7 +67,8 @@ class BrandThemeData extends AppThemeBase {
 
   late ThemeData _themeData;
 
-  // BrandAppColors get colors => BrandAppColors.fromBrightness(brightness);
+  /// Holds theme configured color scheme after [themeData] was called.
+  /// Use careful! Only after calling themeData()
   ColorScheme get colors => _themeData.colorScheme;
 
   @override
@@ -82,16 +84,18 @@ class BrandThemeData extends AppThemeBase {
       brightness: brightness,
     );
 
+    final colors = theme.colorScheme;
+
     // build colors
     _themeData = theme.copyWith(
       scaffoldBackgroundColor: colors.background,
       colorScheme: colorScheme.copyWith(
-        primary: colors.blue50,
-        onPrimary: colors.white,
-        secondary: colors.yellow,
-        onSecondary: colors.black,
-        surface: colors.background,
-        surfaceTint: colors.background,
+        primary: colorScheme.blue50,
+        onPrimary: colorScheme.white,
+        secondary: colorScheme.yellow,
+        onSecondary: colorScheme.black,
+        surface: colorScheme.background,
+        surfaceTint: colorScheme.background,
       ),
     );
 
@@ -129,7 +133,7 @@ class BrandThemeData extends AppThemeBase {
   ButtonStyle _buildBaseButtonStyle() {
     return ButtonStyle(
       textStyle: MaterialStatePropertyAll(
-        _themeData.textTheme.bodyS,
+        _themeData.textTheme.bodyS.medium,
       ),
       elevation: const MaterialStatePropertyAll(0),
       shape: MaterialStatePropertyAll(
@@ -167,7 +171,7 @@ class BrandThemeData extends AppThemeBase {
             return colors.backgroundInverse.withOpacity(0.3);
           }
 
-          return _themeData.colorScheme.primary;
+          return colors.primary;
         },
       ),
     );
@@ -181,7 +185,7 @@ class BrandThemeData extends AppThemeBase {
             return colors.backgroundInverse.withOpacity(0.3);
           }
 
-          return _themeData.colorScheme.primary;
+          return colors.primary;
         },
       ),
       foregroundColor: MaterialStateProperty.resolveWith(
@@ -190,7 +194,16 @@ class BrandThemeData extends AppThemeBase {
             return colors.backgroundInverse.withOpacity(0.3);
           }
 
-          return _themeData.colorScheme.primary;
+          return colors.primary;
+        },
+      ),
+      overlayColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (!states.contains(MaterialState.disabled)) {
+            return colors.primary.withOpacity(0.12);
+          }
+
+          return null;
         },
       ),
       backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
@@ -203,7 +216,7 @@ class BrandThemeData extends AppThemeBase {
           }
 
           return BorderSide(
-            color: _themeData.colorScheme.primary,
+            color: colors.primary,
           );
         },
       ),

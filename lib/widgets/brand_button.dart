@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
+import 'package:training_and_testing/utils/utils.dart';
 
 enum ButtonSize {
   small,
@@ -77,11 +78,15 @@ class BrandButton extends StatelessWidget {
   TextStyle? _buttonTextStyle(BuildContext context) {
     final typography = Theme.of(context).textTheme;
 
+    TextStyle textStyle = typography.buttonL;
+
     if (size == ButtonSize.small) {
-      return typography.buttonS;
+      textStyle = typography.buttonS;
     }
 
-    return typography.buttonL;
+    textStyle = textStyle.medium;
+
+    return textStyle;
   }
 
   double get _iconSize => size == ButtonSize.small ? iconSize20 : iconSize24;
