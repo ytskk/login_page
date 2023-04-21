@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/app_strings.dart';
 import 'package:training_and_testing/constants/app_styles.dart';
@@ -49,56 +50,24 @@ class TestPage extends StatefulWidget {
   State<TestPage> createState() => _TestPageState();
 }
 
-extension BrandTextTheme on TextTheme {
-  TextStyle get _baseStyle => const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-      );
-
-  TextStyle get h1 => _baseStyle.copyWith(
-        fontSize: 24,
-        fontWeight: FontWeight.w600,
-      );
-}
-
-extension BrandColorScheme on ColorScheme {
-  DynamicColor get grey => const DynamicColor(
-        color: Color(0xFF222222),
-      );
-  DynamicColor get bluePrimary => const DynamicColor(
-        color: Colors.blueAccent,
-        darkColor: Colors.purpleAccent,
-      );
-  DynamicColor get blueSecondary => const DynamicColor(
-        color: Color(0xFF00407B),
-        darkColor: Color(0xFF00407B),
-      );
-}
-
 class _TestPageState extends State<TestPage> {
-  static const _dynamicColor = DynamicColor(
-    color: Colors.red,
-    darkColor: Colors.green,
-  );
-
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    // final colorScheme = Theme.of(context).colorScheme;
-    // final appColors = getAppColors(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
-      // backgroundColor: colorScheme.bluePrimary.resolveFrom(context),
       appBar: AppBar(
-        title: Text(
-          'Test App',
-          // style: textTheme.h1,
-        ),
+        title: const Text('Test App'),
         actions: [
           Icon(
             Icons.square_rounded,
             size: iconSize32,
-            color: _dynamicColor.resolveFrom(context),
+            color: CupertinoTheme.of(context).scaffoldBackgroundColor,
+          ),
+          Icon(
+            Icons.square_rounded,
+            size: iconSize32,
+            color: theme.colorScheme.blue50,
           ),
         ],
       ),
@@ -130,7 +99,6 @@ class TestAppTheme extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final appTypography = getAppTypography(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +108,6 @@ class TestAppTheme extends StatelessWidget {
             Expanded(
               child: Text(
                 'App Theme: ${appThemeModeName(isDark)}',
-                style: appTypography.h1,
               ),
             ),
             Switch(
@@ -150,9 +117,8 @@ class TestAppTheme extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 32),
-        Text(
+        const Text(
           'Color palette',
-          style: appTypography.h2,
         ),
         const SizedBox(height: 16),
         _buildColorSchemePalette(context),
@@ -229,16 +195,12 @@ class TestAppComponents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appTypography = getAppTypography(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 32),
-        Text(
-          'Buttons',
-          style: appTypography.h2,
-        ),
+        const Text('Buttons'),
         const SizedBox(height: 16),
         const Text('Primary Button'),
         const SizedBox(height: 8),

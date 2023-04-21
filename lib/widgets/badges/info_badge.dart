@@ -33,7 +33,7 @@ class InfoBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _childStyled = DefaultTextStyle(
+    final childWithDefaultTheme = DefaultTextStyle(
       style: bodySTextStyle.semibold.copyWith(
         color: _contentColor,
       ),
@@ -49,7 +49,7 @@ class InfoBadge extends StatelessWidget {
       borderRadius: borderRadius,
       backgroundColor: backgroundColor,
       innerPadding: padding,
-      child: _childStyled,
+      child: childWithDefaultTheme,
     );
   }
 }
