@@ -28,14 +28,14 @@ class ProfileBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             child: Image.network(
               profileInfo.photoUrl,
-              width: profileIconSize,
-              height: profileIconSize,
+              width: iconSize50,
+              height: iconSize50,
               fit: BoxFit.cover,
             ),
           ),
           // full name
           Container(
-              padding: const EdgeInsets.only(left: smallPadding2),
+              padding: const EdgeInsets.only(left: padding8),
               width: profileNameAreaWidth,
               child: Text(
                   '${profileInfo.firstName} ${profileInfo.lastName}',

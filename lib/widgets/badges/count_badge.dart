@@ -13,11 +13,11 @@ class CountBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: mediumIconSize,
+      height: iconSize20,
       child: InfoBadge(
         backgroundColor: AppColors.middleGrey,
         padding: const EdgeInsets.symmetric(
-          horizontal: mediumSpacing1,
+          horizontal: spacing8,
         ),
         child: Text(
           count.toString(),

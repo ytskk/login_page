@@ -34,7 +34,7 @@ class BonusBalance extends StatelessWidget {
                   AppStrings.infoBalanceTitle,
                   style: h2TextStyle,
                 ),
-                const SizedBox(height: smallSpacing1),
+                const SizedBox(height: spacing4),
                 Row(
                   children: [
                     Text(
@@ -52,9 +52,9 @@ class BonusBalance extends StatelessWidget {
                             color: AppColors.yellow,
                           ),
                         ),
-                        const SizedBox(width: extraSmallSpacing),
+                        const SizedBox(width: spacing2),
                         const CoinIcon(
-                          size: smallIconSize1,
+                          size: iconSize10,
                           color: AppColors.yellow,
                         ),
                       ],
@@ -64,7 +64,7 @@ class BonusBalance extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: largeSpacing),
+          const SizedBox(width: spacing24),
           // balance value
           Row(
             children: [
@@ -75,9 +75,9 @@ class BonusBalance extends StatelessWidget {
                   color: AppColors.yellow,
                 ),
               ),
-              const SizedBox(width: smallSpacing2),
+              const SizedBox(width: spacing6),
               const CoinIcon(
-                size: mediumIconSize,
+                size: iconSize20,
                 color: AppColors.yellow,
               ),
             ],

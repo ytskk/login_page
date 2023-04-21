@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     ProfileBar(authController),
-                    const SizedBox(height: largeSpacing),
+                    const SizedBox(height: spacing24),
                     // banner card
                     RoundedRectangleBox(
                       backgroundColor: colorScheme.grey90,
@@ -115,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: largeSpacing),
+                    const SizedBox(height: spacing24),
                     BrandButton(
                       onPressed: () {},
                       size: ButtonSize.large,
@@ -124,7 +124,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: extraLargeSpacing),
+              const SizedBox(height: spacing32),
               GetBonusesBanner(
                 options: SizedBox(
                   height: 56,
@@ -137,7 +137,7 @@ class HomeScreen extends StatelessWidget {
                         title: AppStrings.writeAnArticle,
                         onPressed: () {},
                       ),
-                      const SizedBox(width: mediumSpacing1),
+                      const SizedBox(width: spacing8),
                       BonusesOptionButton(
                         iconPath: AppIcons.speakerIcon,
                         title: AppStrings.speakAtTheConference,
@@ -226,9 +226,9 @@ class _BannerPageViewState extends State<BannerPageView> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: mediumSpacing1),
+          padding: const EdgeInsets.symmetric(vertical: spacing8),
           child: Wrap(
-            spacing: smallSpacing2,
+            spacing: spacing6,
             children: [
               ...List.generate(widget.items.length, (index) => index).map(
                 (e) => SizedBox(

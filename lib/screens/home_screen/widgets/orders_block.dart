@@ -40,7 +40,7 @@ class OrdersBlock extends StatelessWidget {
                   label: userOrders.totalOrders,
                 ),
               ),
-              const SizedBox(height: mediumSpacing2),
+              const SizedBox(height: spacing16),
               // Scroll
               SizedBox(
                 height: orderBlockHeight,
@@ -97,7 +97,7 @@ class _PlaceOrderButton extends StatelessWidget {
               color: contentColor,
               size: iconSize,
             ),
-            const SizedBox(height: mediumSpacing1),
+            const SizedBox(height: spacing8),
             Text(
               AppStrings.placeNewOrder,
               style: textStyle?.copyWith(color: contentColor),
@@ -119,7 +119,7 @@ class _PreviewOrderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: smallPadding2),
+      margin: const EdgeInsets.only(left: padding8),
       child: RoundedRectangleBox(
           innerPadding: const EdgeInsets.all(padding16),
           backgroundColor: AppColors.grey,
@@ -140,7 +140,7 @@ class _PreviewOrderWidget extends StatelessWidget {
                     ),
                     // Оrder lable with the count of items
                     _buildOrderLableRow(lableLineMaxWidth, order),
-                    const SizedBox(height: mediumSpacing1),
+                    const SizedBox(height: spacing8),
                     // Order status display
                     StatusBadge(
                         text: order.orderStatus.trEnum(),

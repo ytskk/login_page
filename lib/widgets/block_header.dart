@@ -20,7 +20,7 @@ class BlockHeader extends StatelessWidget {
       children: [
         Text(title, style: h2TextStyle),
         if (label != null) ...[
-          const SizedBox(width: smallSpacing1),
+          const SizedBox(width: spacing4),
           CountBadge(
             count: label!,
           ),

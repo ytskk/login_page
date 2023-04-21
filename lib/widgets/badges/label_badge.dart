@@ -57,7 +57,7 @@ class LabelBadge extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           content,
-          const SizedBox(width: extraSmallSpacing),
+          const SizedBox(width: spacing2),
           icon!,
         ],
       );
@@ -73,11 +73,11 @@ class _LabelBadgeDefault extends LabelBadge {
   }) : super.custom(
           backgroundColor: AppColors.blueMain,
           icon: const CoinIcon(
-            size: smallIconSize2,
+            size: iconSize12,
           ),
           padding: const EdgeInsets.only(
-            left: smallPadding2,
-            right: smallPadding1,
+            left: padding8,
+            right: padding4,
           ),
         );
 }
@@ -88,11 +88,11 @@ class _LabelBadgeAttention extends LabelBadge {
   }) : super.custom(
           backgroundColor: AppColors.red,
           icon: const CoinIcon(
-            size: smallIconSize2,
+            size: iconSize12,
           ),
           padding: const EdgeInsets.only(
-            left: smallPadding2,
-            right: smallPadding1,
+            left: padding8,
+            right: padding4,
           ),
         );
 }
@@ -103,9 +103,9 @@ class _LabelBadgeNew extends LabelBadge {
   }) : super.custom(
           backgroundColor: AppColors.yellow,
           contentColor: AppColors.darkGrey,
-          borderRadius: smallBorderRadius,
+          borderRadius: borderRadius4,
           padding: const EdgeInsets.symmetric(
-            horizontal: smallPadding1,
+            horizontal: padding4,
           ),
         );
 }

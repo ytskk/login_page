@@ -32,7 +32,7 @@ class GetBonusesBanner extends StatelessWidget {
           ),
         ),
         if (options != null) ...[
-          const SizedBox(height: mediumSpacing2),
+          const SizedBox(height: spacing16),
           options!,
         ],
       ],

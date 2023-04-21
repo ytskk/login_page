@@ -31,7 +31,7 @@ class AchievementCard extends StatelessWidget {
                 assetName: achievementIcon, size: achievementIconSize),
             Text(achievementLable, style: textStyle),
             if (achievementStatus != null) ...[
-              const SizedBox(height: extraSmallSpacing),
+              const SizedBox(height: spacing2),
               IntrinsicWidth(child: achievementStatus!),
             ],
           ])),

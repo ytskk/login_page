@@ -16,7 +16,7 @@ class BonusesOptionButton extends StatelessWidget {
   final String title;
   final VoidCallback? onPressed;
 
-  double get borderRadius => mediumBorderRadius;
+  double get borderRadius => borderRadius8;
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +46,10 @@ class BonusesOptionButton extends StatelessWidget {
                   if (iconPath != null)
                     SvgAsset.squared(
                       assetName: iconPath!,
-                      size: largeIconSize,
+                      size: iconSize24,
                       color: AppColors.yellow,
                     ),
-                  const SizedBox(width: mediumSpacing1),
+                  const SizedBox(width: spacing8),
                   Text(
                     title,
                     style: bodySTextStyle.semibold,

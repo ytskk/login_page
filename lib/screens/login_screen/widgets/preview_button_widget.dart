@@ -28,8 +28,8 @@ class PreviewButtonWidget extends StatelessWidget {
           ClipOval(
             child: Image.network(
               profileInfo.photoUrl,
-              width: profileIconSize,
-              height: profileIconSize,
+              width: iconSize50,
+              height: iconSize50,
               fit: BoxFit.cover,
             ),
           ),

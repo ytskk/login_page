@@ -40,7 +40,7 @@ class OperationsBlock extends StatelessWidget {
                 label: userOperations.totalOperations,
               ),
             ),
-            const SizedBox(height: mediumSpacing2),
+            const SizedBox(height: spacing16),
             // Scroll orders block
             SizedBox(
               height: operationsBlockHeight,
@@ -74,7 +74,7 @@ class PreviewOperationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(right: smallPadding2),
+        margin: const EdgeInsets.only(right: padding8),
         width: operationsBlockWidth,
         child: RoundedRectangleBox(
           innerPadding: const EdgeInsets.all(padding16),
@@ -98,7 +98,7 @@ class PreviewOperationWidget extends StatelessWidget {
                               ? AppColors.yellow
                               : AppColors.white)),
                   CoinIcon(
-                    size: smallIconSize1,
+                    size: iconSize10,
                     color: (operation.value > 0)
                         ? AppColors.yellow
                         : AppColors.white,

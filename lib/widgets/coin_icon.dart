@@ -5,7 +5,7 @@ import 'package:training_and_testing/widgets/widgets.dart';
 class CoinIcon extends StatelessWidget {
   const CoinIcon({
     super.key,
-    this.size = mediumIconSize,
+    this.size = iconSize20,
     this.color = AppColors.white,
   });
 

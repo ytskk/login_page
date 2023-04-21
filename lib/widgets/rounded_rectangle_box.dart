@@ -4,7 +4,7 @@ import 'package:training_and_testing/constants/constants.dart';
 /// {@template rounded_rectangle_box}
 /// A widget that displays its [child] with a rounded rectangle border.
 ///
-/// The [borderRadius] defaults to [largeBorderRadius].
+/// The [borderRadius] defaults to [borderRadius16].
 /// The [backgroundColor] defaults to [AppColors.darkGrey].
 /// The [innerPadding] defaults to [EdgeInsets.zero].
 /// {@endtemplate}
@@ -25,7 +25,7 @@ class RoundedRectangleBox extends StatelessWidget {
   /// The padding to apply to the [child].
   final EdgeInsets? innerPadding;
 
-  get _borderRadius => borderRadius ?? largeBorderRadius;
+  get _borderRadius => borderRadius ?? borderRadius16;
   get _innerPadding => innerPadding ?? EdgeInsets.zero;
 
   @override

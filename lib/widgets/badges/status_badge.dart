@@ -31,8 +31,8 @@ class StatusBadge extends StatelessWidget {
     return InfoBadge(
       backgroundColor: _mapStatusToColor(type),
       padding: const EdgeInsets.symmetric(
-        horizontal: mediumSpacing1,
-        vertical: smallSpacing1,
+        horizontal: spacing8,
+        vertical: spacing4,
       ),
       child: Text(
         text,
