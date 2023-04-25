@@ -1,5 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/theme/app_colors.dart';
+import 'package:training_and_testing/theme/app_typography.dart';
+
+import '../../../constants/generated/app_strings.dart';
 
 class GetBonusesBanner extends StatelessWidget {
   const GetBonusesBanner({
@@ -11,6 +16,7 @@ class GetBonusesBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context); 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -18,13 +24,13 @@ class GetBonusesBanner extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: padding16),
           child: RichText(
             text: TextSpan(
-              style: h1TextStyle,
-              text: AppStrings.toGetMoreBonuses,
+              style: appTheme.textTheme.h1,
+              text: AppStrings.toGetMoreBonuses.tr(),
               children: [
                 TextSpan(
-                  text: AppStrings.youCanDo,
-                  style: h1TextStyle.copyWith(
-                    color: AppColors.yellow,
+                  text: AppStrings.youCanDo.tr(),
+                  style: appTheme.textTheme.h1.copyWith(
+                    color: appTheme.colorScheme.yellow,
                   ),
                 ),
               ],

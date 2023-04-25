@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:training_and_testing/constants/app_styles.dart';
+
+import 'preloader.dart';
 
 class FutureWidget extends StatelessWidget {
   final Future future;
@@ -13,7 +16,7 @@ class FutureWidget extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: PreloaderProgressIndicator(size: iconSize32),
             );
           }
           if (snapshot.hasError) {

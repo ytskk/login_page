@@ -11,7 +11,7 @@ class BonusesApp extends StatelessWidget {
   final GoRouter appRouter =
       RoutesBonusesApp(authController: Get.find<AuthController>()).router;
   
-  ThemeMode _themeMode = ThemeMode.system;
+  final ThemeMode _themeMode = ThemeMode.system;
   final appTheme = BrandThemeData.dark();
   @override
   Widget build(BuildContext context) {

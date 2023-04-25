@@ -50,6 +50,7 @@ class OrderModel {
 
   /// Generic method that returns [Enum.value] based on [string]
   /// or [defaultValue] if not found.
+  // !!!
   T stringToEnum<T>(
       String string, List<T> values, T defaultValue) {
     return values.firstWhere(

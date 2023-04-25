@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/theme/app_colors.dart';
+import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
 import '../../../controllers/auth_controller.dart';
 
@@ -14,11 +16,10 @@ class ProfileBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return Obx(() {
       final profileInfo = authController.googleProfileInfo.value;
       if (profileInfo == null) return const SizedBox();
-
-      const double profileNameAreaWidth = 68; 
 
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,11 +37,11 @@ class ProfileBar extends StatelessWidget {
           // full name
           Container(
               padding: const EdgeInsets.only(left: padding8),
-              width: profileNameAreaWidth,
+              width: HomeScreenSized.profileNameAreaWidth,
               child: Text(
                   '${profileInfo.firstName} ${profileInfo.lastName}',
-                  style: bodyMTextStyle.medium
-                      .copyWith(color: AppColors.white))),
+                  style: appTheme.textTheme.bodyM.medium
+                      .copyWith(color: appTheme.colorScheme.white))),
           const Expanded(child: SizedBox()),
           // notification button 
           InkWell(

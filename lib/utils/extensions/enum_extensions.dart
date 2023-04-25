@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 /// [Enum] extansion method for translating 
 /// [Enum] to [String] depending on localization
-extension EnumTranslationExtension <T extends Object> on T {
+extension EnumTranslationExtension on Enum {
   /// returns [String] depending on the localization
   String trEnum(){
     try {

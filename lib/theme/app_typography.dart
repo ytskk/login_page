@@ -14,7 +14,7 @@ extension BrandTextTheme on TextTheme {
 
   TextStyle get h1 => baseTextStyle.copyWith(
         fontWeight: FontWeight.w500,
-        fontSize: 20,
+        fontSize: 22,
         height: 1.2,
       );
 
@@ -46,12 +46,13 @@ extension BrandTextTheme on TextTheme {
       );
 
   TextStyle get buttonL => baseTextStyle.copyWith(
-        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        fontSize: 18,
         height: 1.4,
       );
 
   TextStyle get buttonS => baseTextStyle.copyWith(
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w700,
         fontSize: 14,
         height: 1.4,
       );
@@ -59,6 +60,12 @@ extension BrandTextTheme on TextTheme {
   TextStyle get footnote => baseTextStyle.copyWith(
         fontWeight: FontWeight.w400,
         fontSize: 12,
+        height: 1.4,
+      );
+
+  TextStyle get captionTextStyle => baseTextStyle.copyWith(
+        fontWeight: FontWeight.w600,
+        fontSize: 10,
         height: 1.4,
       );
 }

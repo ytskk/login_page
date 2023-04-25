@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/constants/generated/app_strings.dart';
+import 'package:training_and_testing/theme/app_colors.dart';
+import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
@@ -25,33 +27,29 @@ class OperationsBlock extends StatelessWidget {
 
       if (userOperations == null) return const SizedBox();
 
-      const double operationsBlockHeight = 91;
-      const double operationsBlockWidth = 170;
-
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: padding20),
         child: Column(
           children: [
             // Orders block header
-            Padding(
+            BlockHeader(
+              title: AppStrings.lastOperations.tr(),
+              label: userOperations.totalOperations,
               padding: const EdgeInsets.symmetric(horizontal: padding16),
-              child: BlockHeader(
-                title: LocaleKeys.last_operations.tr(),
-                label: userOperations.totalOperations,
-              ),
             ),
             const SizedBox(height: spacing16),
             // Scroll orders block
             SizedBox(
-              height: operationsBlockHeight,
+              height: HomeScreenSized.operationsBlockHeight,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: padding16),
                   itemCount: userOperations.totalOperations,
                   itemBuilder: (BuildContext context, int index) {
                     final operation = userOperations.operations[index];
                     return PreviewOperationWidget(
-                            operation, operationsBlockWidth)
-                        .paddingOnly(left: (index == 0) ? padding16 : 0);
+                            operation, HomeScreenSized.operationsBlockWidth)
+                        .paddingOnly(left: (index != 0) ? padding8 : 0);
                   }),
             ),
           ],
@@ -73,12 +71,12 @@ class PreviewOperationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(right: padding8),
+    final appTheme = Theme.of(context);
+    return SizedBox(
         width: operationsBlockWidth,
         child: RoundedRectangleBox(
           innerPadding: const EdgeInsets.all(padding16),
-          backgroundColor: AppColors.darkGrey,
+          backgroundColor: appTheme.colorScheme.grey90,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,21 +85,26 @@ class PreviewOperationWidget extends StatelessWidget {
                 children: [
                   // Operation date
                   Text(operation.date.trd(context),
-                      style: bodySTextStyle.light
-                          .copyWith(color: AppColors.white.withOpacity(0.5))),
+                      style: appTheme.textTheme.bodyS.light.copyWith(
+                          color: appTheme.colorScheme.white.withOpacity(0.5))),
                   const Expanded(child: SizedBox()),
 
                   // Operation value
-                  Text('${operation.value}',
-                      style: bodySTextStyle.semibold.copyWith(
+                  Text(
+                      <String>[
+                        if (operation.value > 0) '+ ',
+                        if (operation.value < 0) '- ',
+                        operation.value.abs().toString()
+                      ].join(),
+                      style: appTheme.textTheme.bodyS.semibold.copyWith(
                           color: (operation.value > 0)
-                              ? AppColors.yellow
-                              : AppColors.white)),
+                              ? appTheme.colorScheme.yellow
+                              : appTheme.colorScheme.white)),
                   CoinIcon(
                     size: iconSize10,
                     color: (operation.value > 0)
-                        ? AppColors.yellow
-                        : AppColors.white,
+                        ? appTheme.colorScheme.yellow
+                        : appTheme.colorScheme.white,
                   )
                 ],
               ),
@@ -111,7 +114,8 @@ class PreviewOperationWidget extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
-                style: bodySTextStyle.light.copyWith(color: AppColors.white),
+                style: appTheme.textTheme.bodyS.light
+                    .copyWith(color: appTheme.colorScheme.white),
               )
             ],
           ),

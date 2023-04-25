@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/theme/app_colors.dart';
+import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
 import 'package:training_and_testing/widgets/coin_icon.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 class LabelBadge extends StatelessWidget {
-  const LabelBadge.custom({
+  LabelBadge.custom({
     super.key,
     this.icon,
     required this.content,
@@ -15,16 +17,19 @@ class LabelBadge extends StatelessWidget {
     this.padding,
   });
 
-  const factory LabelBadge.defaultLabel({
+  factory LabelBadge.defaultLabel({
     required String content,
+    required BuildContext context,
   }) = _LabelBadgeDefault;
 
-  const factory LabelBadge.attentionLabel({
+  factory LabelBadge.attentionLabel({
     required String content,
+    required BuildContext context,
   }) = _LabelBadgeAttention;
 
-  const factory LabelBadge.newLabel({
+  factory LabelBadge.newLabel({
     required String content,
+    required BuildContext context,
   }) = _LabelBadgeNew;
 
   final Widget? icon;
@@ -34,8 +39,11 @@ class LabelBadge extends StatelessWidget {
   final Color? contentColor;
   final EdgeInsets? padding;
 
+  late ThemeData _appTheme;
+
   @override
   Widget build(BuildContext context) {
+    _appTheme = Theme.of(context);
     return InfoBadge(
       padding: padding,
       backgroundColor: backgroundColor,
@@ -48,7 +56,7 @@ class LabelBadge extends StatelessWidget {
   Widget _buildChild() {
     final content = Text(
       this.content,
-      style: bodySTextStyle.semibold.copyWith(
+      style: _appTheme.textTheme.bodyS.semibold.copyWith(
         color: contentColor,
       ),
     );
@@ -68,10 +76,11 @@ class LabelBadge extends StatelessWidget {
 }
 
 class _LabelBadgeDefault extends LabelBadge {
-  const _LabelBadgeDefault({
+  _LabelBadgeDefault({
     required super.content,
+    required context,
   }) : super.custom(
-          backgroundColor: AppColors.blueMain,
+          backgroundColor: Theme.of(context).colorScheme.blue50,
           icon: const CoinIcon(
             size: iconSize12,
           ),
@@ -83,10 +92,11 @@ class _LabelBadgeDefault extends LabelBadge {
 }
 
 class _LabelBadgeAttention extends LabelBadge {
-  const _LabelBadgeAttention({
+  _LabelBadgeAttention({
     required super.content,
+    required context,
   }) : super.custom(
-          backgroundColor: AppColors.red,
+          backgroundColor: Theme.of(context).colorScheme.red,
           icon: const CoinIcon(
             size: iconSize12,
           ),
@@ -98,11 +108,12 @@ class _LabelBadgeAttention extends LabelBadge {
 }
 
 class _LabelBadgeNew extends LabelBadge {
-  const _LabelBadgeNew({
+  _LabelBadgeNew({
     required super.content,
+    required context,
   }) : super.custom(
-          backgroundColor: AppColors.yellow,
-          contentColor: AppColors.darkGrey,
+          backgroundColor: Theme.of(context).colorScheme.yellow,
+          contentColor: Theme.of(context).colorScheme.grey90,
           borderRadius: borderRadius4,
           padding: const EdgeInsets.symmetric(
             horizontal: padding4,

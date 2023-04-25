@@ -4,9 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/constants/generated/app_strings.dart';
+import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 import '../../controllers/auth_controller.dart';
+import '../../widgets/preloader.dart';
 import 'widgets/login_button_widget.dart';
 import 'widgets/preview_button_widget.dart';
 
@@ -19,11 +21,13 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   final AuthController authController = Get.find<AuthController>();
-
+  BuildContext? _context;
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
+    _context = context;
     return Scaffold(
-      backgroundColor: AppColors.darkBackground,
+      backgroundColor: appTheme.colorScheme.black,
       body: Obx(
         () => BackgroundImageCard(
           // Background figure
@@ -44,7 +48,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 const SizedBox(height: spacing80),
                 // Text
                 Text(
-                  LocaleKeys.get_bonuses_and_exchange_them_for_branded_products
+                  AppStrings.getBonusesAndExchangeThemForBrandedProducts
                       .tr()
                       .toUpperCase(),
                   style: titleTextStyle,
@@ -59,6 +63,6 @@ class _LogInScreenState extends State<LogInScreen> {
           ),
         ),
       ),
-    );
+    );  
   }
 }

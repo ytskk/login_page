@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/theme/app_colors.dart';
+import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 enum StatusBadgeType {
@@ -17,7 +19,7 @@ enum StatusBadgeType {
 /// {@endtemplate}
 class StatusBadge extends StatelessWidget {
   /// {@macro status_badge}
-  const StatusBadge({
+  StatusBadge({
     super.key,
     required this.text,
     this.type = StatusBadgeType.waiting,
@@ -26,8 +28,11 @@ class StatusBadge extends StatelessWidget {
   final String text;
   final StatusBadgeType type;
 
+  late ThemeData _appTheme; 
+
   @override
   Widget build(BuildContext context) {
+    _appTheme = Theme.of(context);
     return InfoBadge(
       backgroundColor: _mapStatusToColor(type),
       padding: const EdgeInsets.symmetric(
@@ -36,7 +41,7 @@ class StatusBadge extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: captionTextStyle,
+        style: _appTheme.textTheme.captionTextStyle,
       ),
     );
   }
@@ -44,11 +49,11 @@ class StatusBadge extends StatelessWidget {
   Color _mapStatusToColor(StatusBadgeType type) {
     switch (type) {
       case StatusBadgeType.waiting:
-        return AppColors.smokeGrey;
+        return _appTheme.colorScheme.grey60;
       case StatusBadgeType.positive:
-        return AppColors.green;
+        return _appTheme.colorScheme.green;
       case StatusBadgeType.negative:
-        return AppColors.red;
+        return _appTheme.colorScheme.red;
     }
   }
 }

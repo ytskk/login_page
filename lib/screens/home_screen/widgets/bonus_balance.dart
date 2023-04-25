@@ -1,7 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/theme/app_colors.dart';
+import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
 import 'package:training_and_testing/widgets/coin_icon.dart';
+
+import '../../../constants/generated/app_strings.dart';
+import '../../../models/models.dart';
 
 /// {@template status_balance_widget}
 /// Shows user balance info. Today changes and total balance.
@@ -10,16 +16,15 @@ class BonusBalance extends StatelessWidget {
   /// {@macro status_balance_widget}
   const BonusBalance({
     super.key,
-    required this.todayBalanceChange,
-    required this.totalBalance,
+    required this.userBalance,
   });
 
   /// Today balance change. May be both positive and negative.
-  final int todayBalanceChange;
-  final int totalBalance;
+  final BalanceModel userBalance;
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(padding16),
       child: Row(
@@ -31,15 +36,15 @@ class BonusBalance extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
-                  AppStrings.infoBalanceTitle,
-                  style: h2TextStyle,
+                  AppStrings.bonusBalance.tr(),
+                  style: appTheme.textTheme.h2,
                 ),
                 const SizedBox(height: spacing4),
                 Row(
                   children: [
                     Text(
-                      '${AppStrings.infoBalanceToday}: ',
-                      style: bodySTextStyle.light.copyWith(
+                      '${AppStrings.today.tr()} ',
+                      style: appTheme.textTheme.bodyS.light.light.copyWith(
                         color: Colors.white.withOpacity(0.5),
                       ),
                     ),
@@ -47,16 +52,22 @@ class BonusBalance extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '$todayBalanceChange',
-                          style: bodySTextStyle.semibold.copyWith(
-                            color: AppColors.yellow,
-                          ),
-                        ),
+                            <String>[
+                              if (userBalance.todayChanges > 0) '+ ',
+                              if (userBalance.todayChanges < 0) '- ',
+                              userBalance.todayChanges.abs().toString()
+                            ].join(),
+                            style: appTheme.textTheme.bodyS.semibold.copyWith(
+                                color: (userBalance.todayChanges > 0)
+                                    ? appTheme.colorScheme.yellow
+                                    : appTheme.colorScheme.white)),
                         const SizedBox(width: spacing2),
-                        const CoinIcon(
+                        CoinIcon(
                           size: iconSize10,
-                          color: AppColors.yellow,
-                        ),
+                          color: (userBalance.todayChanges > 0)
+                              ? appTheme.colorScheme.yellow
+                              : appTheme.colorScheme.white,
+                        )
                       ],
                     ),
                   ],
@@ -64,21 +75,20 @@ class BonusBalance extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: spacing24),
           // balance value
           Row(
             children: [
               Text(
-                totalBalance.toStringAsFixed(0),
-                style: heroTextStyle.medium.copyWith(
+                "${userBalance.totalBalance}",
+                style: appTheme.textTheme.hero.medium.copyWith(
                   fontSize: 40,
-                  color: AppColors.yellow,
+                  color: appTheme.colorScheme.yellow,
                 ),
               ),
               const SizedBox(width: spacing6),
-              const CoinIcon(
+              CoinIcon(
                 size: iconSize20,
-                color: AppColors.yellow,
+                color: appTheme.colorScheme.yellow,
               ),
             ],
           ),

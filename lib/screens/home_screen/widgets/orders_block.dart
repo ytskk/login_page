@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/constants/generated/app_strings.dart';
+import 'package:training_and_testing/theme/app_colors.dart';
+import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
@@ -24,40 +26,37 @@ class OrdersBlock extends StatelessWidget {
 
       if (userOrders == null) return const SizedBox();
 
-      const double orderBlockHeight = 103; 
-      const double placeOrderButtonWidth = 115;
-      const double lableLineMaxWidth = 150;
+      final appTheme = Theme.of(context);
 
       return Padding(
           padding: const EdgeInsets.symmetric(vertical: padding20),
           child: Column(
             children: [
-              // Header 
-              Padding(
+              // Header
+              BlockHeader(
+                title: AppStrings.myOrders.tr(),
+                label: userOrders.totalOrders,
                 padding: const EdgeInsets.symmetric(horizontal: padding16),
-                child: BlockHeader(
-                  title: LocaleKeys.my_orders.tr(),
-                  label: userOrders.totalOrders,
-                ),
               ),
               const SizedBox(height: spacing16),
               // Scroll
               SizedBox(
-                height: orderBlockHeight,
+                height: HomeScreenSized.orderBlockHeight,
                 child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: padding16),
                   scrollDirection: Axis.horizontal,
                   itemCount: userOrders.totalOrders + 1,
                   itemBuilder: (BuildContext context, int index) {
                     if (index == 0) {
                       return _PlaceOrderButton(
-                        buttonWidth: placeOrderButtonWidth,
-                        textStyle: buttonSTextStyle,
-                        contentColor: AppColors.blueMain,
+                        buttonWidth: HomeScreenSized.placeOrderButtonWidth,
+                        textStyle: appTheme.textTheme.buttonS,
+                        contentColor: appTheme.colorScheme.blue50,
                       );
                     }
                     return _PreviewOrderWidget(
                       userOrders.orders[index - 1],
-                      lableLineMaxWidth,
+                      HomeScreenSized.lableLineMaxWidth,
                     );
                   },
                 ),
@@ -83,12 +82,12 @@ class _PlaceOrderButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final appTheme = Theme.of(context);
+    return SizedBox(
       width: buttonWidth,
-      margin: const EdgeInsets.only(left: padding16),
       child: RoundedRectangleBox(
         innerPadding: const EdgeInsets.symmetric(horizontal: padding24),
-        backgroundColor: AppColors.darkGrey,
+        backgroundColor: appTheme.colorScheme.grey70,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -99,7 +98,7 @@ class _PlaceOrderButton extends StatelessWidget {
             ),
             const SizedBox(height: spacing8),
             Text(
-              AppStrings.placeNewOrder,
+              AppStrings.placeNewOrder.tr(),
               style: textStyle?.copyWith(color: contentColor),
               textAlign: TextAlign.center,
             ),
@@ -111,18 +110,21 @@ class _PlaceOrderButton extends StatelessWidget {
 }
 
 class _PreviewOrderWidget extends StatelessWidget {
-  const _PreviewOrderWidget(this.order, this.lableLineMaxWidth);
+  _PreviewOrderWidget(this.order, this.lableLineMaxWidth);
 
   final OrderModel order;
   final double lableLineMaxWidth;
 
+  late ThemeData _appTheme;
+
   @override
   Widget build(BuildContext context) {
+    _appTheme = Theme.of(context);
     return Container(
       margin: const EdgeInsets.only(left: padding8),
       child: RoundedRectangleBox(
           innerPadding: const EdgeInsets.all(padding16),
-          backgroundColor: AppColors.grey,
+          backgroundColor: _appTheme.colorScheme.grey70,
           child: Row(
             children: [
               const SvgAsset(assetName: AppIcons.speakerAchieves),
@@ -134,8 +136,8 @@ class _PreviewOrderWidget extends StatelessWidget {
                     // Order date display
                     Text(
                       order.orderDated.trd(context),
-                      style: bodySTextStyle.semibold.copyWith(
-                        color: AppColors.white.withOpacity(0.5),
+                      style: _appTheme.textTheme.bodyS.semibold.copyWith(
+                        color: _appTheme.colorScheme.white.withOpacity(0.5),
                       ),
                     ),
                     // Оrder lable with the count of items
@@ -156,25 +158,27 @@ class _PreviewOrderWidget extends StatelessWidget {
           )),
     );
   }
-}
 
-_buildOrderLableRow(lableLineMaxWidth, order) {
-  return Row(
-    children: [
-      ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: lableLineMaxWidth),
-        child: Text(
-          order.items[0].name,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          style: bodyMTextStyle.copyWith(color: AppColors.white),
+  _buildOrderLableRow(lableLineMaxWidth, order) {
+    return Row(
+      children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: lableLineMaxWidth),
+          child: Text(
+            order.items[0].name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: _appTheme.textTheme.bodyM
+                .copyWith(color: _appTheme.colorScheme.white),
+          ),
         ),
-      ),
-      if (order.totalItems > 1) ...[
-        const SizedBox(width: spacing8),
-        Text(' +${order.totalItems - 1}',
-            style: bodyMTextStyle.copyWith(color: AppColors.white))
-      ]
-    ],
-  );
+        if (order.totalItems > 1) ...[
+          const SizedBox(width: spacing8),
+          Text(' +${order.totalItems - 1}',
+              style: _appTheme.textTheme.bodyM
+                  .copyWith(color: _appTheme.colorScheme.white))
+        ]
+      ],
+    );
+  }
 }

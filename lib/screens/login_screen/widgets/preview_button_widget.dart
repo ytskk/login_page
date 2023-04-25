@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:training_and_testing/theme/app_colors.dart';
+import 'package:training_and_testing/theme/app_typography.dart';
 
 import '../../../constants/constants.dart';
 import '../../../controllers/auth_controller.dart';
@@ -15,10 +17,11 @@ class PreviewButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileInfo = authController.googleProfileInfo.value;
+    final appTheme = Theme.of(context);
     if (profileInfo == null) return const SizedBox();
     return BrandButton(
       padding: const EdgeInsets.all(padding4),
-      backgroundColor: AppColors.grey,
+      backgroundColor: appTheme.colorScheme.grey70,
       size: ButtonSize.small,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,7 +40,7 @@ class PreviewButtonWidget extends StatelessWidget {
           // Prifile name 
           Text(
             "${authController.googleProfileInfo.value?.firstName} ${authController.googleProfileInfo.value?.lastName}",
-            style: h2TextStyle,
+            style: appTheme.textTheme.h2,
           ),
         ],
       ),

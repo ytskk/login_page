@@ -2,18 +2,25 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/theme/app_colors.dart';
+import 'package:training_and_testing/theme/app_typography.dart';
+
+import '../screens/login_screen/login_screen.dart';
 
 enum SnackBarType { positive, negative, neutral }
 
 class SnackBarNotification {
   SnackBarNotification(this.message,
-      {this.type = SnackBarType.neutral, this.durationMs = 2000});
+      {this.type = SnackBarType.neutral, this.durationMs = 20000});
 
   final String message;
   final SnackBarType type;
   final int durationMs;
 
+  late ThemeData _appTheme;
+
   void show(BuildContext context) {
+    _appTheme = Theme.of(context);
     ScaffoldMessenger.of(context).showSnackBar(
       _buildSnackBar(),
     );
@@ -48,7 +55,8 @@ class SnackBarNotification {
           child: Center(
             child: Text(
               message,
-              style: bodyMTextStyle,
+              style: _appTheme.textTheme.bodyM
+                  .copyWith(color: _appTheme.colorScheme.white),
             ),
           ),
         ),
@@ -59,11 +67,11 @@ class SnackBarNotification {
   Color _mapTypeToColor(SnackBarType type) {
     switch (type) {
       case SnackBarType.negative:
-        return AppColors.red;
+        return _appTheme.colorScheme.red;
       case SnackBarType.positive:
-        return AppColors.green;
+        return _appTheme.colorScheme.green;
       case SnackBarType.neutral:
-        return AppColors.blueMain;
+        return _appTheme.colorScheme.blue50;
     }
   }
 }

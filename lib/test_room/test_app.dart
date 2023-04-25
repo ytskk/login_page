@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:training_and_testing/constants/app_strings.dart';
 import 'package:training_and_testing/constants/app_styles.dart';
 import 'package:training_and_testing/theme/theme.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
+
+import '../constants/generated/app_strings.dart';
 
 class TestApp extends StatefulWidget {
   const TestApp({super.key});

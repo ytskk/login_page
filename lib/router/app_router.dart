@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../controllers/controllers.dart';
 import '../screens/home_screen/home_screen.dart';
 import '../screens/login_screen/login_screen.dart';
+import '../screens/test_dynamic_form.dart/dynamic_form_page.dart';
 
 class RoutesBonusesApp {
   GoRouter get router => _router;
@@ -22,7 +24,18 @@ class RoutesBonusesApp {
         GoRoute(
           path: '/home',
           name: 'home_screen',
-          builder: (context, state) => HomeScreen(),
+          builder: (context, state) {
+            return HomeScreen();
+          },
+          redirect: (context, state) {
+            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+            return null;
+          },
+        ),
+        GoRoute(
+          path: '/test',
+          name: 'test',
+          builder: (context, state) => DynamicFormPage(),
         ),
       ],
       redirect: (context, state) {
