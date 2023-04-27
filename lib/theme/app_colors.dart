@@ -6,8 +6,9 @@ extension BrandColors on ColorScheme {
   // base
   Color get white => const Color(0xFFFFFFFF);
   Color get black => const Color(0xFF000000);
-  @override
-  Color get background => isDark ? black : white;  
+
+  Color get backgroundColor => isDark ? black : white;
+
   Color get backgroundInverse => isDark ? white : black;
 
   // grey

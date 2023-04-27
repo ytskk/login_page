@@ -88,14 +88,14 @@ class BrandThemeData extends AppThemeBase {
 
     // build colors
     _themeData = theme.copyWith(
-      scaffoldBackgroundColor: colors.background,
+      scaffoldBackgroundColor: colors.backgroundColor,
       colorScheme: colorScheme.copyWith(
         primary: colorScheme.blue50,
         onPrimary: colorScheme.white,
         secondary: colorScheme.yellow,
         onSecondary: colorScheme.black,
-        surface: colorScheme.background,
-        surfaceTint: colorScheme.background,
+        surface: colorScheme.backgroundColor,
+        surfaceTint: colorScheme.backgroundColor,
       ),
     );
 
