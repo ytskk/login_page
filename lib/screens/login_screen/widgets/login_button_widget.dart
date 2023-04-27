@@ -10,7 +10,6 @@ import 'package:training_and_testing/widgets/widgets.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../widgets/preloader.dart';
 import '../../../widgets/snack_bar_notification.dart';
-import '../login_screen.dart';
 
 class LoginButtonWidget extends StatefulWidget {
   final AuthController authController;

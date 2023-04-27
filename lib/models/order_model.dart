@@ -1,4 +1,5 @@
 import 'package:training_and_testing/models/models.dart';
+import 'package:training_and_testing/utils/extensions/extensions.dart';
 
 import '../constants/app_enums.dart';
 
@@ -46,18 +47,7 @@ class OrderModel {
   }
 
   Enum get orderStatus =>
-      stringToEnum<OrderStatus>(_orderStatus, OrderStatus.values, OrderStatus.unknown);
-
-  /// Generic method that returns [Enum.value] based on [string]
-  /// or [defaultValue] if not found.
-  // !!!
-  T stringToEnum<T>(
-      String string, List<T> values, T defaultValue) {
-    return values.firstWhere(
-      (type) => type.toString().split('.').last == string,
-      orElse: () => defaultValue,
-    );
-  }
+      _orderStatus.toEnum(OrderStatus.values) ?? OrderStatus.unknown;
 
   @override
   String toString() {

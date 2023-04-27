@@ -84,7 +84,7 @@ class PreviewOperationWidget extends StatelessWidget {
               Row(
                 children: [
                   // Operation date
-                  Text(operation.date.trd(context),
+                  Text(operation.date.trd(context.locale),
                       style: appTheme.textTheme.bodyS.light.copyWith(
                           color: appTheme.colorScheme.white.withOpacity(0.5))),
                   const Expanded(child: SizedBox()),

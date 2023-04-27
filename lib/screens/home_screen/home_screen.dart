@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(width: spacing8),
               BonusesOptionButton(
                 title: '*',
-                onPressed: () => GoRouter.of(context).pushNamed('test'),
+                onPressed: () => GoRouter.of(context).pushNamed('edit_profile'),
               ),
               const SizedBox(width: spacing8),
               // 

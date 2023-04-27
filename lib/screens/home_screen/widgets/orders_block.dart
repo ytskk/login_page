@@ -135,7 +135,7 @@ class _PreviewOrderWidget extends StatelessWidget {
                   children: [
                     // Order date display
                     Text(
-                      order.orderDated.trd(context),
+                      order.orderDated.trd(context.locale),
                       style: _appTheme.textTheme.bodyS.semibold.copyWith(
                         color: _appTheme.colorScheme.white.withOpacity(0.5),
                       ),

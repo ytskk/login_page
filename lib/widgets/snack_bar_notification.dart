@@ -11,7 +11,7 @@ enum SnackBarType { positive, negative, neutral }
 
 class SnackBarNotification {
   SnackBarNotification(this.message,
-      {this.type = SnackBarType.neutral, this.durationMs = 20000});
+      {this.type = SnackBarType.neutral, this.durationMs = 2000});
 
   final String message;
   final SnackBarType type;

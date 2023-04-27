@@ -4,11 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/constants/generated/app_strings.dart';
-import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 import '../../controllers/auth_controller.dart';
-import '../../widgets/preloader.dart';
 import 'widgets/login_button_widget.dart';
 import 'widgets/preview_button_widget.dart';
 
@@ -27,7 +25,7 @@ class _LogInScreenState extends State<LogInScreen> {
     final appTheme = Theme.of(context);
     _context = context;
     return Scaffold(
-      backgroundColor: appTheme.colorScheme.black,
+      backgroundColor: appTheme.colorScheme.background,
       body: Obx(
         () => BackgroundImageCard(
           // Background figure
@@ -65,4 +63,12 @@ class _LogInScreenState extends State<LogInScreen> {
       ),
     );  
   }
+
+  // !!!
+  @override
+  dispose(){
+    // ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    super.dispose();
+  }
+  
 }
