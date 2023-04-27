@@ -10,14 +10,13 @@ class BonusesApp extends StatelessWidget {
   BonusesApp({super.key});
   final GoRouter appRouter =
       RoutesBonusesApp(authController: Get.find<AuthController>()).router;
-  
-  final ThemeMode _themeMode = ThemeMode.system;
+
   final appTheme = BrandThemeData.dark();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       theme: appTheme,
-      themeMode: _themeMode,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
