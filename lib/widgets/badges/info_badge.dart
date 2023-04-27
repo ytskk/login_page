@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
@@ -10,19 +9,19 @@ import 'package:training_and_testing/widgets/rounded_rectangle_box.dart';
 ///
 /// Base wrapper for badging.
 /// See also:
-/// - [LabelBadge]
-/// - [StatusBadge]
-/// - [TagBadge]
+/// - LabelBadge
+/// - StatusBadge
+/// - TagBadge
 /// {@endtemplate}
 class InfoBadge extends StatelessWidget {
   // {@macro info_badge}
   const InfoBadge({
-    super.key,
     required this.child,
     this.backgroundColor,
     this.contentColor,
     this.padding,
     this.borderRadius,
+    super.key,
   });
 
   final Widget child;

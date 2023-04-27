@@ -7,14 +7,14 @@ import 'package:training_and_testing/widgets/coin_icon.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 class LabelBadge extends StatelessWidget {
-  LabelBadge.custom({
-    super.key,
-    this.icon,
+  const LabelBadge.custom({
     required this.content,
+    this.icon,
     this.borderRadius,
     this.backgroundColor,
     this.contentColor,
     this.padding,
+    super.key,
   });
 
   factory LabelBadge.defaultLabel({
@@ -39,24 +39,23 @@ class LabelBadge extends StatelessWidget {
   final Color? contentColor;
   final EdgeInsets? padding;
 
-  late ThemeData _appTheme;
-
   @override
   Widget build(BuildContext context) {
-    _appTheme = Theme.of(context);
+    final theme = Theme.of(context);
+
     return InfoBadge(
       padding: padding,
       backgroundColor: backgroundColor,
       contentColor: contentColor,
       borderRadius: borderRadius,
-      child: _buildChild(),
+      child: _buildChild(theme),
     );
   }
 
-  Widget _buildChild() {
+  Widget _buildChild(ThemeData theme) {
     final content = Text(
       this.content,
-      style: _appTheme.textTheme.bodyS.semibold.copyWith(
+      style: theme.textTheme.bodyS.semibold.copyWith(
         color: contentColor,
       ),
     );
@@ -78,7 +77,7 @@ class LabelBadge extends StatelessWidget {
 class _LabelBadgeDefault extends LabelBadge {
   _LabelBadgeDefault({
     required super.content,
-    required context,
+    required BuildContext context,
   }) : super.custom(
           backgroundColor: Theme.of(context).colorScheme.blue50,
           icon: const CoinIcon(
@@ -94,7 +93,7 @@ class _LabelBadgeDefault extends LabelBadge {
 class _LabelBadgeAttention extends LabelBadge {
   _LabelBadgeAttention({
     required super.content,
-    required context,
+    required BuildContext context,
   }) : super.custom(
           backgroundColor: Theme.of(context).colorScheme.red,
           icon: const CoinIcon(
@@ -110,7 +109,7 @@ class _LabelBadgeAttention extends LabelBadge {
 class _LabelBadgeNew extends LabelBadge {
   _LabelBadgeNew({
     required super.content,
-    required context,
+    required BuildContext context,
   }) : super.custom(
           backgroundColor: Theme.of(context).colorScheme.yellow,
           contentColor: Theme.of(context).colorScheme.grey90,

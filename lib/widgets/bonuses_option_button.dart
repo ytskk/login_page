@@ -7,10 +7,10 @@ import 'package:training_and_testing/widgets/widgets.dart';
 
 class BonusesOptionButton extends StatelessWidget {
   const BonusesOptionButton({
-    super.key,
+    required this.title,
     this.iconPath,
     this.onPressed,
-    required this.title,
+    super.key,
   });
 
   /// Path to the icon from the assets folder.
@@ -35,8 +35,6 @@ class BonusesOptionButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(borderRadius),
               border: Border.all(
                 color: appTheme.colorScheme.grey50,
-                width: 1,
-                strokeAlign: BorderSide.strokeAlignInside,
               ),
             ),
             child: Padding(

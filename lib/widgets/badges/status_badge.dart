@@ -19,41 +19,40 @@ enum StatusBadgeType {
 /// {@endtemplate}
 class StatusBadge extends StatelessWidget {
   /// {@macro status_badge}
-  StatusBadge({
-    super.key,
+  const StatusBadge({
     required this.text,
     this.type = StatusBadgeType.waiting,
+    super.key,
   });
 
   final String text;
   final StatusBadgeType type;
 
-  late ThemeData _appTheme; 
-
   @override
   Widget build(BuildContext context) {
-    _appTheme = Theme.of(context);
+    final theme = Theme.of(context);
+
     return InfoBadge(
-      backgroundColor: _mapStatusToColor(type),
+      backgroundColor: _mapStatusToColor(type, theme),
       padding: const EdgeInsets.symmetric(
         horizontal: spacing8,
         vertical: spacing4,
       ),
       child: Text(
         text,
-        style: _appTheme.textTheme.captionTextStyle,
+        style: theme.textTheme.captionTextStyle,
       ),
     );
   }
 
-  Color _mapStatusToColor(StatusBadgeType type) {
+  Color _mapStatusToColor(StatusBadgeType type, ThemeData theme) {
     switch (type) {
       case StatusBadgeType.waiting:
-        return _appTheme.colorScheme.grey60;
+        return theme.colorScheme.grey60;
       case StatusBadgeType.positive:
-        return _appTheme.colorScheme.green;
+        return theme.colorScheme.green;
       case StatusBadgeType.negative:
-        return _appTheme.colorScheme.red;
+        return theme.colorScheme.red;
     }
   }
 }

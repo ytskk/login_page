@@ -5,8 +5,8 @@ import 'package:training_and_testing/widgets/widgets.dart';
 
 class CountBadge extends StatelessWidget {
   const CountBadge({
-    super.key,
     required this.count,
+    super.key,
   });
 
   final int count;

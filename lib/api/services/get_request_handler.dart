@@ -18,10 +18,10 @@ abstract class GetRequestHandler {
       return fromJson(response.data['data']);
     } on DioError catch (e) {
       throw _handleError(e);
-    } 
+    }
   }
 
-  BonusesApiException  _handleError(DioError e) {
+  BonusesApiException _handleError(DioError e) {
     if (e.response?.data['status'] == null) {
       return BonusesApiException(
         message: 'Dio error${e.message ?? ''}',
