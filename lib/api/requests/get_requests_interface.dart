@@ -1,7 +1,7 @@
-import '../../models/achievements_model.dart';
-import '../../models/balance_model.dart';
-import '../../models/operations_model.dart';
-import '../../models/orders_model.dart';
+import 'package:training_and_testing/models/achievements_model.dart';
+import 'package:training_and_testing/models/balance_model.dart';
+import 'package:training_and_testing/models/operations_model.dart';
+import 'package:training_and_testing/models/orders_model.dart';
 
 abstract class BonusesApiInterface {
   /// Returns a [BalanceModel] with the current balance of the user by [userId].

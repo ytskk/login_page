@@ -11,11 +11,11 @@ import 'package:flutter_svg/svg.dart';
 class SvgAsset extends StatelessWidget {
   /// {@macro svg_asset}
   const SvgAsset({
-    super.key,
     required this.assetName,
     this.color,
     this.width,
     this.height,
+    super.key,
   });
 
   const factory SvgAsset.squared({

@@ -5,11 +5,11 @@ import 'package:training_and_testing/widgets/widgets.dart';
 
 class BlockHeader extends StatelessWidget {
   const BlockHeader({
-    super.key,
     required this.title,
     required this.label,
     this.trailing,
-    this.padding = const EdgeInsets.all(0),
+    this.padding = EdgeInsets.zero,
+    super.key,
   });
 
   final String title;

@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:training_and_testing/controllers/auth_controller.dart';
 import 'package:training_and_testing/router/app_router.dart';
 import 'package:training_and_testing/theme/theme.dart';
-import '../controllers/auth_controller.dart';
 
 class BonusesApp extends StatelessWidget {
   BonusesApp({super.key});

@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 class BackgroundImageCard extends StatelessWidget {
   /// {@macro background_image_card}
   const BackgroundImageCard({
-    super.key,
     required this.child,
     this.backgroundImage,
     this.backgroundImageAlignment,
+    super.key,
   });
 
   final Widget child;
@@ -20,13 +20,12 @@ class BackgroundImageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      clipBehavior: Clip.hardEdge,
       fit: StackFit.expand,
       children: [
         if (backgroundImage != null)
           Align(
             alignment: backgroundImageAlignment ?? Alignment.center,
-            child: backgroundImage!,
+            child: backgroundImage,
           ),
         child,
       ],

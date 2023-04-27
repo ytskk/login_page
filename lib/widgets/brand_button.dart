@@ -28,14 +28,14 @@ enum ButtonType {
 /// {@endtemplate}
 class BrandButton extends StatelessWidget {
   const BrandButton({
-    super.key,
     required this.child,
     this.size = ButtonSize.small,
     this.onPressed,
     this.backgroundColor,
     this.foregroundColor,
     this.type = ButtonType.primary,
-    this.padding 
+    this.padding,
+    super.key,
   });
 
   factory BrandButton.icon({
@@ -61,12 +61,11 @@ class BrandButton extends StatelessWidget {
   final Color? foregroundColor;
   final ButtonType type;
 
-  // Castom padding
+  // Custom padding
   final EdgeInsets? padding;
 
   EdgeInsets? get _buttonPadding {
-    
-    if (padding != null) return padding; 
+    if (padding != null) return padding;
 
     if (size == ButtonSize.small) {
       return const EdgeInsets.symmetric(
@@ -129,7 +128,7 @@ class BrandButton extends StatelessWidget {
     );
   }
 
-  _buildElevatedButtonStyle(
+  ButtonStyle _buildElevatedButtonStyle(
     ColorScheme colorScheme,
     TextStyle? textStyle,
   ) {
@@ -169,7 +168,7 @@ class BrandButton extends StatelessWidget {
     );
   }
 
-  _buildOutlinedButtonStyle(
+  ButtonStyle _buildOutlinedButtonStyle(
     ColorScheme colorScheme,
     TextStyle? textStyle,
   ) {

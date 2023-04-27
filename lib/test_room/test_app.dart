@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/app_styles.dart';
+import 'package:training_and_testing/constants/generated/app_strings.dart';
 import 'package:training_and_testing/theme/theme.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
-
-import '../constants/generated/app_strings.dart';
 
 class TestApp extends StatefulWidget {
   const TestApp({super.key});
@@ -39,13 +38,13 @@ class _TestAppState extends State<TestApp> {
 
 class TestPage extends StatefulWidget {
   const TestPage({
-    super.key,
     required this.isDark,
     required this.onThemeChanged,
+    super.key,
   });
 
   final bool isDark;
-  final Function(bool newValue) onThemeChanged;
+  final dynamic Function(bool newValue) onThemeChanged;
 
   @override
   State<TestPage> createState() => _TestPageState();
@@ -88,13 +87,13 @@ class _TestPageState extends State<TestPage> {
 
 class TestAppTheme extends StatelessWidget {
   const TestAppTheme({
-    super.key,
     required this.isDark,
     required this.onThemeChanged,
+    super.key,
   });
 
   final bool isDark;
-  final Function(bool newValue) onThemeChanged;
+  final dynamic Function(bool newValue) onThemeChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +112,7 @@ class TestAppTheme extends StatelessWidget {
             ),
             Switch(
               value: isDark,
-              onChanged: (value) => onThemeChanged(value),
+              onChanged: onThemeChanged,
             ),
           ],
         ),
@@ -222,12 +221,10 @@ class TestAppComponents extends StatelessWidget {
               child: const Text('3'),
             ),
             BrandButton(
-              type: ButtonType.primary,
               onPressed: () => print('Get Bonuses'),
               child: const Text(AppStrings.getBonuses),
             ),
             BrandButton(
-              type: ButtonType.primary,
               size: ButtonSize.large,
               backgroundColor: theme.colorScheme.secondary,
               foregroundColor: theme.colorScheme.onSecondary,

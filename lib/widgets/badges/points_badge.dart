@@ -1,16 +1,12 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/extensions/extensions.dart';
 
-
-import '../../constants/constants.dart';
 import 'badges.dart';
 
-class PointsBadge extends StatelessWidget{
-  PointsBadge(
-    {super.key,
+class PointsBadge extends StatelessWidget {
+  PointsBadge({
+    super.key,
     required this.content,
     this.backgroundColor,
     this.contentColor,
@@ -25,7 +21,7 @@ class PointsBadge extends StatelessWidget{
   final double? borderRadius;
 
   late ThemeData _appTheme;
-  
+
   @override
   Widget build(BuildContext context) {
     _appTheme = Theme.of(context);
