@@ -48,7 +48,8 @@ class OrderModel {
   }
 
   Enum get orderStatus =>
-      _orderStatus.toEnum(OrderStatus.values) ?? OrderStatus.unknown;
+      _orderStatus.toEnum<OrderStatus>(OrderStatus.values) ??
+      OrderStatus.canceled;
 
   @override
   String toString() {
