@@ -13,8 +13,12 @@ class FormsBuilder extends StatelessWidget {
         parsedWidgets.addAll(_parseJsonMap(item));
       }
     } else if (jsonMap is Map) {
-      parsedWidgets
-          .add(_matchingStringToWidget(jsonMap['type'], jsonMap['properties']));
+      parsedWidgets.add(
+        _matchingStringToWidget(
+          jsonMap['type'] as String,
+          jsonMap['properties'],
+        ),
+      );
     } else {
       throw Exception('Invalid map');
     }
@@ -26,8 +30,8 @@ class FormsBuilder extends StatelessWidget {
       case 'field':
         return FormBuilderTextField(
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          name: properties['name'],
-          decoration: InputDecoration(labelText: properties['name']),
+          name: properties['name'] as String,
+          decoration: InputDecoration(labelText: properties['name'] as String),
           validator: FormBuilderValidators.compose([
             FormBuilderValidators.required(),
           ]),
@@ -45,15 +49,14 @@ class FormsBuilder extends StatelessWidget {
 
       case "flexible":
         return Flexible(
-            flex: properties['flex'],
+            flex: properties['flex'] as int,
             child: _parseJsonMap(properties['child'])[0]);
       case 'text':
-        return Text(properties['text']);
+        return Text(properties['text'] as String);
       case 'container':
         return Container(
-          width: properties['width']?.toDouble(),
-          height: properties['height']?.toDouble(),
-          color: Color(properties['color']),
+          width: properties['width']?.toDouble() as double,
+          height: properties['height']?.toDouble() as double,
           child: _parseJsonMap(properties['child'])[0],
         );
       case 'row':

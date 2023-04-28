@@ -1,4 +1,4 @@
-import 'order_model.dart';
+import 'package:training_and_testing/models/order_model.dart';
 
 class OrdersModel {
   const OrdersModel({
@@ -6,19 +6,19 @@ class OrdersModel {
     required this.orders,
   });
 
-  final int totalOrders;
-  final List<OrderModel> orders;
-
   factory OrdersModel.fromJson(Map<String, dynamic> json) {
     return OrdersModel(
-      totalOrders: json['totalOrders'],
+      totalOrders: json['totalOrders'] as int,
       orders: List<OrderModel>.from(
-        json['orders'].map(
-          (order) => OrderModel.fromJson(order),
+        (json['orders'] as List<dynamic>).map(
+          (order) => OrderModel.fromJson(order as Map<String, dynamic>),
         ),
       ),
     );
   }
+
+  final int totalOrders;
+  final List<OrderModel> orders;
 
   Map<String, dynamic> toJson() {
     return {

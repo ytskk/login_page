@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/extensions/extensions.dart';
 
-import 'badges.dart';
+import 'package:training_and_testing/widgets/badges/badges.dart';
 
 class PointsBadge extends StatelessWidget {
   PointsBadge({
-    super.key,
     required this.content,
+    super.key,
     this.backgroundColor,
     this.contentColor,
     this.padding,

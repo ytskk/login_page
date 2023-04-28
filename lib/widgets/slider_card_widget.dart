@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
-
-import '../constants/constants.dart';
-import 'widgets.dart';
+import 'package:training_and_testing/widgets/widgets.dart';
 
 class SliderCardWidget extends StatefulWidget {
   const SliderCardWidget({
-    super.key,
     required this.items,
     required this.height,
+    super.key,
   });
 
   final List<Widget> items;

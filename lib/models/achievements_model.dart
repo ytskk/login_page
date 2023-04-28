@@ -1,4 +1,4 @@
-import 'achievement_item_model.dart';
+import 'package:training_and_testing/models/achievement_item_model.dart';
 
 class AchievementsModel {
   const AchievementsModel({
@@ -6,19 +6,19 @@ class AchievementsModel {
     required this.achievements,
   });
 
-  final int receivedAchievements;
-  final List<AchievementItemModel> achievements;
-
   factory AchievementsModel.fromJson(Map<String, dynamic> json) {
     return AchievementsModel(
-      receivedAchievements: json['receivedAchievements'],
+      receivedAchievements: json['receivedAchievements'] as int,
       achievements: List<AchievementItemModel>.from(
-        json['items'].map(
-          (achievement) => AchievementItemModel.fromJson(achievement),
+        (json['items'] as List<Map<String, dynamic>>).map(
+          AchievementItemModel.fromJson,
         ),
       ),
     );
   }
+
+  final int receivedAchievements;
+  final List<AchievementItemModel> achievements;
 
   Map<String, dynamic> toJson() {
     return {

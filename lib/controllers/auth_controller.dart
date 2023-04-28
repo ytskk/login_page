@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../models/google_user_model.dart';
+import 'package:training_and_testing/models/google_user_model.dart';
 
 class AuthController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -10,12 +10,10 @@ class AuthController extends GetxController {
   // !!!! ch name
   Rx<bool> startedAuth = Rx<bool>(false);
   Rx<GoogleUserModel?> googleProfileInfo = null.obs;
-  
 
   Future<void> verifyingUserAuthorization() async {
     try {
-      final GoogleSignInAccount? googleUser =
-          await _googleSignIn.signInSilently();
+      final googleUser = await _googleSignIn.signInSilently();
       if (googleUser != null) {
         _setGoogleProfileInfo(googleUser);
       }
@@ -26,7 +24,7 @@ class AuthController extends GetxController {
 
   Future<void> signIn() async {
     try {
-      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
         _setGoogleProfileInfo(googleUser);
       }
@@ -35,15 +33,15 @@ class AuthController extends GetxController {
     }
   }
 
-  void _setGoogleProfileInfo(googleUser) {
-    List<String> displayName = googleUser.displayName?.split(' ') ?? [];
+  void _setGoogleProfileInfo(GoogleSignInAccount googleUser) {
+    final displayName = googleUser.displayName?.split(' ') ?? [];
     googleProfileInfo = GoogleUserModel(
-            firstName: (displayName.isNotEmpty) ? displayName[0] : '',
-            lastName: (displayName.length > 1) ? displayName[1] : '',
-            email: googleUser.email,
-            photoUrl: googleUser.photoUrl ??
-                'https://pixelbox.ru/wp-content/uploads/2021/04/cats-ava-steam-18.jpg')
-        .obs;
+      firstName: (displayName.isNotEmpty) ? displayName[0] : '',
+      lastName: (displayName.length > 1) ? displayName[1] : '',
+      email: googleUser.email,
+      photoUrl: googleUser.photoUrl ??
+          'https://pixelbox.ru/wp-content/uploads/2021/04/cats-ava-steam-18.jpg',
+    ).obs;
     isLoggedIn.value = true;
     update();
   }
@@ -58,4 +56,3 @@ class AuthController extends GetxController {
     }
   }
 }
-

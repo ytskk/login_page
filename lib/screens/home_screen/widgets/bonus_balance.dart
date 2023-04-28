@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/constants/generated/app_strings.dart';
+import 'package:training_and_testing/models/models.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
 import 'package:training_and_testing/widgets/coin_icon.dart';
-
-import '../../../constants/generated/app_strings.dart';
-import '../../../models/models.dart';
 
 /// {@template status_balance_widget}
 /// Shows user balance info. Today changes and total balance.
@@ -15,8 +14,8 @@ import '../../../models/models.dart';
 class BonusBalance extends StatelessWidget {
   /// {@macro status_balance_widget}
   const BonusBalance({
-    super.key,
     required this.userBalance,
+    super.key,
   });
 
   /// Today balance change. May be both positive and negative.
@@ -33,7 +32,6 @@ class BonusBalance extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
                   AppStrings.bonusBalance.tr(),
@@ -52,15 +50,17 @@ class BonusBalance extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                            <String>[
-                              if (userBalance.todayChanges > 0) '+ ',
-                              if (userBalance.todayChanges < 0) '- ',
-                              userBalance.todayChanges.abs().toString()
-                            ].join(),
-                            style: appTheme.textTheme.bodyS.semibold.copyWith(
-                                color: (userBalance.todayChanges > 0)
-                                    ? appTheme.colorScheme.yellow
-                                    : appTheme.colorScheme.white)),
+                          <String>[
+                            if (userBalance.todayChanges > 0) '+ ',
+                            if (userBalance.todayChanges < 0) '- ',
+                            userBalance.todayChanges.abs().toString()
+                          ].join(),
+                          style: appTheme.textTheme.bodyS.semibold.copyWith(
+                            color: (userBalance.todayChanges > 0)
+                                ? appTheme.colorScheme.yellow
+                                : appTheme.colorScheme.white,
+                          ),
+                        ),
                         const SizedBox(width: spacing2),
                         CoinIcon(
                           size: iconSize10,
@@ -79,7 +79,7 @@ class BonusBalance extends StatelessWidget {
           Row(
             children: [
               Text(
-                "${userBalance.totalBalance}",
+                '${userBalance.totalBalance}',
                 style: appTheme.textTheme.hero.medium.copyWith(
                   fontSize: 40,
                   color: appTheme.colorScheme.yellow,

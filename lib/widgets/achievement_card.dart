@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../constants/constants.dart';
-import 'svg_asset.dart';
+import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/widgets/svg_asset.dart';
 
 class AchievementCard extends StatelessWidget {
   const AchievementCard({
-    super.key,
     required this.achievementIcon,
+    required this.achievementLable,
+    super.key,
     this.achievementIconSize,
     this.padding,
-    required this.achievementLable,
     this.textStyle,
     this.achievementStatus,
   });
@@ -25,16 +25,21 @@ class AchievementCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(
       child: Padding(
-          padding: EdgeInsets.all(padding ?? .0),
-          child: Column(children: [
+        padding: EdgeInsets.all(padding ?? .0),
+        child: Column(
+          children: [
             SvgAsset.squared(
-                assetName: achievementIcon, size: achievementIconSize),
+              assetName: achievementIcon,
+              size: achievementIconSize,
+            ),
             Text(achievementLable, style: textStyle),
             if (achievementStatus != null) ...[
               const SizedBox(height: spacing2),
-              IntrinsicWidth(child: achievementStatus!),
+              IntrinsicWidth(child: achievementStatus),
             ],
-          ])),
+          ],
+        ),
+      ),
     );
   }
 }

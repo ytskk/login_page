@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/app_styles.dart';
@@ -221,14 +223,14 @@ class TestAppComponents extends StatelessWidget {
               child: const Text('3'),
             ),
             BrandButton(
-              onPressed: () => print('Get Bonuses'),
+              onPressed: () => log('Get Bonuses'),
               child: const Text(AppStrings.getBonuses),
             ),
             BrandButton(
               size: ButtonSize.large,
               backgroundColor: theme.colorScheme.secondary,
               foregroundColor: theme.colorScheme.onSecondary,
-              onPressed: () => print('Get Bonuses'),
+              onPressed: () => log('Get Bonuses'),
               child: const Text(AppStrings.getBonuses),
             ),
             BrandButton.icon(
@@ -262,14 +264,14 @@ class TestAppComponents extends StatelessWidget {
               icon: const Icon(Icons.tiktok_rounded),
               type: ButtonType.secondary,
               foregroundColor: theme.colorScheme.secondary,
-              onPressed: () => print('Get Bonuses'),
+              onPressed: () => log('Get Bonuses'),
               child: const Text(AppStrings.getBonuses),
             ),
             BrandButton.icon(
               size: ButtonSize.large,
               type: ButtonType.secondary,
               gap: spacing8,
-              onPressed: () => print('Get Bonuses'),
+              onPressed: () => log('Get Bonuses'),
               backgroundColor: theme.colorScheme.onSurface,
               icon: const Icon(Icons.tiktok_rounded),
               child: const Text(AppStrings.getBonuses),

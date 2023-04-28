@@ -1,7 +1,7 @@
 // base text style
 
 import 'package:flutter/material.dart';
-import 'package:training_and_testing/constants/constants.dart';
+// import 'package:training_and_testing/constants/constants.dart';
 
 TextStyle baseTextStyle = const TextStyle(
   fontSize: 16,
@@ -81,5 +81,5 @@ TextStyle titleTextStyle = baseTextStyle.copyWith(
   fontWeight: FontWeight.w800,
   fontSize: 40,
   height: 1.2,
-  letterSpacing: 2
+  letterSpacing: 2,
 );

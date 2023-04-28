@@ -1,4 +1,4 @@
-import 'operation_item_model.dart';
+import 'package:training_and_testing/models/operation_item_model.dart';
 
 class OperationsModel {
   const OperationsModel({
@@ -6,19 +6,21 @@ class OperationsModel {
     required this.operations,
   });
 
-  final int totalOperations;
-  final List<OperationItemModel> operations;
-
   factory OperationsModel.fromJson(Map<String, dynamic> json) {
     return OperationsModel(
-      totalOperations: json['totalOperations'],
+      totalOperations: json['totalOperations'] as int,
       operations: List<OperationItemModel>.from(
-        json['items'].map(
-          (operation) => OperationItemModel.fromJson(operation),
+        (json['items'] as List<dynamic>).map(
+          (item) => OperationItemModel.fromJson(
+            item as Map<String, dynamic>,
+          ),
         ),
       ),
     );
   }
+
+  final int totalOperations;
+  final List<OperationItemModel> operations;
 
   Map<String, dynamic> toJson() {
     return {

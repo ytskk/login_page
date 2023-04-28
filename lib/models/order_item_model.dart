@@ -3,23 +3,22 @@ class OrderItemModel {
     required this.imageUrl,
     required this.name,
     required this.quantity,
-    required this.size
+    required this.size,
   });
+
+  factory OrderItemModel.fromJson(Map<String, dynamic> json) {
+    return OrderItemModel(
+      imageUrl: json['imageUrl'] as String,
+      name: json['name'] as String,
+      quantity: json['quantity'] as int,
+      size: json['size'] as String,
+    );
+  }
 
   final String imageUrl;
   final String name;
   final int quantity;
   final String size;
-
-
-  factory OrderItemModel.fromJson(Map<String, dynamic> json) {
-    return OrderItemModel(
-      imageUrl: json['imageUrl'],
-      name: json['name'],
-      quantity: json['quantity'],
-      size: json['size'],
-    );
-  }
 
   Map<String, dynamic> toJson() {
     return {

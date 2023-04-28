@@ -3,20 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:go_router/go_router.dart';
+import 'package:training_and_testing/api/bonuses_api.dart';
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/constants/generated/app_strings.dart';
+import 'package:training_and_testing/controllers/controllers.dart';
+import 'package:training_and_testing/screens/home_screen/widgets/banner.dart';
+import 'package:training_and_testing/screens/home_screen/widgets/profile_bar.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/widgets.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/widgets/future_widget.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
-import '../../api/bonuses_api.dart';
-import '../../constants/generated/app_strings.dart';
-import '../../controllers/controllers.dart';
-import 'widgets/banner.dart';
-import 'widgets/profile_bar.dart';
-
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -46,13 +45,17 @@ class _HomeScreenState extends State<HomeScreen> {
               MainBanner(homeScreenController: homeScreenController),
               _buildGetBonusesButton(),
               _buildGetBonusesBunner(context),
-              AchievementsBlock(
+              const AchievementsBlock(
                 achievementsCount: 6,
               ),
-              FutureWidget(homeScreenController.updateUserOrders(),
-                  OrdersBlock(homeScreenController: homeScreenController)),
-              FutureWidget(homeScreenController.updateUserOperations(),
-                  OperationsBlock(homeScreenController: homeScreenController))
+              FutureWidget(
+                homeScreenController.updateUserOrders(),
+                OrdersBlock(homeScreenController: homeScreenController),
+              ),
+              FutureWidget(
+                homeScreenController.updateUserOperations(),
+                OperationsBlock(homeScreenController: homeScreenController),
+              )
             ],
           ),
         ],
@@ -73,12 +76,12 @@ class _HomeScreenState extends State<HomeScreen> {
               // test local buttons
               BonusesOptionButton(
                 title: 'EN',
-                onPressed: () =>  context.setLocale(Locale('en')),
+                onPressed: () => context.setLocale(const Locale('en')),
               ),
               const SizedBox(width: spacing8),
               BonusesOptionButton(
                 title: 'RU',
-                onPressed: () => context.setLocale(Locale('ru')),
+                onPressed: () => context.setLocale(const Locale('ru')),
               ),
               const SizedBox(width: spacing8),
               BonusesOptionButton(
@@ -86,8 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () => GoRouter.of(context).pushNamed('edit_profile'),
               ),
               const SizedBox(width: spacing8),
-              // 
-    
+              //
+
               BonusesOptionButton(
                 iconPath: AppIcons.writeIcon,
                 title: AppStrings.writeAnArticle.tr(),
@@ -106,14 +109,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildGetBonusesButton(){
+  Widget _buildGetBonusesButton() {
     return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: padding16),
-                child: BrandButton(
-                  onPressed: () {},
-                  size: ButtonSize.large,
-                  child: Text(AppStrings.getBonuses.tr()),
-                ),
-              );
+      padding: const EdgeInsets.symmetric(horizontal: padding16),
+      child: BrandButton(
+        onPressed: () {},
+        size: ButtonSize.large,
+        child: Text(AppStrings.getBonuses.tr()),
+      ),
+    );
   }
 }
