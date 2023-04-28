@@ -60,6 +60,7 @@ class PreloaderProgressIndicatorState extends State<PreloaderProgressIndicator>
           angle = pi / 2;
         }
 
+        // TODO(Egor-OS): Replace png with svg.
         return Transform.rotate(
           angle: angle,
           child: SizedBox.square(

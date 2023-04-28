@@ -19,6 +19,7 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   final AuthController authController = Get.find<AuthController>();
+  late ScaffoldMessengerState _scaffoldMessengerState;
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +66,17 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-  // !!!
   @override
-  dispose() {
-    // ScaffoldMessenger.of(context).removeCurrentSnackBar();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _scaffoldMessengerState = ScaffoldMessenger.of(context);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _scaffoldMessengerState.removeCurrentSnackBar(),
+    );
     super.dispose();
   }
 }

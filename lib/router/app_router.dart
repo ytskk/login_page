@@ -26,7 +26,6 @@ class RoutesBonusesApp {
           return const HomeScreen();
         },
         redirect: (context, state) {
-          // ScaffoldMessenger.of(context).removeCurrentSnackBar();
           return null;
         },
       ),
