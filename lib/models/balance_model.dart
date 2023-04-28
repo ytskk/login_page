@@ -4,15 +4,15 @@ class BalanceModel {
     required this.todayChanges,
   });
 
-  final int totalBalance;
-  final int todayChanges;
-
   factory BalanceModel.fromJson(Map<String, dynamic> json) {
     return BalanceModel(
-      totalBalance: json['totalBalance'],
-      todayChanges: json['todayChanges'],
+      totalBalance: json['totalBalance'] as int,
+      todayChanges: json['todayChanges'] as int,
     );
   }
+
+  final int totalBalance;
+  final int todayChanges;
 
   Map<String, dynamic> toJson() {
     return {

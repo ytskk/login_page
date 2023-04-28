@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
-
-import '../../models/models.dart';
-import '../services/get_request_handler.dart';
-import 'bonuses_api_requests.dart';
-import 'get_requests_interface.dart';
+import 'package:training_and_testing/api/requests/bonuses_api_requests.dart';
+import 'package:training_and_testing/api/requests/get_requests_interface.dart';
+import 'package:training_and_testing/api/services/get_request_handler.dart';
+import 'package:training_and_testing/models/models.dart';
 
 class GetRequests extends GetRequestHandler implements BonusesApiInterface {
   GetRequests({
@@ -12,9 +11,9 @@ class GetRequests extends GetRequestHandler implements BonusesApiInterface {
 
   @override
   Future<BalanceModel> getBalance({required String userId}) async {
-    return await performRequest(
+    return performRequest(
       BonusesApiEndpoints.balance,
-      (data) => BalanceModel.fromJson(data),
+      BalanceModel.fromJson,
       userId: userId,
     );
   }
@@ -23,7 +22,7 @@ class GetRequests extends GetRequestHandler implements BonusesApiInterface {
   Future<AchievementsModel> getAchievements({required String userId}) async {
     return performRequest(
       BonusesApiEndpoints.achievements,
-      (data) => AchievementsModel.fromJson(data),
+      AchievementsModel.fromJson,
       userId: userId,
     );
   }
@@ -32,7 +31,7 @@ class GetRequests extends GetRequestHandler implements BonusesApiInterface {
   Future<OrdersModel> getOrders({required String userId}) async {
     return performRequest(
       BonusesApiEndpoints.orders,
-      (data) => OrdersModel.fromJson(data),
+      OrdersModel.fromJson,
       userId: userId,
     );
   }
@@ -41,7 +40,7 @@ class GetRequests extends GetRequestHandler implements BonusesApiInterface {
   Future<OperationsModel> getOperations({required String userId}) async {
     return performRequest(
       BonusesApiEndpoints.operations,
-      (data) => OperationsModel.fromJson(data),
+      OperationsModel.fromJson,
       userId: userId,
     );
   }

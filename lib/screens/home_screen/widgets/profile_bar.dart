@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:training_and_testing/constants/constants.dart';
+import 'package:training_and_testing/controllers/auth_controller.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
-import '../../../controllers/auth_controller.dart';
 
 class ProfileBar extends StatelessWidget {
   const ProfileBar(this.authController, {super.key});
@@ -36,22 +36,25 @@ class ProfileBar extends StatelessWidget {
           ),
           // full name
           Container(
-              padding: const EdgeInsets.only(left: padding8),
-              width: HomeScreenSized.profileNameAreaWidth,
-              child: Text(
-                  '${profileInfo.firstName} ${profileInfo.lastName}',
-                  style: appTheme.textTheme.bodyM.medium
-                      .copyWith(color: appTheme.colorScheme.white))),
+            padding: const EdgeInsets.only(left: padding8),
+            width: HomeScreenSized.profileNameAreaWidth,
+            child: Text(
+              '${profileInfo.firstName} ${profileInfo.lastName}',
+              style: appTheme.textTheme.bodyM.medium
+                  .copyWith(color: appTheme.colorScheme.white),
+            ),
+          ),
           const Expanded(child: SizedBox()),
-          // notification button 
+          // notification button
           InkWell(
-              onTap: () async {
-                await authController.signOut();
-                log('click notification');
-              },
-              child: SvgPicture.asset(
-                AppIcons.notificationIcon,
-              )),
+            onTap: () async {
+              await authController.signOut();
+              log('click notification');
+            },
+            child: SvgPicture.asset(
+              AppIcons.notificationIcon,
+            ),
+          ),
         ],
       );
     });

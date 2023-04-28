@@ -4,12 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/constants/generated/app_strings.dart';
+import 'package:training_and_testing/controllers/auth_controller.dart';
+import 'package:training_and_testing/screens/login_screen/widgets/login_button_widget.dart';
+import 'package:training_and_testing/screens/login_screen/widgets/preview_button_widget.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
-
-import '../../controllers/auth_controller.dart';
-import 'widgets/login_button_widget.dart';
-import 'widgets/preview_button_widget.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -20,13 +19,10 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   final AuthController authController = Get.find<AuthController>();
-  // @Egor-OS why is it here?
-  BuildContext? _context;
 
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
-    _context = context;
 
     return Scaffold(
       backgroundColor: appTheme.colorScheme.backgroundColor,
@@ -57,9 +53,10 @@ class _LogInScreenState extends State<LogInScreen> {
                 ),
                 // Login button
                 const SizedBox(height: spacing80),
-                (authController.isLoggedIn.value)
-                    ? PreviewButtonWidget(authController)
-                    : LoginButtonWidget(authController),
+                if (authController.isLoggedIn.value)
+                  PreviewButtonWidget(authController)
+                else
+                  LoginButtonWidget(authController),
               ],
             ),
           ),

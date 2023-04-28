@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../utils/dio_intercepter.dart';
+import 'package:training_and_testing/api/utils/dio_intercepter.dart';
 
 abstract class DioClient {
   /// Creates a new Dio instance with the [baseUrl] and [headers].

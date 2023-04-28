@@ -3,8 +3,8 @@ import 'package:training_and_testing/widgets/widgets.dart';
 
 class BannerCard extends StatelessWidget {
   const BannerCard({
-    super.key,
     required this.child,
+    super.key,
     this.backgroundImage,
     this.cardColor,
     this.backgroundImageAlignment,

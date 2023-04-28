@@ -3,16 +3,16 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class PreloaderProgressIndicator extends StatefulWidget {
+  const PreloaderProgressIndicator({
+    required this.size,
+    super.key,
+    this.color,
+    this.durationMs = 300,
+  });
+
   final double size;
   final Color? color;
   final int durationMs;
-
-  const PreloaderProgressIndicator({
-    Key? key,
-    required this.size,
-    this.color,
-    this.durationMs = 300,
-  }) : super(key: key);
 
   @override
   PreloaderProgressIndicatorState createState() =>
@@ -36,10 +36,12 @@ class PreloaderProgressIndicatorState extends State<PreloaderProgressIndicator>
     _animation = Tween<double>(
       begin: 0,
       end: 1,
-    ).animate(CurvedAnimation(
-      parent: _animationController..repeat(),
-      curve: Curves.linear,
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController..repeat(),
+        curve: Curves.linear,
+      ),
+    );
   }
 
   @override
@@ -47,7 +49,7 @@ class PreloaderProgressIndicatorState extends State<PreloaderProgressIndicator>
     return AnimatedBuilder(
       animation: _animation,
       builder: (BuildContext context, Widget? child) {
-        double angle = _animation.value;
+        var angle = _animation.value;
         if (angle <= 0.25) {
           angle = 0;
         } else if (angle <= 0.5) {

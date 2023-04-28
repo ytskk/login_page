@@ -6,15 +6,20 @@ class FormsBuilderRx extends StatelessWidget {
   final FormGroup _form;
 
   List<Widget> _parseJsonMap(dynamic jsonMap, FormGroup formGr) {
-    final List<Widget> parsedWidgets = [];
-    FormGroup currentFormGroup = formGr;
+    final parsedWidgets = <Widget>[];
+    final currentFormGroup = formGr;
     if (jsonMap is List) {
       for (final item in jsonMap) {
         parsedWidgets.addAll(_parseJsonMap(item, formGr));
       }
     } else if (jsonMap is Map) {
-      parsedWidgets.add(_matchingStringToWidget(
-          jsonMap['type'], jsonMap['properties'], currentFormGroup));
+      parsedWidgets.add(
+        _matchingStringToWidget(
+          jsonMap['type'] as String,
+          jsonMap['properties'],
+          currentFormGroup,
+        ),
+      );
     } else {
       throw Exception('Invalid map');
     }
@@ -22,23 +27,26 @@ class FormsBuilderRx extends StatelessWidget {
   }
 
   Widget _matchingStringToWidget(
-      String type, dynamic properties, FormGroup formGr) {
+    String type,
+    dynamic properties,
+    FormGroup formGr,
+  ) {
     switch (type) {
       case 'field':
         formGr.addAll({
-          properties['name']:
+          properties['name'] as String:
               FormControl<String>(validators: [Validators.required])
         });
         return ReactiveTextField<String>(
-          formControlName: properties['name'],
+          formControlName: properties['name'] as String,
           decoration: InputDecoration(
-            labelText: properties['name'],
-            border: OutlineInputBorder(),
+            labelText: properties['name'] as String,
+            border: const OutlineInputBorder(),
           ),
         );
       case 'form':
-        formGr.addAll({properties['name']: FormGroup({})});
-        formGr = formGr.control(properties['name']) as FormGroup;
+        formGr.addAll({properties['name'] as String: FormGroup({})});
+        formGr = formGr.control(properties['name'] as String) as FormGroup;
         return ReactiveForm(
           formGroup: formGr,
           child: _parseJsonMap(properties['child'], formGr)[0],
@@ -57,15 +65,14 @@ class FormsBuilderRx extends StatelessWidget {
 
       case "flexible":
         return Flexible(
-            flex: properties['flex'],
+            flex: properties['flex'] as int,
             child: _parseJsonMap(properties['child'], formGr)[0]);
       case 'text':
-        return Text(properties['text']);
+        return Text(properties['text'] as String);
       case 'container':
         return Container(
-          width: properties['width']?.toDouble(),
-          height: properties['height']?.toDouble(),
-          color: Color(properties['color']),
+          width: properties['width']?.toDouble() as double,
+          height: properties['height']?.toDouble() as double,
           child: _parseJsonMap(properties['child'], formGr)[0],
         );
       case 'row':
@@ -80,6 +87,7 @@ class FormsBuilderRx extends StatelessWidget {
         throw Exception('Unsupported widget type: $type');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

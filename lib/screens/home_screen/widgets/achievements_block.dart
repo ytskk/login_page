@@ -70,4 +70,3 @@ class AchievementsBlock extends StatelessWidget {
     );
   }
 }
-

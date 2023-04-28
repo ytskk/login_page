@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/constants/generated/app_strings.dart';
+import 'package:training_and_testing/controllers/controllers.dart';
+import 'package:training_and_testing/models/models.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
+import 'package:training_and_testing/widgets/coin_icon.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
-
-import '../../../controllers/controllers.dart';
-import '../../../models/models.dart';
-import '../../../widgets/coin_icon.dart';
 
 class OperationsBlock extends StatelessWidget {
   const OperationsBlock({
-    super.key,
     required this.homeScreenController,
+    super.key,
   });
 
   final HomeScreenController homeScreenController;
@@ -42,15 +41,17 @@ class OperationsBlock extends StatelessWidget {
             SizedBox(
               height: HomeScreenSized.operationsBlockHeight,
               child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: padding16),
-                  itemCount: userOperations.totalOperations,
-                  itemBuilder: (BuildContext context, int index) {
-                    final operation = userOperations.operations[index];
-                    return PreviewOperationWidget(
-                            operation, HomeScreenSized.operationsBlockWidth)
-                        .paddingOnly(left: (index != 0) ? padding8 : 0);
-                  }),
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: padding16),
+                itemCount: userOperations.totalOperations,
+                itemBuilder: (BuildContext context, int index) {
+                  final operation = userOperations.operations[index];
+                  return PreviewOperationWidget(
+                    operation,
+                    HomeScreenSized.operationsBlockWidth,
+                  ).paddingOnly(left: (index != 0) ? padding8 : 0);
+                },
+              ),
             ),
           ],
         ),
@@ -73,52 +74,58 @@ class PreviewOperationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
     return SizedBox(
-        width: operationsBlockWidth,
-        child: RoundedRectangleBox(
-          innerPadding: const EdgeInsets.all(padding16),
-          backgroundColor: appTheme.colorScheme.grey90,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  // Operation date
-                  Text(operation.date.trd(context.locale),
-                      style: appTheme.textTheme.bodyS.light.copyWith(
-                          color: appTheme.colorScheme.white.withOpacity(0.5))),
-                  const Expanded(child: SizedBox()),
+      width: operationsBlockWidth,
+      child: RoundedRectangleBox(
+        innerPadding: const EdgeInsets.all(padding16),
+        backgroundColor: appTheme.colorScheme.grey90,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                // Operation date
+                Text(
+                  operation.date.trd(context.locale),
+                  style: appTheme.textTheme.bodyS.light.copyWith(
+                    color: appTheme.colorScheme.white.withOpacity(0.5),
+                  ),
+                ),
+                const Expanded(child: SizedBox()),
 
-                  // Operation value
-                  Text(
-                      <String>[
-                        if (operation.value > 0) '+ ',
-                        if (operation.value < 0) '- ',
-                        operation.value.abs().toString()
-                      ].join(),
-                      style: appTheme.textTheme.bodyS.semibold.copyWith(
-                          color: (operation.value > 0)
-                              ? appTheme.colorScheme.yellow
-                              : appTheme.colorScheme.white)),
-                  CoinIcon(
-                    size: iconSize10,
+                // Operation value
+                Text(
+                  <String>[
+                    if (operation.value > 0) '+ ',
+                    if (operation.value < 0) '- ',
+                    operation.value.abs().toString()
+                  ].join(),
+                  style: appTheme.textTheme.bodyS.semibold.copyWith(
                     color: (operation.value > 0)
                         ? appTheme.colorScheme.yellow
                         : appTheme.colorScheme.white,
-                  )
-                ],
-              ),
-              // Operation description
-              Text(
-                operation.description,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.left,
-                style: appTheme.textTheme.bodyS.light
-                    .copyWith(color: appTheme.colorScheme.white),
-              )
-            ],
-          ),
-        ));
+                  ),
+                ),
+                CoinIcon(
+                  size: iconSize10,
+                  color: (operation.value > 0)
+                      ? appTheme.colorScheme.yellow
+                      : appTheme.colorScheme.white,
+                )
+              ],
+            ),
+            // Operation description
+            Text(
+              operation.description,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+              style: appTheme.textTheme.bodyS.light
+                  .copyWith(color: appTheme.colorScheme.white),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

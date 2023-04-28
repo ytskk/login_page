@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-import '../api/bonuses_api.dart';
-import '../models/models.dart';
+import 'package:training_and_testing/api/bonuses_api.dart';
+import 'package:training_and_testing/models/models.dart';
 
 class HomeScreenController extends GetxController {
   HomeScreenController(this._bonusesApi, this.userId);
@@ -24,7 +24,8 @@ class HomeScreenController extends GetxController {
   }
 
   Future<void> updateUserOrders() async {
-    userOrders.value = await _bonusesApi?.apiGetRequests.getOrders(userId: userId);
+    userOrders.value =
+        await _bonusesApi?.apiGetRequests.getOrders(userId: userId);
   }
 
   Future<void> updateUserOperations() async {

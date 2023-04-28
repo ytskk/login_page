@@ -1,13 +1,13 @@
+import 'package:dio/dio.dart';
+import 'package:training_and_testing/api/config.dart';
 import 'package:training_and_testing/api/requests/get_requests.dart';
-
-import 'config.dart';
-import 'services/dio_client.dart';
+import 'package:training_and_testing/api/services/dio_client.dart';
 
 class BonusesApi {
-  final _dioClient = DioClient.client(
+  final Dio _dioClient = DioClient.client(
     debug: BonusesApiConfig.debug,
     baseUrl: BonusesApiConfig.baseUrl,
   );
 
-  get apiGetRequests => GetRequests(dioClient: _dioClient);
+  GetRequests get apiGetRequests => GetRequests(dioClient: _dioClient);
 }

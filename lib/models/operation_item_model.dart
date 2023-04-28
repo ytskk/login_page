@@ -12,24 +12,24 @@ class OperationItemModel {
     required this.value,
   });
 
+  factory OperationItemModel.fromJson(Map<String, dynamic> json) {
+    return OperationItemModel(
+      description: json['description'] as String,
+      date: json['date'] as String,
+      value: json['value'] as int,
+    );
+  }
+
   final String description;
   final String date;
 
   /// Value of adding, subtracting points.
   final int value;
 
-  factory OperationItemModel.fromJson(Map<String, dynamic> json) {
-    return OperationItemModel(
-      description: json["description"],
-      date: json["date"],
-      value: json["value"],
-    );
-  }
-
   Map<String, dynamic> toJson() => {
-        "description": description,
-        "date": date,
-        "value": value,
+        'description': description,
+        'date': date,
+        'value': value,
       };
 
   @override

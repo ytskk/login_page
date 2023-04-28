@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:training_and_testing/screens/edit_profile_screen/form_builder.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 
-import 'form_builder.dart';
-import 'form_builder_rx.dart';
-
 class EditProfileScreen extends StatelessWidget {
-
-
-  EditProfileScreen({Key? key});
+  const EditProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +16,6 @@ class EditProfileScreen extends StatelessWidget {
       ),
       // body: FormsBuilderRx(),
       body: FormsBuilder(),
-      
-
     );
   }
 }
