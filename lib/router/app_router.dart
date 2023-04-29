@@ -17,7 +17,7 @@ class RoutesBonusesApp {
     // initialLocation: '/home',
     // while working on catalog screen, uncomment the line above and comment
     // the line below to set the app initial location.
-    initialLocation: AppRouteNames.catalog,
+    initialLocation: '/${AppRouteNames.catalog}',
     routes: [
       GoRoute(
         path: '/login',
@@ -39,22 +39,34 @@ class RoutesBonusesApp {
         name: 'edit_profile',
         builder: (context, state) => const EditProfileScreen(),
       ),
-      GoRoute(
-        path: '/${AppRouteNames.catalog}',
+      AppRoute(
         name: AppRouteNames.catalog,
         builder: (_, __) => const CatalogScreen(),
       ),
     ],
-    redirect: (context, state) {
-      if (!authController.isLoggedIn.value) {
-        return (state.subloc == '/login') ? null : '/login';
-      }
-      return (state.subloc == '/login')
-          ? Future.delayed(const Duration(seconds: 3), () {
-              return '/home';
-            })
-          : null;
-    },
+    // commented until catalog screen is in progress
+    // redirect: (context, state) {
+    //   if (!authController.isLoggedIn.value) {
+    //     return (state.subloc == '/login') ? null : '/login';
+    //   }
+    //   return (state.subloc == '/login')
+    //       ? Future.delayed(const Duration(seconds: 3), () {
+    //           return '/home';
+    //         })
+    //       : null;
+    // },
     refreshListenable: authController,
   );
+}
+
+/// {@template app_route}
+/// Wrapper on [GoRoute], implicit sets the [path] to `/$name`. You can
+/// override the [path] by passing it to the constructor explicitly.
+class AppRoute extends GoRoute {
+  /// {@macro app_route}
+  AppRoute({
+    super.name,
+    super.builder,
+    String? path,
+  }) : super(path: path ?? '/$name');
 }
