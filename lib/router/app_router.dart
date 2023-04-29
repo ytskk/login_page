@@ -1,9 +1,11 @@
 import 'package:go_router/go_router.dart';
 
 import 'package:training_and_testing/controllers/controllers.dart';
+import 'package:training_and_testing/router/app_route_names.dart';
 import 'package:training_and_testing/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:training_and_testing/screens/home_screen/home_screen.dart';
 import 'package:training_and_testing/screens/login_screen/login_screen.dart';
+import 'package:training_and_testing/screens/screens.dart';
 
 class RoutesBonusesApp {
   RoutesBonusesApp({required this.authController});
@@ -12,7 +14,10 @@ class RoutesBonusesApp {
   final AuthController authController;
 
   late final _router = GoRouter(
-    initialLocation: '/home',
+    // initialLocation: '/home',
+    // while working on catalog screen, uncomment the line above and comment
+    // the line below to set the app initial location.
+    initialLocation: AppRouteNames.catalog,
     routes: [
       GoRoute(
         path: '/login',
@@ -33,6 +38,11 @@ class RoutesBonusesApp {
         path: '/edit_profile',
         name: 'edit_profile',
         builder: (context, state) => const EditProfileScreen(),
+      ),
+      GoRoute(
+        path: '/${AppRouteNames.catalog}',
+        name: AppRouteNames.catalog,
+        builder: (_, __) => const CatalogScreen(),
       ),
     ],
     redirect: (context, state) {
