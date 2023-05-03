@@ -7,8 +7,7 @@ import 'package:training_and_testing/models/google_user_model.dart';
 class AuthController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   Rx<bool> isLoggedIn = Rx<bool>(false);
-  // !!!! ch name
-  Rx<bool> startedAuth = Rx<bool>(false);
+  Rx<bool> inAuthProcess = Rx<bool>(false);
   Rx<GoogleUserModel?> googleProfileInfo = null.obs;
 
   Future<void> verifyingUserAuthorization() async {

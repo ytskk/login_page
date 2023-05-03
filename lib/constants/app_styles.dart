@@ -4,9 +4,12 @@
 const double borderRadius4 = 4;
 const double borderRadius8 = 8;
 const double borderRadius16 = 16;
+const double borderRadius100 = 100;
 
 // paddings
+const double padding3 = 3;
 const double padding4 = 4;
+const double padding6 = 6;
 const double padding8 = 8;
 const double padding12 = 12;
 const double padding16 = 16;

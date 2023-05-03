@@ -26,4 +26,19 @@ abstract class AppIcons {
   static const String altenarLogo = 'assets/images/altenar_logo.svg';
   static const String googleIcon = 'assets/icons/google_icon.svg';
 
+  // NavigationBar icons
+  static const String nbarSelectBasketIcon = 'assets/icons/nbar_select_basket_icon.svg';
+  static const String nbarSelectCatalogIcon = 'assets/icons/nbar_select_catalog_icon.svg';
+  static const String nbarSelectMainIcon = 'assets/icons/nbar_select_main_icon.svg';
+  static const String nbarSelectProfileIcon = 'assets/icons/nbar_select_profile_icon.svg';
+  static const String nbarUnselectBasketIcon = 'assets/icons/nbar_unselect_basket_icon.svg';
+  static const String nbarUnselectCatalogIcon = 'assets/icons/nbar_unselect_catalog_icon.svg';
+  static const String nbarUnselectMainIcon = 'assets/icons/nbar_unselect_main_icon.svg';
+  static const String nbarUnselectProfileIcon = 'assets/icons/nbar_unselect_profile_icon.svg';
+
+  // Notification screen icons
+  static const String unreadNoticeEyeIcon = 'assets/icons/unread_notice_eye_icon.svg';
+  static const String readNoticeEyeIcon = 'assets/icons/read_notice_eye_icon.svg';
+
+
 }

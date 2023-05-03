@@ -7,35 +7,59 @@ import 'package:training_and_testing/theme/app_typography.dart';
 
 enum SnackBarType { positive, negative, neutral }
 
+/// {@template snack_bar}
+/// Creates an object of type [SnackBar]
+/// and displays it with [ScaffoldMessenger].
+///
+/// Use the [show] method to display.
+/// {@endtemplate}
 class SnackBarNotification {
+  /// {@macro snack_bar}
   SnackBarNotification(
     this.message, {
     this.type = SnackBarType.neutral,
     this.durationMs = 2000,
   });
 
+  /// Displayed message
   final String message;
+
+  ///
+  /// Defines background and border color [SnackBarNotification]
+  ///
+  /// [SnackBarType.negative] => red
+  ///
+  /// [SnackBarType.positive] => green
+  ///
+  /// [SnackBarType.neutral] => blue
+  ///
   final SnackBarType type;
+
+  ///
+  /// Message display time in milliseconds
+  ///
   final int durationMs;
 
   late ThemeData _appTheme;
 
   void show(BuildContext context) {
     _appTheme = Theme.of(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      _buildSnackBar(),
-    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        _buildSnackBar(),
+      );
   }
 
   SnackBar _buildSnackBar() {
     final color = _mapTypeToColor(type);
     return SnackBar(
-      content: _buildContent(),
+      content: _buildContent(color),
       duration: Duration(milliseconds: durationMs),
       behavior: SnackBarBehavior.floating,
       padding: EdgeInsets.zero,
       margin: const EdgeInsets.all(padding16),
-      backgroundColor: color.withOpacity(0.2),
+      backgroundColor: Colors.white24.withOpacity(0.08),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius16),
         side: BorderSide(
@@ -45,20 +69,30 @@ class SnackBarNotification {
     );
   }
 
-  Widget _buildContent() {
-    return ClipRect(
+  Widget _buildContent(Color color) {
+    return Container(
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(borderRadius16),
+      ),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: padding16,
-            horizontal: padding24,
-          ),
-          child: Center(
-            child: Text(
-              message,
-              style: _appTheme.textTheme.bodyM
-                  .copyWith(color: _appTheme.colorScheme.white),
+        filter: ImageFilter.blur(
+          sigmaX: 8,
+          sigmaY: 8,
+        ),
+        child: ColoredBox(
+          color: color.withOpacity(0.2),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: padding16,
+              horizontal: padding24,
+            ),
+            child: Center(
+              child: Text(
+                message,
+                style: _appTheme.textTheme.bodyM
+                    .copyWith(color: _appTheme.colorScheme.white),
+              ),
             ),
           ),
         ),

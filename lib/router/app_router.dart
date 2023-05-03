@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:training_and_testing/controllers/controllers.dart';
-import 'package:training_and_testing/screens/edit_profile_screen/edit_profile_screen.dart';
-import 'package:training_and_testing/screens/home_screen/home_screen.dart';
-import 'package:training_and_testing/screens/login_screen/login_screen.dart';
+import 'package:training_and_testing/screens/screens.dart';
+
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class RoutesBonusesApp {
   RoutesBonusesApp({required this.authController});
@@ -12,6 +12,7 @@ class RoutesBonusesApp {
   final AuthController authController;
 
   late final _router = GoRouter(
+    navigatorKey: _rootNavigatorKey,
     initialLocation: '/home',
     routes: [
       GoRoute(
@@ -19,20 +20,25 @@ class RoutesBonusesApp {
         name: 'login_screen',
         builder: (context, state) => const LogInScreen(),
       ),
-      GoRoute(
-        path: '/home',
-        name: 'home_screen',
-        builder: (context, state) {
-          return const HomeScreen();
-        },
-        redirect: (context, state) {
-          return null;
-        },
-      ),
-      GoRoute(
-        path: '/edit_profile',
-        name: 'edit_profile',
-        builder: (context, state) => const EditProfileScreen(),
+      ShellRoute(
+        builder: (context, state, child) => MainScaffold(child),
+        routes: [
+          GoRoute(
+            path: '/home',
+            name: 'home_screen',
+            builder: (context, state) {
+              return const HomeScreen();
+            },
+            routes: [
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: 'notifications',
+                name: 'notification_screen',
+                builder: (context, state) => const NotificationScreen(),
+              ),
+            ],
+          ),
+        ],
       ),
     ],
     redirect: (context, state) {

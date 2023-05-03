@@ -25,7 +25,9 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (!widget.authController.startedAuth.value) {
+      // After starting the authorization process, 
+      //lock the button and replace it with the loader button
+      if (!widget.authController.inAuthProcess.value) {
         return _buildGoogleButton(context);
       }
       return _buildPreloaderButton(context);
@@ -36,19 +38,22 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
     return BrandButton(
       size: ButtonSize.large,
       onPressed: () async => {
-        widget.authController.startedAuth.value = true,
+        widget.authController.inAuthProcess.value = true,
+        // Start authorization process
         await widget.authController.signIn(),
+        // If authorization is successful
         if (widget.authController.isLoggedIn.value)
           SnackBarNotification(
             AppStrings.authorizationWasSuccessful.tr(),
             type: SnackBarType.positive,
           ).show(context)
+        // If authorization is unsuccessful
         else
           SnackBarNotification(
             AppStrings.authorizationFailed.tr(),
             type: SnackBarType.negative,
           ).show(context),
-        widget.authController.startedAuth.value = false,
+        widget.authController.inAuthProcess.value = false,
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -78,7 +78,7 @@ class MainBanner extends StatelessWidget {
             const Expanded(child: SizedBox()),
             BrandButton(
               type: ButtonType.secondary,
-              foregroundColor: Colors.white,
+              foregroundColor: _appTheme.colorScheme.white,
               onPressed: () {},
               child: Text(AppStrings.howToGetTheBonuses.tr()),
             ),

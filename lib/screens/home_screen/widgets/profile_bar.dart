@@ -1,17 +1,17 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:training_and_testing/constants/constants.dart';
-import 'package:training_and_testing/controllers/auth_controller.dart';
+import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
 
 class ProfileBar extends StatelessWidget {
-  const ProfileBar(this.authController, {super.key});
+  const ProfileBar(this.authController, this.homeScreenController, {super.key});
 
+  final HomeScreenController homeScreenController;
   final AuthController authController;
 
   @override
@@ -48,8 +48,8 @@ class ProfileBar extends StatelessWidget {
           // notification button
           InkWell(
             onTap: () async {
-              await authController.signOut();
-              log('click notification');
+              await homeScreenController.updateUserNotifications();
+              await GoRouter.of(context).pushNamed('notification_screen');
             },
             child: SvgPicture.asset(
               AppIcons.notificationIcon,

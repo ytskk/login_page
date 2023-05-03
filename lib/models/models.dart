@@ -2,6 +2,8 @@ export 'achievement_item_model.dart';
 export 'achievements_model.dart';
 export 'balance_model.dart';
 export 'google_user_model.dart';
+export 'notification_item_model.dart';
+export 'notifications_model.dart';
 export 'operation_item_model.dart';
 export 'operations_model.dart';
 export 'order_item_model.dart';

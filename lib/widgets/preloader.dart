@@ -33,10 +33,7 @@ class PreloaderProgressIndicatorState extends State<PreloaderProgressIndicator>
       duration: Duration(milliseconds: widget.durationMs),
     );
 
-    _animation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(
+    _animation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: _animationController..repeat(),
         curve: Curves.linear,

@@ -32,6 +32,11 @@ class LabelBadge extends StatelessWidget {
     required BuildContext context,
   }) = _LabelBadgeNew;
 
+  factory LabelBadge.typeLabel({
+    required String content,
+    required BuildContext context,
+  }) = _LabelBadgeType;
+
   final Widget? icon;
   final String content;
   final double? borderRadius;
@@ -113,6 +118,20 @@ class _LabelBadgeNew extends LabelBadge {
   }) : super.custom(
           backgroundColor: Theme.of(context).colorScheme.yellow,
           contentColor: Theme.of(context).colorScheme.grey90,
+          borderRadius: borderRadius4,
+          padding: const EdgeInsets.symmetric(
+            horizontal: padding4,
+          ),
+        );
+}
+
+class _LabelBadgeType extends LabelBadge {
+  _LabelBadgeType({
+    required super.content,
+    required BuildContext context,
+  }) : super.custom(
+          backgroundColor: Theme.of(context).colorScheme.grey50,
+          contentColor: Theme.of(context).colorScheme.white,
           borderRadius: borderRadius4,
           padding: const EdgeInsets.symmetric(
             horizontal: padding4,

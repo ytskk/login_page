@@ -44,4 +44,13 @@ class GetRequests extends GetRequestHandler implements BonusesApiInterface {
       userId: userId,
     );
   }
+
+  @override
+  Future<NotificationsModel> getNotifications({required String userId}) async {
+    return performRequest(
+      BonusesApiEndpoints.notifications,
+      NotificationsModel.fromJson,
+      userId: userId,
+    );
+  }
 }

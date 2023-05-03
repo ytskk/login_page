@@ -1,5 +1,6 @@
 import 'package:training_and_testing/models/achievements_model.dart';
 import 'package:training_and_testing/models/balance_model.dart';
+import 'package:training_and_testing/models/notifications_model.dart';
 import 'package:training_and_testing/models/operations_model.dart';
 import 'package:training_and_testing/models/orders_model.dart';
 
@@ -18,4 +19,8 @@ abstract class BonusesApiInterface {
   /// Returns a [OperationsModel] with the list of operations of the user
   /// by [userId].
   Future<OperationsModel> getOperations({required String userId});
+
+  /// Returns a [NotificationsModel] with the list of notifications of the user
+  /// by [userId].
+  Future<NotificationsModel> getNotifications({required String userId});
 }

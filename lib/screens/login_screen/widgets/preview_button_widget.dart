@@ -6,7 +6,12 @@ import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
+/// {@template preview_button}
+/// Button displayed after a successful authorization process. 
+/// Contains the user's name and avatar. 
+/// {@endtemplate}
 class PreviewButtonWidget extends StatelessWidget {
+  /// {@macro preview_button}
   const PreviewButtonWidget(
     this.authController, {
     super.key,

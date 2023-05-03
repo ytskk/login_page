@@ -10,8 +10,8 @@ import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/banner.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/profile_bar.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/widgets.dart';
-import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/widgets/future_widget.dart';
+import 'package:training_and_testing/widgets/snack_bar_notification.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,10 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Theme.of(context);
-
     return Scaffold(
-      backgroundColor: appTheme.colorScheme.black,
       body: Stack(
         children: [
           SvgPicture.asset(AppIcons.backgroundLine),
@@ -40,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: padding16),
-                child: ProfileBar(authController),
+                child: ProfileBar(authController, homeScreenController),
               ),
               MainBanner(homeScreenController: homeScreenController),
               _buildGetBonusesButton(),
@@ -86,7 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(width: spacing8),
               BonusesOptionButton(
                 title: '*',
-                onPressed: () => GoRouter.of(context).pushNamed('edit_profile'),
+                onPressed: () => SnackBarNotification(
+                  AppStrings.authorizationFailed.tr(),
+                  type: SnackBarType.positive,
+                ).show(context),
               ),
               const SizedBox(width: spacing8),
               //
