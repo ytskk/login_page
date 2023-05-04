@@ -89,6 +89,7 @@ class DescriptionCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // line above description
+            // TODO:
             if (date != null)
               Padding(
                 padding: const EdgeInsets.only(bottom: padding8),
@@ -101,6 +102,7 @@ class DescriptionCard extends StatelessWidget {
                         color: appTheme.colorScheme.white.withOpacity(0.5),
                       ),
                     ),
+                    // TODO:
                     const Expanded(child: SizedBox()),
                     // Additional widget
                     trailer ?? const SizedBox(),

@@ -16,7 +16,6 @@ class MainScaffold extends StatefulWidget {
 
 class _MainScaffoldState extends State<MainScaffold> {
   int _currentIndex = 0;
-  final a = 'sss';
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +82,7 @@ class _MainScaffoldState extends State<MainScaffold> {
     );
   }
 
+  // TODO
   @override
   void didUpdateWidget(covariant MainScaffold oldWidget) {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -90,12 +90,4 @@ class _MainScaffoldState extends State<MainScaffold> {
     );
     super.didUpdateWidget(oldWidget);
   }
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   WidgetsBinding.instance.addPostFrameCallback(
-  //     (_) => ScaffoldMessenger.of(context).removeCurrentSnackBar(),
-  //   );
-  // }
 }

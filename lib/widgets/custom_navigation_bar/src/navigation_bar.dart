@@ -150,6 +150,7 @@ class AppNavigationBarState extends State<AppNavigationBar> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            // TODO: 
             for (var i = 0; i < widget.items.length; i++)
               Expanded(
                 child: GestureDetector(

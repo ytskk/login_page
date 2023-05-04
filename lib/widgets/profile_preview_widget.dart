@@ -22,6 +22,7 @@ class ProfilePreviewWidget extends StatelessWidget {
     required this.profileInfo,
     this.sizeAvatar,
     this.spacing,
+    // TODO: 
     this.widthNameArea,
     this.trailer,
     this.textStyle,
