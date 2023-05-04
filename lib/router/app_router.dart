@@ -38,6 +38,11 @@ class RoutesBonusesApp {
               ),
             ],
           ),
+          GoRoute(
+            path: '/profile',
+            name: 'profile_screen',
+            builder: (context, state) => ProfileScreen(),
+          )
         ],
       ),
     ],

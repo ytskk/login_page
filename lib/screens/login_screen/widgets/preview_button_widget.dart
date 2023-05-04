@@ -26,25 +26,31 @@ class PreviewButtonWidget extends StatelessWidget {
     return BrandButton(
       padding: const EdgeInsets.all(padding4),
       backgroundColor: appTheme.colorScheme.grey70,
-      child: Row(
-        children: [
-          // Google Avatar
-          ClipOval(
-            child: Image.network(
-              profileInfo.photoUrl,
-              width: iconSize50,
-              height: iconSize50,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(width: spacing16),
-          // Prifile name
-          Text(
-            '${authController.googleProfileInfo.value?.firstName} ${authController.googleProfileInfo.value?.lastName}',
-            style: appTheme.textTheme.h2,
-          ),
-        ],
+      child: ProfilePreviewWidget(
+        profileInfo: profileInfo,
+        spacing: spacing16,
+        textStyle: appTheme.textTheme.h2,
       ),
+      
+      // Row(
+      //   children: [
+      //     // Google Avatar
+      //     ClipOval(
+      //       child: Image.network(
+      //         profileInfo.photoUrl,
+      //         width: iconSize50,
+      //         height: iconSize50,
+      //         fit: BoxFit.cover,
+      //       ),
+      //     ),
+      //     const SizedBox(width: spacing16),
+      //     // Prifile name
+      //     Text(
+      //       '${authController.googleProfileInfo.value?.firstName} ${authController.googleProfileInfo.value?.lastName}',
+      //       style: appTheme.textTheme.h2,
+      //     ),
+      //   ],
+      // ),
       onPressed: () => GoRouter.of(context).goNamed('home_screen'),
     );
   }

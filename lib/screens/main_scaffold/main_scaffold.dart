@@ -16,6 +16,7 @@ class MainScaffold extends StatefulWidget {
 
 class _MainScaffoldState extends State<MainScaffold> {
   int _currentIndex = 0;
+  final a = 'sss';
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class _MainScaffoldState extends State<MainScaffold> {
                 log('go to basket');
                 break;
               case 3:
-                log('go profile page');
+                GoRouter.of(context).go('/profile');
             }
           });
         },

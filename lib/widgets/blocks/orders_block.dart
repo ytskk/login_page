@@ -14,9 +14,15 @@ class OrdersBlock extends StatelessWidget {
   const OrdersBlock({
     required this.homeScreenController,
     super.key,
+    this.trailing,
+    this.padding,
   });
 
   final HomeScreenController homeScreenController;
+
+  final Widget? trailing;
+
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +34,7 @@ class OrdersBlock extends StatelessWidget {
       final appTheme = Theme.of(context);
 
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: padding20),
+        padding: padding ?? const EdgeInsets.symmetric(vertical: padding20),
         child: Column(
           children: [
             // Header
@@ -36,6 +42,7 @@ class OrdersBlock extends StatelessWidget {
               title: AppStrings.myOrders.tr(),
               label: userOrders.totalOrders,
               padding: const EdgeInsets.symmetric(horizontal: padding16),
+              trailing: trailing,
             ),
             const SizedBox(height: spacing16),
             // Scroll

@@ -17,6 +17,7 @@ import 'package:training_and_testing/widgets/widgets.dart';
 /// - [NotificationScreen]
 /// {@endtemplate}
 class DescriptionCard extends StatelessWidget {
+  /// {@macro description_card}
   const DescriptionCard({
     required this.description,
     super.key,

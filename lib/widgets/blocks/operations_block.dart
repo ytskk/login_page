@@ -16,9 +16,15 @@ class OperationsBlock extends StatelessWidget {
   const OperationsBlock({
     required this.homeScreenController,
     super.key,
+    this.trailing,
+    this.padding,
   });
 
   final HomeScreenController homeScreenController;
+
+  final Widget? trailing;
+
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,7 @@ class OperationsBlock extends StatelessWidget {
 
       final appTheme = Theme.of(context);
 
-      Widget trailerBuilder(OperationItemModel operation) {
+      Widget trailerCardBuilder(OperationItemModel operation) {
         return Row(
           children: [
             Text(
@@ -55,7 +61,7 @@ class OperationsBlock extends StatelessWidget {
       }
 
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: padding20),
+        padding: padding ?? const EdgeInsets.symmetric(vertical: padding20),
         child: Column(
           children: [
             // operations block header
@@ -63,6 +69,7 @@ class OperationsBlock extends StatelessWidget {
               title: AppStrings.lastOperations.tr(),
               label: userOperations.totalOperations,
               padding: const EdgeInsets.symmetric(horizontal: padding16),
+              trailing: trailing,
             ),
             const SizedBox(height: spacing16),
             // Scroll operations block
@@ -79,7 +86,7 @@ class OperationsBlock extends StatelessWidget {
                     date: operation.date.trd(context.locale),
                     width: HomeScreenSized.operationsBlockWidth,
                     backgroundColor: appTheme.colorScheme.grey90,
-                    trailer: trailerBuilder(operation),
+                    trailer: trailerCardBuilder(operation),
                   ).paddingOnly(left: (index != 0) ? padding8 : 0);
                 },
               ),

@@ -10,15 +10,21 @@ class AchievementsBlock extends StatelessWidget {
   const AchievementsBlock({
     super.key,
     this.achievementsCount,
+    this.trailing,
+    this.padding,
   });
 
   final int? achievementsCount;
+
+  final Widget? trailing;
+  
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(
+      padding: padding ?? const EdgeInsets.symmetric(
         horizontal: padding16,
         vertical: padding20,
       ),
@@ -27,6 +33,7 @@ class AchievementsBlock extends StatelessWidget {
           BlockHeader(
             title: AppStrings.myAchieves.tr(),
             label: achievementsCount,
+            trailing: trailing,
           ),
           const SizedBox(height: spacing16),
           RoundedRectangleBox(
