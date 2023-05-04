@@ -20,9 +20,8 @@ class ProfileBar extends StatelessWidget {
 
       Widget buildNotificationIconButton() {
         return InkWell(
-          onTap: () async {
-            await homeScreenController.updateUserNotifications();
-            await GoRouter.of(context).pushNamed('notification_screen');
+          onTap: () {
+            GoRouter.of(context).pushNamed('notification_screen');
           },
           child: SvgPicture.asset(
             AppIcons.notificationIcon,

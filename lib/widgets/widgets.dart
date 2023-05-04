@@ -1,7 +1,7 @@
 export 'achievement_card.dart';
 export 'background_image_card.dart';
 export 'badges/badges.dart';
-export 'block_header.dart';
+export 'blocks/block_header.dart';
 export 'blocks/blocks.dart';
 export 'bonuses_option_button.dart';
 export 'brand_button.dart';

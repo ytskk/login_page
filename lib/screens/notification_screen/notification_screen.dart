@@ -19,7 +19,18 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  final controller = Get.find<HomeScreenController>();
+  // TODO:
+  late final HomeScreenController homeScreenController;
+  late final NotificationScreenController controller;
+
+  @override
+  void initState() {
+    homeScreenController = Get.find<HomeScreenController>();
+    controller = Get.put(
+      NotificationScreenController(homeScreenController.bonusesApi, '1'),
+    );
+    super.initState();
+  }
 
   @override
   void dispose() {
