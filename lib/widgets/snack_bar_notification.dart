@@ -45,7 +45,7 @@ class SnackBarNotification {
   void show(BuildContext context) {
     _appTheme = Theme.of(context);
     ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
+      // ..hideCurrentSnackBar()
       ..showSnackBar(
         _buildSnackBar(),
       );
