@@ -1,5 +1,6 @@
 class NotificationItemModel {
   NotificationItemModel({
+    required this.id,
     required this.description,
     required this.date,
     required this.type,
@@ -8,6 +9,7 @@ class NotificationItemModel {
 
   factory NotificationItemModel.fromJson(Map<String, dynamic> json) {
     return NotificationItemModel(
+      id: json['id'] as String,
       description: json['description'] as String,
       date: json['date'] as String,
       type: json['type'] as String,
@@ -15,12 +17,14 @@ class NotificationItemModel {
     );
   }
 
+  final String id;
   final String description;
   final String date;
   final String type;
   bool isNew;
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'description': description,
         'date': date,
         'type': type,
@@ -29,6 +33,6 @@ class NotificationItemModel {
 
   @override
   String toString() {
-    return 'NotificationItemModel(description: $description, date: $date, type: $type, isNew: $isNew)';
+    return 'NotificationItemModel(id: $id, description: $description, date: $date, type: $type, isNew: $isNew)';
   }
 }

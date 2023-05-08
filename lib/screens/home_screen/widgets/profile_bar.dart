@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:training_and_testing/api/bonuses_api.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 class ProfileBar extends StatelessWidget {
-  const ProfileBar(this.authController, this.homeScreenController, {super.key});
+  const ProfileBar(this.authController, {super.key});
 
-  final HomeScreenController homeScreenController;
   final AuthController authController;
 
   @override
@@ -21,6 +21,11 @@ class ProfileBar extends StatelessWidget {
       Widget buildNotificationIconButton() {
         return InkWell(
           onTap: () {
+            // TODO:
+            Get.lazyPut(
+              () => NotificationScreenController(BonusesApi(), '1'),
+              fenix: true,
+            );
             GoRouter.of(context).pushNamed('notification_screen');
           },
           child: SvgPicture.asset(

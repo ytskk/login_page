@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: padding16),
-                child: ProfileBar(authController, homeScreenController),
+                child: ProfileBar(authController),
               ),
               MainBanner(homeScreenController: homeScreenController),
               _buildGetBonusesButton(),

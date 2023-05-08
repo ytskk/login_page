@@ -19,22 +19,18 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  // TODO:
-  late final HomeScreenController homeScreenController;
-  late final NotificationScreenController controller;
+  final NotificationScreenController controller =
+      Get.find<NotificationScreenController>();
 
   @override
   void initState() {
-    homeScreenController = Get.find<HomeScreenController>();
-    controller = Get.put(
-      NotificationScreenController(homeScreenController.bonusesApi, '1'),
-    );
+    controller.updateUserNotifications();
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.submitChangesUserNotifications();
+    Get.delete<NotificationScreenController>();
     super.dispose();
   }
 
@@ -70,19 +66,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
         extentRatio: 0.2,
         motion: const BehindMotion(),
         children: [
-          Expanded(
-            child: Center(
-              child: InkWell(
-                onTap: () {
-                  controller.reverseNotificationHideStatus(index);
-                },
-                child: SvgAsset.squared(
-                  size: iconSize24,
-                  assetName: status
-                      ? AppIcons.readNoticeEyeIcon
-                      : AppIcons.unreadNoticeEyeIcon,
-                ),
-              ),
+          CustomSlidableAction(
+            backgroundColor: Colors.transparent,
+            onPressed: (_) => {controller.reverseNotificationStatus(index)},
+            child: SvgAsset.squared(
+              size: iconSize24,
+              assetName: status
+                  ? AppIcons.readNoticeEyeIcon
+                  : AppIcons.unreadNoticeEyeIcon,
             ),
           ),
         ],
@@ -101,7 +92,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
         return RefreshIndicator(
           onRefresh: () async {
-            await controller.submitChangesUserNotifications();
             await controller.updateUserNotifications();
           },
           child: ListView.builder(
