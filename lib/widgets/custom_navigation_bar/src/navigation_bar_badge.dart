@@ -29,7 +29,7 @@ class BadgeText extends StatelessWidget {
           borderRadius: borderRadius100,
           child: Text(
             count! > 10 ? '10+' : '$count',
-            style: appTheme.textTheme.captionTextStyle,
+            style: appTheme.textTheme.notice,
             textAlign: TextAlign.center,
           ),
         )

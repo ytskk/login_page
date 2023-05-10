@@ -99,7 +99,7 @@ class AppNavigationBarState extends State<AppNavigationBar> {
       } else {
         return Text(
           widget.items[index].title ?? '',
-          style: Theme.of(context).textTheme.captionTextStyle.copyWith(
+          style: Theme.of(context).textTheme.notice.copyWith(
                 color: widget.unSelectedColor.withOpacity(0.5),
               ),
         );
@@ -111,7 +111,7 @@ class AppNavigationBarState extends State<AppNavigationBar> {
       } else {
         return Text(
           widget.items[index].selectedTitle ?? '',
-          style: Theme.of(context).textTheme.captionTextStyle.copyWith(
+          style: Theme.of(context).textTheme.notice.copyWith(
                 color: widget.selectedColor,
               ),
         );

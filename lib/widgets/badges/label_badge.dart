@@ -31,12 +31,6 @@ class LabelBadge extends StatelessWidget {
 
   factory LabelBadge.typeLabel({
     required String content,
-    required BuildContext context,
-  }) = _LabelBadgeType;
-
-  factory LabelBadge.typeLabel({
-    required String content,
-    required BuildContext context,
   }) = _LabelBadgeType;
 
   final Widget? icon;
@@ -104,6 +98,8 @@ class LabelBadge extends StatelessWidget {
         return colorScheme.red;
       case LabelBadgeType.newLabel:
         return colorScheme.yellow;
+      case LabelBadgeType.typeLabel:
+        return colorScheme.grey50;
       case LabelBadgeType.custom:
         return null;
     }
@@ -163,9 +159,22 @@ class _LabelBadgeNew extends LabelBadge {
         );
 }
 
+class _LabelBadgeType extends LabelBadge {
+  _LabelBadgeType({
+    required super.content,
+  }) : super.custom(
+          type: LabelBadgeType.typeLabel,
+          borderRadius: borderRadius4,
+          padding: const EdgeInsets.symmetric(
+            horizontal: padding4,
+          ),
+        );
+}
+
 enum LabelBadgeType {
   defaultLabel,
   attentionLabel,
   newLabel,
+  typeLabel,
   custom,
 }

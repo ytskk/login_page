@@ -4,7 +4,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart' hide FormData, Trans;
 import 'package:go_router/go_router.dart';
 import 'package:training_and_testing/constants/constants.dart';
-import 'package:training_and_testing/constants/generated/app_strings.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/models/models.dart';
 import 'package:training_and_testing/theme/theme.dart';
@@ -129,21 +128,18 @@ class NotificationListWidget extends StatelessWidget {
 
   // building badges displaying the type of notification and its novelty
   // TODO: remove context
-  Widget _trailerBuilder(
-      NotificationItemModel notification, BuildContext context) {
+  Widget _trailerBuilder(NotificationItemModel notification) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         LabelBadge.typeLabel(
           content: notification.type.trEnum().toUpperCase(),
-          context: context,
         ),
         if (notification.isNew)
           Padding(
             padding: const EdgeInsets.only(left: padding4),
             child: LabelBadge.newLabel(
               content: AppStrings.new_.tr().toUpperCase(),
-              context: context,
             ),
           )
       ],
@@ -188,7 +184,6 @@ class NotificationListWidget extends StatelessWidget {
                       return ChoiceChip(
                         label: Text('Item '),
                         avatar: null,
-                    
                         selected: controller.filter.value == index,
                         onSelected: (bool selected) {
                           controller.filter.value = selected ? index : null;
@@ -215,7 +210,7 @@ class NotificationListWidget extends StatelessWidget {
                 ? Theme.of(context).colorScheme.grey70
                 : Theme.of(context).colorScheme.grey90,
             // TODO: remove context
-            trailer: _trailerBuilder(notification, context),
+            trailer: _trailerBuilder(notification),
           ).paddingOnly(top: (index_ != 0) ? padding4 : 0),
         );
       },

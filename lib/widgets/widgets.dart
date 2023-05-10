@@ -9,6 +9,7 @@ export 'coin_icon.dart';
 export 'coin_icon_with_label.dart';
 export 'menu_item.dart';
 export 'modal_bottom_sheet_wrapper.dart';
+export 'profile_preview_widget.dart';
 export 'remote_image.dart';
 export 'rounded_rectangle_box.dart';
 export 'shimmer_component.dart';
