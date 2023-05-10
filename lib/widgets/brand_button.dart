@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 
@@ -133,14 +134,6 @@ class BrandButton extends StatelessWidget {
     TextStyle? textStyle,
   ) {
     return _buildBaseButtonStyle(textStyle).copyWith(
-      overlayColor: MaterialStateProperty.resolveWith(
-        (states) {
-          if (!states.contains(MaterialState.disabled)) {
-            return backgroundColor?.withOpacity(0.12);
-          }
-          return null;
-        },
-      ),
       backgroundColor: MaterialStateProperty.resolveWith(
         (states) {
           if (!states.contains(MaterialState.disabled)) {

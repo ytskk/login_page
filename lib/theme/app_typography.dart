@@ -54,16 +54,10 @@ extension BrandTextTheme on TextTheme {
   TextStyle get buttonS => baseTextStyle.copyWith(
         fontWeight: FontWeight.w700,
         fontSize: 14,
-        height: 1.4,
+        height: 1.14,
       );
 
-  TextStyle get footnote => baseTextStyle.copyWith(
-        fontWeight: FontWeight.w400,
-        fontSize: 12,
-        height: 1.4,
-      );
-
-  TextStyle get captionTextStyle => baseTextStyle.copyWith(
+  TextStyle get notice => baseTextStyle.copyWith(
         fontWeight: FontWeight.w600,
         fontSize: 10,
         height: 1.4,

@@ -6,19 +6,21 @@ import 'package:training_and_testing/widgets/widgets.dart';
 class CoinIcon extends StatelessWidget {
   const CoinIcon({
     super.key,
-    this.size = iconSize20,
+    double? size,
     this.color,
-  });
+  }) : size = size ?? iconSize20;
 
   final double size;
   final Color? color;
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SvgAsset.squared(
       assetName: AppIcons.coinIcon,
       size: size,
-      color: color ?? Theme.of(context).colorScheme.white,
+      color: color ?? colorScheme.white,
     );
   }
 }

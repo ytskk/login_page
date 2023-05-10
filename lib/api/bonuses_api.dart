@@ -5,7 +5,6 @@ import 'package:training_and_testing/api/services/dio_client.dart';
 
 class BonusesApi {
   final Dio _dioClient = DioClient.client(
-    debug: BonusesApiConfig.debug,
     baseUrl: BonusesApiConfig.baseUrl,
   );
 

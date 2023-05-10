@@ -27,6 +27,10 @@ class _LogInScreenState extends State<LogInScreen> {
 
     return Scaffold(
       backgroundColor: appTheme.colorScheme.backgroundColor,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      extendBodyBehindAppBar: true,
       body: Obx(
         () => BackgroundImageCard(
           // Background figure

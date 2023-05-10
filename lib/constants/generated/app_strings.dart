@@ -44,4 +44,9 @@ abstract class  AppStrings {
   static const enums_NotificationType = 'enums.NotificationType';
   static const enums = 'enums';
 
+  static const yourBalance = 'yourBalance';
+  static const newBadge = 'newBadge';
+  static const catalogFilters = 'catalogFilters';
+  static const close = 'close';
+  static const size = 'size';
 }

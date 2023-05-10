@@ -8,9 +8,14 @@ const double borderRadius100 = 100;
 
 // paddings
 const double padding3 = 3;
+const double borderRadius24 = 24;
+
+// paddings
+const double padding2 = 2;
 const double padding4 = 4;
 const double padding6 = 6;
 const double padding8 = 8;
+const double padding10 = 10;
 const double padding12 = 12;
 const double padding16 = 16;
 const double padding20 = 20;
@@ -27,15 +32,18 @@ const double spacing12 = 12;
 const double spacing16 = 16;
 const double spacing24 = 24;
 const double spacing32 = 32;
+const double spacing40 = 40;
+const double spacing44 = 44;
 const double spacing80 = 80;
 
 // icon sizes
 const double iconSize10 = 10;
 const double iconSize12 = 12;
+const double iconSize16 = 16;
 const double iconSize20 = 20;
 const double iconSize24 = 24;
 const double iconSize32 = 32;
 const double iconSize50 = 50;
 const double iconSize64 = 64;
 const double iconSize80 = 80;
-const double iconSize160 = 160; 
+const double iconSize160 = 160;

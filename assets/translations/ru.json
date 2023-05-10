@@ -14,22 +14,18 @@
     "authorizationWasSuccessful": "Авторизация успешна",
     "authorizationFailed": "Авторизация не пройдена",
     "loginWithGoogle": "Войти через Google",
-    "getBonusesAndExchangeThemForBrandedProducts" : "Получайте бонусы и обменивайте их на фирменные товары",
+    "getBonusesAndExchangeThemForBrandedProducts": "Получайте бонусы и обменивайте их на фирменные товары",
     "canceled": "Отменен",
     "delivered": "Доставлен",
     "waitingForDelivery": "В процессе доставки",
-    "unknown" : "Неизвестно",
-    
-    "toGetMoreBonuses" : "Чтобы получить больше бонусов, ",
-    "youCanDo" : "вы можете",
-
-    "writeAnArticle" : "Написать статью",
-    "speakAtTheConference" : "Выступить на конференции",
-
-    "toSpendBonuses" : "Выберете на что",
-    "selectSomething" : "потратить бонусы",
-
-    "toBuySomething" : "Чтобы что-то купить",
+    "unknown": "Неизвестно",
+    "toGetMoreBonuses": "Чтобы получить больше бонусов, ",
+    "youCanDo": "вы можете",
+    "writeAnArticle": "Написать статью",
+    "speakAtTheConference": "Выступить на конференции",
+    "toSpendBonuses": "Выберете на что",
+    "selectSomething": "потратить бонусы",
+    "toBuySomething": "Чтобы что-то купить",
     "needToGetBonuses": "необходимо заработать бонусы",
 
     "notifications" : "Уведомления", 
@@ -50,5 +46,10 @@
             "profile": "Профиль",
             "other": "Другое"
         }
-    }
+    },
+    "yourBalance": "Your balance",
+    "newBadge": "New",
+    "catalogFilters": "Catalog filters",
+    "close": "Close",
+    "size": "Size"
 }

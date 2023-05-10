@@ -14,12 +14,16 @@ class RoundedRectangleBox extends StatelessWidget {
     this.backgroundColor,
     this.borderRadius,
     this.innerPadding,
+    this.border,
+    this.clipBehavior,
     super.key,
   });
 
   final Widget child;
   final Color? backgroundColor;
   final double? borderRadius;
+  final BoxBorder? border;
+  final Clip? clipBehavior;
 
   /// The padding to apply to the [child].
   final EdgeInsets? innerPadding;
@@ -31,8 +35,13 @@ class RoundedRectangleBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(_borderRadius),
+      clipBehavior: clipBehavior ?? Clip.antiAlias,
       child: DecoratedBox(
-        decoration: BoxDecoration(color: backgroundColor),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          border: border,
+          borderRadius: BorderRadius.circular(_borderRadius),
+        ),
         child: Padding(
           padding: _innerPadding,
           child: child,
