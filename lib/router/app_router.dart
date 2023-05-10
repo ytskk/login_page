@@ -1,9 +1,10 @@
 import 'package:go_router/go_router.dart';
 
 import 'package:training_and_testing/controllers/controllers.dart';
+import 'package:training_and_testing/router/app_route_names.dart';
 import 'package:training_and_testing/screens/edit_profile_screen/edit_profile_screen.dart';
-import 'package:training_and_testing/screens/home_screen/home_screen.dart';
 import 'package:training_and_testing/screens/login_screen/login_screen.dart';
+import 'package:training_and_testing/screens/screens.dart';
 
 class RoutesBonusesApp {
   RoutesBonusesApp({required this.authController});
@@ -12,7 +13,10 @@ class RoutesBonusesApp {
   final AuthController authController;
 
   late final _router = GoRouter(
-    initialLocation: '/home',
+    // initialLocation: '/home',
+    // while working on catalog screen, uncomment the line above and comment
+    // the line below to set the app initial location.
+    initialLocation: '/${AppRouteNames.catalog}',
     routes: [
       GoRoute(
         path: '/login',
@@ -34,17 +38,48 @@ class RoutesBonusesApp {
         name: 'edit_profile',
         builder: (context, state) => const EditProfileScreen(),
       ),
+      AppRoute(
+        name: AppRouteNames.catalog,
+        builder: (_, __) => const CatalogScreen(),
+        routes: [
+          AppRoute(
+            name: AppRouteNames.catalogFilters,
+            path: AppRouteNames.catalogFilters,
+            builder: (_, __) => const FiltersScreen(),
+          ),
+        ],
+      ),
+      AppRoute(
+        name: AppRouteNames.cart,
+        builder: (_, __) => const CartScreen(),
+      ),
     ],
-    redirect: (context, state) {
-      if (!authController.isLoggedIn.value) {
-        return (state.subloc == '/login') ? null : '/login';
-      }
-      return (state.subloc == '/login')
-          ? Future.delayed(const Duration(seconds: 3), () {
-              return '/home';
-            })
-          : null;
-    },
+    // commented until catalog screen is in progress
+    // redirect: (context, state) {
+    //   if (!authController.isLoggedIn.value) {
+    //     return (state.subloc == '/login') ? null : '/login';
+    //   }
+    //   return (state.subloc == '/login')
+    //       ? Future.delayed(const Duration(seconds: 3), () {
+    //           return '/home';
+    //         })
+    //       : null;
+    // },
     refreshListenable: authController,
   );
+}
+
+/// {@template app_route}
+/// Wrapper on [GoRoute], implicit sets the [path] to `/$name`. You can
+/// override the [path] by passing it to the constructor explicitly.
+class AppRoute extends GoRoute {
+  /// {@macro app_route}
+  AppRoute({
+    super.name,
+    super.builder,
+    String? path,
+    super.routes,
+  }) : super(
+          path: path ?? '/$name',
+        );
 }

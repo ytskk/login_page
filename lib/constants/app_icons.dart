@@ -19,11 +19,16 @@ abstract class AppIcons {
   static const String speakerIcon = 'assets/icons/speaker_icon.svg';
   static const String chevronRightBorderIcon =
       'assets/icons/chevron_right_border_icon.svg';
-  
-  static const String addCircleOutlineIcon = 'assets/icons/add_circle_outline_icon.svg'; 
+
+  static const String addCircleOutlineIcon =
+      'assets/icons/add_circle_outline_icon.svg';
 
   static const String authScreenFigure = 'assets/images/auth_screen_figure.svg';
   static const String altenarLogo = 'assets/images/altenar_logo.svg';
   static const String googleIcon = 'assets/icons/google_icon.svg';
 
+  static const String filterIcon = 'assets/icons/filter_icon.svg';
+  static const String basketIcon = 'assets/icons/basket_icon.svg';
+  static const String arrowBackIcon = 'assets/icons/arrow_back_icon.svg';
+  static const String coloredCartIcon = 'assets/icons/colored_cart_icon.svg';
 }

@@ -16,14 +16,16 @@ abstract class DioClient {
           baseUrl: baseUrl,
           headers: headers,
         ),
-      )..interceptors.add(DioIntercepter.interceptor());
-    } else {
-      return Dio(
-        BaseOptions(
-          baseUrl: baseUrl,
-          headers: headers,
-        ),
-      );
+      )..interceptors.add(
+          DioIntercepter.interceptor(),
+        );
     }
+
+    return Dio(
+      BaseOptions(
+        baseUrl: baseUrl,
+        headers: headers,
+      ),
+    );
   }
 }

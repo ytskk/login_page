@@ -50,7 +50,12 @@ class CodegenLoader extends AssetLoader{
       "waitingForDelivery": "В процессе доставки",
       "unknown": "Неизвестно"
     }
-  }
+  },
+  "yourBalance": "Your balance",
+  "newBadge": "New",
+  "catalogFilters": "Catalog filters",
+  "close": "Close",
+  "size": "Size"
 };
 static const Map<String,dynamic> en = {
   "myAchieves": "My achieves",
@@ -88,7 +93,12 @@ static const Map<String,dynamic> en = {
       "waitingForDelivery": "Waiting For Delivery",
       "unknown": "Unknown"
     }
-  }
+  },
+  "yourBalance": "Your balance",
+  "newBadge": "New",
+  "catalogFilters": "Catalog filters",
+  "close": "Close",
+  "size": "Size"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "en": en};
 }

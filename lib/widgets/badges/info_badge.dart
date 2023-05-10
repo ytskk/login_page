@@ -21,6 +21,8 @@ class InfoBadge extends StatelessWidget {
     this.contentColor,
     this.padding,
     this.borderRadius,
+    this.border,
+    this.textStyle,
     super.key,
   });
 
@@ -29,14 +31,17 @@ class InfoBadge extends StatelessWidget {
   final Color? contentColor;
   final EdgeInsets? padding;
   final double? borderRadius;
+  final BoxBorder? border;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
     final childWithDefaultTheme = DefaultTextStyle(
-      style: appTheme.textTheme.bodyS.semibold.copyWith(
-        color: contentColor ?? appTheme.colorScheme.white,
-      ),
+      style: textStyle ??
+          appTheme.textTheme.bodyS.semibold.copyWith(
+            color: contentColor ?? appTheme.colorScheme.white,
+          ),
       child: IconTheme(
         data: IconThemeData(color: contentColor ?? appTheme.colorScheme.white),
         child: Center(
@@ -48,6 +53,7 @@ class InfoBadge extends StatelessWidget {
     return RoundedRectangleBox(
       borderRadius: borderRadius,
       backgroundColor: backgroundColor,
+      border: border,
       innerPadding: padding,
       child: childWithDefaultTheme,
     );

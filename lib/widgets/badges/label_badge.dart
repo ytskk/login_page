@@ -3,7 +3,6 @@ import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
-import 'package:training_and_testing/widgets/coin_icon.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 class LabelBadge extends StatelessWidget {
@@ -14,22 +13,20 @@ class LabelBadge extends StatelessWidget {
     this.backgroundColor,
     this.contentColor,
     this.padding,
+    this.type = LabelBadgeType.custom,
     super.key,
   });
 
-  factory LabelBadge.defaultLabel({
+  const factory LabelBadge.defaultLabel({
     required String content,
-    required BuildContext context,
   }) = _LabelBadgeDefault;
 
-  factory LabelBadge.attentionLabel({
+  const factory LabelBadge.attentionLabel({
     required String content,
-    required BuildContext context,
   }) = _LabelBadgeAttention;
 
-  factory LabelBadge.newLabel({
+  const factory LabelBadge.newLabel({
     required String content,
-    required BuildContext context,
   }) = _LabelBadgeNew;
 
   final Widget? icon;
@@ -38,15 +35,28 @@ class LabelBadge extends StatelessWidget {
   final Color? backgroundColor;
   final Color? contentColor;
   final EdgeInsets? padding;
+  final LabelBadgeType type;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    final _backgroundColor = backgroundColor ??
+        _getBackgroundColorFromType(
+          theme.colorScheme,
+          type,
+        );
+
+    final _contentColor = contentColor ??
+        _getContentColorFromType(
+          theme.colorScheme,
+          type,
+        );
+
     return InfoBadge(
       padding: padding,
-      backgroundColor: backgroundColor,
-      contentColor: contentColor,
+      backgroundColor: _backgroundColor,
+      contentColor: _contentColor,
       borderRadius: borderRadius,
       child: _buildChild(theme),
     );
@@ -72,14 +82,40 @@ class LabelBadge extends StatelessWidget {
       return content;
     }
   }
+
+  Color? _getBackgroundColorFromType(
+    ColorScheme colorScheme,
+    LabelBadgeType type,
+  ) {
+    switch (type) {
+      case LabelBadgeType.defaultLabel:
+        return colorScheme.blue50;
+      case LabelBadgeType.attentionLabel:
+        return colorScheme.red;
+      case LabelBadgeType.newLabel:
+        return colorScheme.yellow;
+      case LabelBadgeType.custom:
+        return null;
+    }
+  }
+
+  Color? _getContentColorFromType(
+    ColorScheme colorScheme,
+    LabelBadgeType type,
+  ) {
+    if (type == LabelBadgeType.newLabel) {
+      return colorScheme.black;
+    }
+
+    return null;
+  }
 }
 
 class _LabelBadgeDefault extends LabelBadge {
-  _LabelBadgeDefault({
+  const _LabelBadgeDefault({
     required super.content,
-    required BuildContext context,
   }) : super.custom(
-          backgroundColor: Theme.of(context).colorScheme.blue50,
+          type: LabelBadgeType.defaultLabel,
           icon: const CoinIcon(
             size: iconSize12,
           ),
@@ -91,11 +127,10 @@ class _LabelBadgeDefault extends LabelBadge {
 }
 
 class _LabelBadgeAttention extends LabelBadge {
-  _LabelBadgeAttention({
+  const _LabelBadgeAttention({
     required super.content,
-    required BuildContext context,
   }) : super.custom(
-          backgroundColor: Theme.of(context).colorScheme.red,
+          type: LabelBadgeType.attentionLabel,
           icon: const CoinIcon(
             size: iconSize12,
           ),
@@ -107,15 +142,20 @@ class _LabelBadgeAttention extends LabelBadge {
 }
 
 class _LabelBadgeNew extends LabelBadge {
-  _LabelBadgeNew({
+  const _LabelBadgeNew({
     required super.content,
-    required BuildContext context,
   }) : super.custom(
-          backgroundColor: Theme.of(context).colorScheme.yellow,
-          contentColor: Theme.of(context).colorScheme.grey90,
+          type: LabelBadgeType.newLabel,
           borderRadius: borderRadius4,
           padding: const EdgeInsets.symmetric(
             horizontal: padding4,
           ),
         );
+}
+
+enum LabelBadgeType {
+  defaultLabel,
+  attentionLabel,
+  newLabel,
+  custom,
 }
