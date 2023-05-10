@@ -13,6 +13,8 @@ abstract class AppThemeBase {
 
   ButtonStyle? outlinedButtonStyle() => null;
 
+  ButtonStyle? iconButtonStyle() => null;
+
   ColorScheme get colorScheme;
   Brightness get brightness;
   bool? get useMaterial3;
@@ -27,6 +29,9 @@ abstract class AppThemeBase {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: outlinedButtonStyle(),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: iconButtonStyle(),
       ),
     );
   }
@@ -128,6 +133,9 @@ class BrandThemeData extends AppThemeBase {
   @override
   ButtonStyle? outlinedButtonStyle() => _buildOutlinedButtonStyle();
 
+  @override
+  ButtonStyle? iconButtonStyle() => _buildIconButtonStyle();
+
   /// Defines base style with common properties for both button types
   /// (elevated and outlined).
   ButtonStyle _buildBaseButtonStyle() {
@@ -142,6 +150,38 @@ class BrandThemeData extends AppThemeBase {
         ),
       ),
       iconSize: const MaterialStatePropertyAll(iconSize20),
+      overlayColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (!states.contains(MaterialState.disabled)) {
+            return colors.backgroundInverse.withOpacity(0.12);
+          }
+
+          return null;
+        },
+      ),
+    );
+  }
+
+  ButtonStyle _buildIconButtonStyle() {
+    return _buildBaseButtonStyle().copyWith(
+      iconColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.disabled)) {
+            return colors.grey90;
+          }
+
+          return colors.white;
+        },
+      ),
+      foregroundColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.disabled)) {
+            return colors.grey90;
+          }
+
+          return colors.white;
+        },
+      ),
     );
   }
 
@@ -195,15 +235,6 @@ class BrandThemeData extends AppThemeBase {
           }
 
           return colors.primary;
-        },
-      ),
-      overlayColor: MaterialStateProperty.resolveWith(
-        (states) {
-          if (!states.contains(MaterialState.disabled)) {
-            return colors.primary.withOpacity(0.12);
-          }
-
-          return null;
         },
       ),
       backgroundColor: const MaterialStatePropertyAll(Colors.transparent),

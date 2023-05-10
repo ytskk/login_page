@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/router/app_route_names.dart';
 import 'package:training_and_testing/screens/edit_profile_screen/edit_profile_screen.dart';
-import 'package:training_and_testing/screens/home_screen/home_screen.dart';
 import 'package:training_and_testing/screens/login_screen/login_screen.dart';
 import 'package:training_and_testing/screens/screens.dart';
 
@@ -42,6 +41,17 @@ class RoutesBonusesApp {
       AppRoute(
         name: AppRouteNames.catalog,
         builder: (_, __) => const CatalogScreen(),
+        routes: [
+          AppRoute(
+            name: AppRouteNames.catalogFilters,
+            path: AppRouteNames.catalogFilters,
+            builder: (_, __) => const FiltersScreen(),
+          ),
+        ],
+      ),
+      AppRoute(
+        name: AppRouteNames.cart,
+        builder: (_, __) => const CartScreen(),
       ),
     ],
     // commented until catalog screen is in progress
@@ -68,5 +78,8 @@ class AppRoute extends GoRoute {
     super.name,
     super.builder,
     String? path,
-  }) : super(path: path ?? '/$name');
+    super.routes,
+  }) : super(
+          path: path ?? '/$name',
+        );
 }

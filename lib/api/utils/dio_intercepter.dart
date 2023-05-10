@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 abstract class DioIntercepter {
-  
   static InterceptorsWrapper interceptor() {
     return InterceptorsWrapper(
       onRequest: (options, handler) {

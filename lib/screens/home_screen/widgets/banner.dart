@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
-import 'package:training_and_testing/constants/generated/app_strings.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/widgets.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
@@ -14,7 +13,7 @@ class MainBanner extends StatelessWidget {
   MainBanner({required this.homeScreenController, super.key});
 
   final HomeScreenController homeScreenController;
-  
+
   late ThemeData _appTheme;
 
   @override

@@ -14,30 +14,30 @@
     "authorizationWasSuccessful": "Authorization was successful",
     "authorizationFailed": "Authorization failed",
     "loginWithGoogle": "Login with Google",
-    "getBonusesAndExchangeThemForBrandedProducts" : "Get bonuses and exchange them for branded products",
+    "getBonusesAndExchangeThemForBrandedProducts": "Get bonuses and exchange them for branded products",
     "canceled": "Canceled",
     "delivered": "Delivered",
     "waitingForDelivery": "Waiting for delivery",
-    "unknown" : "Unknown",
-
-    "toGetMoreBonuses" : "To get more bonuses, ",
-    "youCanDo" : "you can do",
-
-    "writeAnArticle" : "Write an article",
-    "speakAtTheConference" : "To speak at the conference",
-
-    "toSpendBonuses" : "To spend bonuses",
-    "selectSomething" : "Select something",
-
-    "toBuySomething" : "To buy something",
+    "unknown": "Unknown",
+    "toGetMoreBonuses": "To get more bonuses, ",
+    "youCanDo": "you can do",
+    "writeAnArticle": "Write an article",
+    "speakAtTheConference": "To speak at the conference",
+    "toSpendBonuses": "To spend bonuses",
+    "selectSomething": "Select something",
+    "toBuySomething": "To buy something",
     "needToGetBonuses": "you need to get bonuses",
-
     "enums": {
-        "OrderStatus":{
-            "canceled" : "Canceled",
-            "delivered" : "Delivered",
-            "waitingForDelivery" : "Waiting For Delivery",
-            "unknown" : "Unknown"
+        "OrderStatus": {
+            "canceled": "Canceled",
+            "delivered": "Delivered",
+            "waitingForDelivery": "Waiting For Delivery",
+            "unknown": "Unknown"
         }
-    }
+    },
+    "yourBalance": "Your balance",
+    "newBadge": "New",
+    "catalogFilters": "Catalog filters",
+    "close": "Close",
+    "size": "Size"
 }

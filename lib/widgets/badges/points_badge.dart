@@ -37,7 +37,7 @@ class PointsBadge extends StatelessWidget {
   Widget _buildChild() {
     final content = Text(
       this.content,
-      style: _appTheme.textTheme.captionTextStyle.semibold.copyWith(
+      style: _appTheme.textTheme.notice.semibold.copyWith(
         color: contentColor,
       ),
     );
