@@ -19,19 +19,15 @@ class ProfileBar extends StatelessWidget {
       if (profileInfo == null) return const SizedBox();
 
       Widget buildNotificationIconButton() {
-        return InkWell(
-          onTap: () {
-            // TODO:
-            Get.lazyPut(
-              () => NotificationScreenController(BonusesApi(), '1'),
-              fenix: true,
+        // TODO:
+        return SvgAsset.squared(
+              assetName: AppIcons.notificationIcon,
+              size: iconSize24,
+              onTap: () {
+                Get.put(NotificationScreenController(BonusesApi(), '2'));
+                GoRouter.of(context).pushNamed('notification_screen');
+              },
             );
-            GoRouter.of(context).pushNamed('notification_screen');
-          },
-          child: SvgPicture.asset(
-            AppIcons.notificationIcon,
-          ),
-        );
       }
 
       return ProfilePreviewWidget(

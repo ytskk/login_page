@@ -1,11 +1,14 @@
+import 'package:training_and_testing/constants/app_enums.dart';
+import 'package:training_and_testing/utils/extensions/extensions.dart';
+
 class NotificationItemModel {
   NotificationItemModel({
     required this.id,
     required this.description,
     required this.date,
-    required this.type,
+    required String type,
     required this.isNew,
-  });
+  }) : _type = type;
 
   factory NotificationItemModel.fromJson(Map<String, dynamic> json) {
     return NotificationItemModel(
@@ -20,19 +23,23 @@ class NotificationItemModel {
   final String id;
   final String description;
   final String date;
-  final String type;
+  final String _type;
   bool isNew;
+
+  Enum get type =>
+      _type.toEnum<NotificationType>(NotificationType.values) ??
+      NotificationType.other;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'description': description,
         'date': date,
-        'type': type,
+        'type': _type,
         'isNew': isNew,
       };
 
   @override
   String toString() {
-    return 'NotificationItemModel(id: $id, description: $description, date: $date, type: $type, isNew: $isNew)';
+    return 'NotificationItemModel(id: $id, description: $description, date: $date, type: $_type, isNew: $isNew)';
   }
 }

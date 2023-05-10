@@ -37,17 +37,23 @@ class OperationsBlock extends StatelessWidget {
 
       Widget trailerCardBuilder(OperationItemModel operation) {
         return Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text(
-              <String>[
-                if (operation.value > 0) '+ ',
-                if (operation.value < 0) '- ',
-                operation.value.abs().toString()
-              ].join(),
-              style: appTheme.textTheme.bodyS.semibold.copyWith(
-                color: (operation.value > 0)
-                    ? appTheme.colorScheme.yellow
-                    : appTheme.colorScheme.white,
+            Expanded(
+              child: Text(
+                <String>[
+                  if (operation.value > 0) '+ ',
+                  if (operation.value < 0) '- ',
+                  operation.value.abs().toString()
+                ].join(),
+                style: appTheme.textTheme.bodyS.semibold.copyWith(
+                  color: (operation.value > 0)
+                      ? appTheme.colorScheme.yellow
+                      : appTheme.colorScheme.white,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                textAlign: TextAlign.right,
               ),
             ),
             CoinIcon(

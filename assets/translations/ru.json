@@ -31,6 +31,11 @@
 
     "toBuySomething" : "Чтобы что-то купить",
     "needToGetBonuses": "необходимо заработать бонусы",
+
+    "notifications" : "Уведомления", 
+    "youHave": "У вас",
+    "noMessages" : "нет сообщений",
+    "new_": "Новое",
     
     "enums": {
         "OrderStatus":{
@@ -38,6 +43,12 @@
             "delivered" : "Доставлен",
             "waitingForDelivery" : "В процессе доставки",
             "unknown" : "Неизвестно"
+        },
+        "NotificationType":{
+            "orders" : "Заказы",
+            "system": "Система",
+            "profile": "Профиль",
+            "other": "Другое"
         }
     }
 }

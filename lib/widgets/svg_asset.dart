@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 /// {@template svg_asset}
@@ -15,6 +16,7 @@ class SvgAsset extends StatelessWidget {
     this.color,
     this.width,
     this.height,
+    this.onTap,
     super.key,
   });
 
@@ -22,25 +24,30 @@ class SvgAsset extends StatelessWidget {
     required String assetName,
     Color? color,
     double? size,
+    Function()? onTap,
   }) = _SvgAssetSquare;
 
   final String assetName;
   final Color? color;
   final double? width;
   final double? height;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      assetName,
-      width: width,
-      height: height,
-      colorFilter: color != null
-          ? ColorFilter.mode(
-              color!,
-              BlendMode.srcIn,
-            )
-          : null,
+    return InkWell(
+      onTap: onTap,
+      child: SvgPicture.asset(
+        assetName,
+        width: width,
+        height: height,
+        colorFilter: color != null
+            ? ColorFilter.mode(
+                color!,
+                BlendMode.srcIn,
+              )
+            : null,
+      ),
     );
   }
 }
@@ -49,9 +56,11 @@ class _SvgAssetSquare extends SvgAsset {
   const _SvgAssetSquare({
     required super.assetName,
     double? size,
+    Function()? onTap,
     super.color,
   }) : super(
           width: size,
           height: size,
+          onTap: onTap,
         );
 }

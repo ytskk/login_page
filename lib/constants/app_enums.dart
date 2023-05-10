@@ -5,3 +5,10 @@ enum OrderStatus{
   waitingForDelivery,
   unknown
 }
+
+enum NotificationType{
+  orders,
+  system,
+  profile,
+  other
+}

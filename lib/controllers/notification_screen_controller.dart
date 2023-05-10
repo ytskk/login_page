@@ -9,10 +9,12 @@ import 'package:training_and_testing/models/models.dart';
 class NotificationScreenController extends GetxController {
   NotificationScreenController(this._bonusesApi, this.userId);
 
-  final String userId;
+  // TODO: set final 
+  String userId;
   final BonusesApi? _bonusesApi;
   final Rx<NotificationsModel?> userNotifications =
       Rx<NotificationsModel?>(null);
+  Rx<int?> filter = 1.obs; 
 
   Future<void> updateUserNotifications() async {
     userNotifications.value =

@@ -36,5 +36,6 @@ const double iconSize20 = 20;
 const double iconSize24 = 24;
 const double iconSize32 = 32;
 const double iconSize50 = 50;
+const double iconSize64 = 64;
 const double iconSize80 = 80;
 const double iconSize160 = 160; 

@@ -14,45 +14,7 @@ class CodegenLoader extends AssetLoader{
     return Future.value(mapLocales[locale.toString()]);
   }
 
-  static const Map<String,dynamic> ru = {
-  "myAchieves": "Мои достижения",
-  "youHaventOrderedInAWhile": "Вы давно ничего не заказовали",
-  "youHaveALotOfBonusesYouCanOrderSomethingForYourself": "У вас есть множество бонусов. Вы могли бы заказать что-то себе",
-  "goToCatalog": "Открыть каталог",
-  "getBonuses": "Заработать бонусы",
-  "learnMoreAboutHowToGetBonusesAndWhatYouCanSpendThemOn": "Узнайте больше о том, как получить бонусы и на что их можно потратить",
-  "howToGetTheBonuses": "Как получить бонусы",
-  "lastOperations": "Последние операции",
-  "myOrders": "Мои заказы",
-  "placeNewOrder": "Сделать заказ",
-  "bonusBalance": "Бонусный остаток",
-  "today": "Сегодня:",
-  "authorizationWasSuccessful": "Авторизация успешна",
-  "authorizationFailed": "Авторизация не пройдена",
-  "loginWithGoogle": "Войти через Google",
-  "getBonusesAndExchangeThemForBrandedProducts": "Получайте бонусы и обменивайте их на фирменные товары",
-  "canceled": "Отменен",
-  "delivered": "Доставлен",
-  "waitingForDelivery": "В процессе доставки",
-  "unknown": "Неизвестно",
-  "toGetMoreBonuses": "Чтобы получить больше бонусов, ",
-  "youCanDo": "вы можете",
-  "writeAnArticle": "Написать статью",
-  "speakAtTheConference": "Выступить на конференции",
-  "toSpendBonuses": "Выберете на что",
-  "selectSomething": "потратить бонусы",
-  "toBuySomething": "Чтобы что-то купить",
-  "needToGetBonuses": "необходимо заработать бонусы",
-  "enums": {
-    "OrderStatus": {
-      "canceled": "Отменен",
-      "delivered": "Доставлен",
-      "waitingForDelivery": "В процессе доставки",
-      "unknown": "Неизвестно"
-    }
-  }
-};
-static const Map<String,dynamic> en = {
+  static const Map<String,dynamic> en = {
   "myAchieves": "My achieves",
   "youHaventOrderedInAWhile": "You haven't ordered in a while",
   "youHaveALotOfBonusesYouCanOrderSomethingForYourself": "You have a lot of bonuses. You can order something for yourself",
@@ -81,14 +43,72 @@ static const Map<String,dynamic> en = {
   "selectSomething": "Select something",
   "toBuySomething": "To buy something",
   "needToGetBonuses": "you need to get bonuses",
+  "notifications": "Notifications",
+  "youHave": "You have",
+  "noMessages": "no messages",
+  "new_": "New",
   "enums": {
     "OrderStatus": {
       "canceled": "Canceled",
       "delivered": "Delivered",
       "waitingForDelivery": "Waiting For Delivery",
       "unknown": "Unknown"
+    },
+    "NotificationType": {
+      "orders": "Orders",
+      "system": "System",
+      "profile": "Profile",
+      "other": "Other"
     }
   }
 };
-static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "en": en};
+static const Map<String,dynamic> ru = {
+  "myAchieves": "Мои достижения",
+  "youHaventOrderedInAWhile": "Вы давно ничего не заказовали",
+  "youHaveALotOfBonusesYouCanOrderSomethingForYourself": "У вас есть множество бонусов. Вы могли бы заказать что-то себе",
+  "goToCatalog": "Открыть каталог",
+  "getBonuses": "Заработать бонусы",
+  "learnMoreAboutHowToGetBonusesAndWhatYouCanSpendThemOn": "Узнайте больше о том, как получить бонусы и на что их можно потратить",
+  "howToGetTheBonuses": "Как получить бонусы",
+  "lastOperations": "Последние операции",
+  "myOrders": "Мои заказы",
+  "placeNewOrder": "Сделать заказ",
+  "bonusBalance": "Бонусный остаток",
+  "today": "Сегодня:",
+  "authorizationWasSuccessful": "Авторизация успешна",
+  "authorizationFailed": "Авторизация не пройдена",
+  "loginWithGoogle": "Войти через Google",
+  "getBonusesAndExchangeThemForBrandedProducts": "Получайте бонусы и обменивайте их на фирменные товары",
+  "canceled": "Отменен",
+  "delivered": "Доставлен",
+  "waitingForDelivery": "В процессе доставки",
+  "unknown": "Неизвестно",
+  "toGetMoreBonuses": "Чтобы получить больше бонусов, ",
+  "youCanDo": "вы можете",
+  "writeAnArticle": "Написать статью",
+  "speakAtTheConference": "Выступить на конференции",
+  "toSpendBonuses": "Выберете на что",
+  "selectSomething": "потратить бонусы",
+  "toBuySomething": "Чтобы что-то купить",
+  "needToGetBonuses": "необходимо заработать бонусы",
+  "notifications": "Уведомления",
+  "youHave": "У вас",
+  "noMessages": "нет сообщений",
+  "new_": "Новое",
+  "enums": {
+    "OrderStatus": {
+      "canceled": "Отменен",
+      "delivered": "Доставлен",
+      "waitingForDelivery": "В процессе доставки",
+      "unknown": "Неизвестно"
+    },
+    "NotificationType": {
+      "orders": "Заказы",
+      "system": "Система",
+      "profile": "Профиль",
+      "other": "Другое"
+    }
+  }
+};
+static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ru": ru};
 }

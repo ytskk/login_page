@@ -23,7 +23,7 @@ class AppNavigationBar extends StatefulWidget {
     this.borderRadius = Radius.zero,
     this.backgroundColor = Colors.white,
     this.opacity = 0.9,
-  })  : assert(
+  }) : assert(
           0 <= currentIndex && currentIndex < items.length,
           'Out of range index',
         );
@@ -150,24 +150,25 @@ class AppNavigationBarState extends State<AppNavigationBar> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // TODO: 
-            for (var i = 0; i < widget.items.length; i++)
+            for (var itemIndex = 0;
+                itemIndex < widget.items.length;
+                itemIndex++)
               Expanded(
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    widget.onTap!(i);
+                    widget.onTap!(itemIndex);
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: padding6),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildIcon(i),
+                        _buildIcon(itemIndex),
                         const SizedBox(
                           height: spacing8,
                         ),
-                        _buildLabel(i),
+                        _buildLabel(itemIndex),
                       ],
                     ),
                   ),

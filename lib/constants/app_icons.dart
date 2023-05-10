@@ -10,7 +10,8 @@ abstract class AppIcons {
 
   static const String circleChevronRight =
       'assets/images/circle_chevron_right.svg';
-  static const String closingIcon = 'assets/images/closing_icon.svg';
+  static const String closingIcon = 'assets/icons/closing_icon.svg';
+  static const String noNotificationBell = 'assets/images/no_notification_bell.svg';
   static const String flyingStar = 'assets/images/flying_star.svg';
 
   static const String notificationIcon = 'assets/icons/notification_icon.svg';
