@@ -27,14 +27,14 @@ class CoinIconWithLabel extends StatelessWidget {
     final theme = Theme.of(context);
 
     final color = theme.colorScheme.yellow;
-    final _textStyle = textStyle ?? theme.textTheme.bodyM.semibold;
+    final resolvedTextStyle = textStyle ?? theme.textTheme.bodyM.semibold;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           label,
-          style: _textStyle.copyWith(color: color),
+          style: resolvedTextStyle.copyWith(color: color),
         ),
         SizedBox(width: gap),
         CoinIcon(

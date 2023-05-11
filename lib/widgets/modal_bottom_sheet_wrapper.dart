@@ -17,7 +17,7 @@ class ModalBottomSheetWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _titleStyled = _buildStyledTitle(context);
+    final titleStyled = _buildStyledTitle(context);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(
@@ -32,7 +32,7 @@ class ModalBottomSheetWrapper extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _titleStyled,
+                child: titleStyled,
               ),
               if (trailing != null) trailing!,
             ],

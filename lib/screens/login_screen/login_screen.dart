@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
-import 'package:training_and_testing/constants/generated/app_strings.dart';
 import 'package:training_and_testing/controllers/auth_controller.dart';
 import 'package:training_and_testing/screens/login_screen/widgets/login_button_widget.dart';
 import 'package:training_and_testing/screens/login_screen/widgets/preview_button_widget.dart';

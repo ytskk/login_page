@@ -58,12 +58,12 @@ class ShimmerLoader extends StatelessWidget {
 
       if (applyColorFilterToShimmer) {
         final colorScheme = Theme.of(context).colorScheme;
-        final _shimmerColor =
+        final resolvedShimmerColor =
             shimmerColor ?? colorScheme.primaryContainer.withOpacity(0.15);
 
         shimmerChild = ColorFiltered(
           colorFilter: ColorFilter.mode(
-            _shimmerColor,
+            resolvedShimmerColor,
             BlendMode.src,
           ),
           child: shimmerChild,

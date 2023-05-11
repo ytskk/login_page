@@ -22,7 +22,7 @@ class CartScreen extends StatelessWidget {
               color: colorScheme.blue50,
             ),
             const SizedBox(height: spacing12),
-            Text('Your cart is empty'),
+            const Text('Your cart is empty'),
             const CartProductCard(
               imageUrl: 'https://www.dup-lex.fr/images/product-7.jpg',
               title: 'Large white t-shirt with big Altenar logo',

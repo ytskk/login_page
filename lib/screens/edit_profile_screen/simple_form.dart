@@ -52,7 +52,7 @@ class SimpleForm extends StatelessWidget{
                 flex: 2,
                 child: FormBuilderTextField(
                   name: 'phoneNumber',
-                  decoration: InputDecoration(labelText: 'Phone Number'),
+                  decoration: const InputDecoration(labelText: 'Phone Number'),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(),
                     FormBuilderValidators.numeric(),

@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:catalog_api/catalog_api.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:training_and_testing/api/requests/get_requests_interface.dart';
 

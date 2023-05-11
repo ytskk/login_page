@@ -82,10 +82,10 @@ class BrandThemeData extends AppThemeBase {
       'Rebuilding theme data...',
       name: 'BrandThemeData::themeData',
     );
-    final _useMaterial3 = useMaterial3 ?? true;
+    final resolvedUseMaterial3 = useMaterial3 ?? true;
 
     final theme = ThemeData(
-      useMaterial3: _useMaterial3,
+      useMaterial3: resolvedUseMaterial3,
       brightness: brightness,
     );
 
@@ -257,7 +257,6 @@ class BrandThemeData extends AppThemeBase {
 
 final brandLightColorScheme = ColorScheme.fromSeed(
   seedColor: const ColorScheme.light().blue50,
-  brightness: Brightness.light,
 );
 
 final brandDarkColorScheme = ColorScheme.fromSeed(
