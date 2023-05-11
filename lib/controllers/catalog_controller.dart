@@ -22,7 +22,7 @@ class CatalogController extends GetxController {
   final _selectedCategory = Rx<CategoryModel?>(null);
   final _isBalanceLoading = true.obs;
   final _isCategoriesLoading = true.obs;
-  final _isProductsLoading = true.obs;
+  final _isProductsLoading = false.obs;
 
   // getters.
 

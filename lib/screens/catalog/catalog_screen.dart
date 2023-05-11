@@ -6,14 +6,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:grouped_list/sliver_grouped_list.dart';
 import 'package:training_and_testing/api/config.dart';
 import 'package:training_and_testing/api/requests/get_requests.dart';
 import 'package:training_and_testing/api/services/dio_client.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
-import 'package:training_and_testing/router/router.dart';
 import 'package:training_and_testing/screens/screens.dart';
 import 'package:training_and_testing/utils/utils.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
@@ -49,36 +47,18 @@ class CatalogScreen extends StatelessWidget {
             bottom: false,
             child: CustomScrollView(
               slivers: [
-                SliverAppBar(
-                  floating: true,
-                  title: CatalogHeading(
-                    padding: EdgeInsets.zero,
-                    balance: ShimmerLoader(
-                      shimmerBorderRadius: borderRadius8,
-                      isLoading: controller.isBalanceLoading,
-                      child: BalanceInfo(balance: controller.balance),
-                    ),
-                    onFilterPressed: () =>
-                        context.pushNamed(AppRouteNames.catalogFilters),
-                  ),
+                CatalogAppBar(
+                  isLoading: controller.isBalanceLoading,
+                  balance: controller.balance,
                 ),
+                // categories + products
                 SliverStickyHeader(
-                  header: QuickFilterTabs(
-                    itemCount: controller.categories.length,
-                    itemBuilder: (_, index) {
-                      final category = controller.categories[index];
-
-                      return TagBadge(
-                        onPressed: () {
-                          controller.changeSelectedCategory(
-                            category,
-                          );
-                        },
-                        isSelected:
-                            category.id == controller.selectedCategory?.id,
-                        child: Text(category.name),
-                      );
-                    },
+                  header: CategoriesTabs(
+                    categories: controller.categories,
+                    isLoading: controller.isCategoriesLoading,
+                    selectedCategory: controller.selectedCategory,
+                    onCategorySelected: (category) =>
+                        controller.changeSelectedCategory(category),
                   ),
                   sliver: ShimmerSwitchWidget(
                     isShimmerActive: controller.isProductsLoading,
@@ -89,43 +69,9 @@ class CatalogScreen extends StatelessWidget {
                     child: SliverGroupedListView(
                       elements: controller.products,
                       groupBy: (product) => product.categorySlug,
-                      groupHeaderBuilder: (element) => BlockHeader(
-                        padding: const EdgeInsets.only(
-                          top: spacing40,
-                          bottom: spacing24,
-                        ),
-                        title: element.categoryName,
-                        label: 2,
-                      ),
+                      groupHeaderBuilder: _buildGroupHeader,
                       separator: const SizedBox(height: spacing24),
-                      itemBuilder: (context, product) => ProductCardLarge(
-                        onPressed: () {
-                          _showProductInfoModalSheet(
-                            context: context,
-                            product: product,
-                            onAddToCartPressed: () async {
-                              final wasAdded =
-                                  await _onAddToCartPressed(context, product);
-                              print('wasAdded: $wasAdded');
-
-                              if (wasAdded) {
-                                Navigator.of(context).pop();
-                              }
-                            },
-                          );
-                        },
-                        imageUrl: product.imageUrl,
-                        title: product.title,
-                        description: product.description,
-                        isNew: product.isNew,
-                        button: ProductCardButton(
-                          productStatus: product.status,
-                          price: product.price,
-                          onAddToCartPressed: () async {
-                            await _onAddToCartPressed(context, product);
-                          },
-                        ),
-                      ),
+                      itemBuilder: _buildProductCardLarge,
                     ),
                   ),
                 ),
@@ -139,6 +85,50 @@ class CatalogScreen extends StatelessWidget {
       },
     );
   }
+
+  Widget _buildGroupHeader(
+    ProductModel product,
+  ) =>
+      BlockHeader(
+        padding: const EdgeInsets.only(
+          top: spacing40,
+          bottom: spacing24,
+        ),
+        title: product.categoryName,
+        label: 2,
+      );
+
+  Widget _buildProductCardLarge(
+    BuildContext context,
+    ProductModel product,
+  ) =>
+      ProductCardLarge(
+        onPressed: () {
+          _showProductInfoModalSheet(
+            context: context,
+            product: product,
+            onAddToCartPressed: () async {
+              final wasAdded = await _onAddToCartPressed(context, product);
+              print('wasAdded: $wasAdded');
+
+              if (wasAdded) {
+                Navigator.of(context).pop();
+              }
+            },
+          );
+        },
+        imageUrl: product.imageUrl,
+        title: product.title,
+        description: product.description,
+        isNew: product.isNew,
+        button: ProductCardButton(
+          productStatus: product.status,
+          price: product.price,
+          onAddToCartPressed: () async {
+            await _onAddToCartPressed(context, product);
+          },
+        ),
+      );
 
   /// Returns true if product can be successfully added to cart. Useful to
   /// close modal sheet after product was added.
