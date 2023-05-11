@@ -2,23 +2,61 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-
 import 'package:training_and_testing/api/bonuses_api.dart';
+import 'package:training_and_testing/constants/app_enums.dart';
 import 'package:training_and_testing/models/models.dart';
 
 class NotificationScreenController extends GetxController {
   NotificationScreenController(this._bonusesApi, this.userId);
 
-  // TODO: set final 
   String userId;
   final BonusesApi? _bonusesApi;
+
   final Rx<NotificationsModel?> userNotifications =
       Rx<NotificationsModel?>(null);
-  Rx<int?> filter = 1.obs; 
+  
+  final Rx<Map<NotificationType, List<String>>> mapTypes =
+      Rx<Map<NotificationType, List<String>>>({});
+  
+  final Rx<NotificationType?> selectedFilterType = Rx<NotificationType?>(null);
+
+  List<NotificationType?> get listTypes =>
+      [null, ...?userNotifications.value?.mapTypes.keys];
+
+  @override
+  void onInit() {
+    ever(selectedFilterType, (_) => updateUserNotifications());
+    super.onInit();
+  }
 
   Future<void> updateUserNotifications() async {
     userNotifications.value =
-        await _bonusesApi?.apiGetRequests.getNotifications(userId: userId);
+        await _bonusesApi?.apiGetRequests.getNotificationsByType(
+      userId: userId,
+      types: mapTypes.value[selectedFilterType.value] ?? [],
+    );
+    mapTypes.value = userNotifications.value?.mapTypes ?? {};
+  }
+
+  // changes notification status to the opposite
+  Future<void> reverseNotificationStatus(int index) async {
+    final currentStatus = userNotifications.value?.notifications[index].isNew;
+    if (currentStatus != null) {
+      _setLocalNotificationStatus(
+        index: index,
+        currentStatus: currentStatus,
+      );
+      final result = await _putRequestChangeNotificationStatus(
+        notificationId: userNotifications.value?.notifications[index].id,
+        status: !currentStatus,
+      );
+      if (!result) {
+        _setLocalNotificationStatus(
+          index: index,
+          currentStatus: !currentStatus,
+        );
+      }
+    }
   }
 
   void _setLocalNotificationStatus({
@@ -34,6 +72,12 @@ class NotificationScreenController extends GetxController {
       }
     });
   }
+
+  // Future<bool> _setRemoteNotificationStatus(required String? notificationId,
+  //   required bool status,){
+  //   return _putRequestChangeNotificationStatus(notificationId ,
+  //   required bool status,);
+  // }
 
   Future<bool> _putRequestChangeNotificationStatus({
     required String? notificationId,
@@ -55,27 +99,6 @@ class NotificationScreenController extends GetxController {
     } catch (e) {
       log(e.toString());
       return false;
-    }
-  }
-
-  // changes notification status to the opposite
-  Future<void> reverseNotificationStatus(int index) async {
-    final currentStatus = userNotifications.value?.notifications[index].isNew;
-    if (currentStatus != null) {
-      _setLocalNotificationStatus(
-        index: index,
-        currentStatus: currentStatus,
-      );
-      final result = await _putRequestChangeNotificationStatus(
-        notificationId: userNotifications.value?.notifications[index].id,
-        status: !currentStatus,
-      );
-      if (!result) {
-        _setLocalNotificationStatus(
-          index: index,
-          currentStatus: !currentStatus,
-        );
-      }
     }
   }
 }

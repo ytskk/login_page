@@ -8,4 +8,3 @@ export 'product_card_image.dart';
 export 'product_card_info.dart';
 export 'product_card_large.dart';
 export 'product_info_modal_sheet.dart';
-export 'quick_filter_tabs.dart';

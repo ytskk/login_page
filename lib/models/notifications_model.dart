@@ -31,13 +31,27 @@ class NotificationsModel {
   final List<String> _listTypes;
   int totalNewNotifications;
 
-  Set<NotificationType> get listTypes => Set.from(_listTypes
-      .map(
-        (type) =>
-            type.toEnum<NotificationType>(NotificationType.values) ??
-            NotificationType.other,
-      )
-      .toList());
+  // Set<NotificationType> get listTypes => Set.from(
+  //       _listTypes
+  //           .map(
+  //             (type) =>
+  //                 type.toEnum<NotificationType>(NotificationType.values) ??
+  //                 NotificationType.other,
+  //           )
+  //           .toList(),
+  //     );
+
+  Map<NotificationType, List<String>> get mapTypes {
+    final res = <NotificationType, List<String>>{};
+    for (final type in _listTypes) {
+      final enumType = type.toEnum<NotificationType>(NotificationType.values) ??
+          NotificationType.other;
+      (res.containsKey(enumType))
+          ? res[enumType]?.add(type)
+          : res[enumType] = [type];
+    }
+    return res;
+  }
 
   Map<String, dynamic> toJson() {
     return {

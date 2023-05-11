@@ -10,13 +10,12 @@ abstract class GetRequestHandler {
     String path,
     T Function(Map<String, dynamic> data) fromJson, {
     required String userId,
+    Map<String, String>? queryParams,
   }) async {
     try {
       final response = await _dioClient.get(
         path,
-        queryParameters: {
-          'userId': userId,
-        },
+        queryParameters: {'userId': userId}..addAll(queryParams ?? {})
       );
       return fromJson(response.data['data'] as Map<String, dynamic>);
     } on DioError catch (e) {

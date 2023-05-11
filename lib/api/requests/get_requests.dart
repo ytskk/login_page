@@ -53,4 +53,16 @@ class GetRequests extends GetRequestHandler implements BonusesApiInterface {
       userId: userId,
     );
   }
+
+  Future<NotificationsModel> getNotificationsByType({
+    required String userId,
+    required List<String> types,
+  }) async {
+    return performRequest(
+      BonusesApiEndpoints.notifications,
+      NotificationsModel.fromJson,
+      userId: userId,
+      queryParams: {'type': types.join(',')},
+    );
+  }
 }

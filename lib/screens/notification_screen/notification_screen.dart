@@ -10,6 +10,7 @@ import 'package:training_and_testing/theme/theme.dart';
 import 'package:training_and_testing/utils/utils.dart';
 import 'package:training_and_testing/widgets/badges/badges.dart';
 import 'package:training_and_testing/widgets/description_card.dart';
+import 'package:training_and_testing/widgets/quick_filter_tabs.dart';
 import 'package:training_and_testing/widgets/svg_asset.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -24,8 +25,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
       Get.find<NotificationScreenController>();
 
   late ThemeData _appTheme;
-
-  // final _appTheme;
 
   @override
   void initState() {
@@ -61,6 +60,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
+  // window displayed when the user has no notifications
   Widget _buildNoNotificationWindow() {
     return Stack(
       children: [
@@ -97,12 +97,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
       appBar: _buildAppBar(),
       body: Obx(() {
         final userNotifications = controller.userNotifications.value;
+
         if (userNotifications == null) return const SizedBox();
 
         return RefreshIndicator(
           onRefresh: () async {
             await controller.updateUserNotifications();
-            print(controller.userNotifications.value!.listTypes);
           },
           child: (userNotifications.totalNotifications == 0)
               ? _buildNoNotificationWindow()
@@ -127,7 +127,6 @@ class NotificationListWidget extends StatelessWidget {
   final NotificationsModel userNotifications;
 
   // building badges displaying the type of notification and its novelty
-  // TODO: remove context
   Widget _trailerBuilder(NotificationItemModel notification) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -166,52 +165,53 @@ class NotificationListWidget extends StatelessWidget {
     );
   }
 
+  // area with filters by notification type
+  Widget _buildFilterPanel() {
+    final listTypes = controller.listTypes;
+    return QuickFilterTabs(
+      itemCount: listTypes.length,
+      itemBuilder: (_, index) {
+        final type = listTypes[index];
+        return Obx(() => TagBadge(
+              onPressed: () {
+                controller.selectedFilterType.value = type;
+              },
+              isSelected: type == controller.selectedFilterType.value,
+              // TODO: localization
+              child: Text(type?.trEnum() ?? 'All messages'),
+            ));
+      },
+    );
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.all(padding16),
-      itemCount: userNotifications.totalNotifications + 1,
+      itemCount: userNotifications.notifications.length + 1,
       itemBuilder: (context, index) {
         if (index == 0) {
-          return Obx(() => SizedBox(
-                height: 60,
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  scrollDirection: Axis.horizontal,
-                  children: List<Widget>.generate(
-                    7,
-                    (int index) {
-                      return ChoiceChip(
-                        label: Text('Item '),
-                        avatar: null,
-                        selected: controller.filter.value == index,
-                        onSelected: (bool selected) {
-                          controller.filter.value = selected ? index : null;
-                        },
-                      );
-                    },
-                  ).toList(),
-                ),
-              ));
+          return _buildFilterPanel();
         }
-        final index_ = index - 1;
-        final notification = userNotifications.notifications[index_];
-        return Slidable(
-          endActionPane: _buildHideIconButton(
-            status: notification.isNew,
-            index: index_,
+        final notification = userNotifications.notifications[index -1];
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: padding16),
+          child: Slidable(
+            endActionPane: _buildHideIconButton(
+              status: notification.isNew,
+              index: index - 1,
+            ),
+            child: DescriptionCard(
+              description: notification.description,
+              maxLines: 4,
+              textStyle: Theme.of(context).textTheme.bodyM.light,
+              date: notification.date.trd(context.locale),
+              backgroundColor: (notification.isNew)
+                  ? Theme.of(context).colorScheme.grey70
+                  : Theme.of(context).colorScheme.grey90,
+              trailer: _trailerBuilder(notification),
+            ).paddingOnly(bottom: padding4),
           ),
-          child: DescriptionCard(
-            description: notification.description,
-            maxLines: 4,
-            textStyle: Theme.of(context).textTheme.bodyM.light,
-            date: notification.date.trd(context.locale),
-            backgroundColor: (notification.isNew)
-                ? Theme.of(context).colorScheme.grey70
-                : Theme.of(context).colorScheme.grey90,
-            // TODO: remove context
-            trailer: _trailerBuilder(notification),
-          ).paddingOnly(top: (index_ != 0) ? padding4 : 0),
         );
       },
     );
