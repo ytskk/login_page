@@ -11,11 +11,11 @@ flutter pub get
 ### 2. Rerun code generation
 
 ```bash
-flutter pub run easy_localization:generate -O lib/constants/generated -S 'assets/translations'
+dart run easy_localization:generate -O lib/constants/generated -S 'assets/translations'
 ```
 
 ```bash
-flutter pub run easy_localization:generate -f keys -O lib/constants/generated -o app_strings.dart -S 'assets/translations'
+dart run easy_localization:generate -f keys -O lib/constants/generated -o app_strings.dart -S 'assets/translations'
 ```
 
 Rename `LocaleKeys` to `AppStrings` in `lib/constants/generated/app_strings.dart`

@@ -16,7 +16,7 @@ class RoutesBonusesApp {
     // initialLocation: '/home',
     // while working on catalog screen, uncomment the line above and comment
     // the line below to set the app initial location.
-    initialLocation: '/${AppRouteNames.catalog}',
+    initialLocation: '/${AppRouteNames.cart}',
     routes: [
       GoRoute(
         path: '/login',
