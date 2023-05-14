@@ -104,17 +104,22 @@ class CatalogScreen extends StatelessWidget {
   ) =>
       ProductCardLarge(
         onPressed: () {
-          _showProductInfoModalSheet(
+          showProductInfoModalSheet(
             context: context,
             product: product,
-            onAddToCartPressed: () async {
-              final wasAdded = await _onAddToCartPressed(context, product);
-              print('wasAdded: $wasAdded');
+            footer: BrandButton(
+              onPressed: () async {
+                final wasAdded = await _onAddToCartPressed(context, product);
+                print('wasAdded: $wasAdded');
 
-              if (wasAdded) {
-                Navigator.of(context).pop();
-              }
-            },
+                if (wasAdded) {
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(
+                'Add to cart',
+              ),
+            ),
           );
         },
         imageUrl: product.imageUrl,
@@ -197,20 +202,24 @@ class CatalogScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  /// Shows product info modal sheet with product info and add to cart
-  /// button (if product is available for purchase).
-  Future<void> _showProductInfoModalSheet({
-    required BuildContext context,
-    required ProductModel product,
-    VoidCallback? onAddToCartPressed,
-  }) async {
-    return showCustomModalBottomSheet<void>(
-      context: context,
-      child: ProductInfoModalSheet(
-        product: product,
-        onAddToCartPressed: onAddToCartPressed,
-      ),
-    );
-  }
+/// Shows product info modal sheet with product info and add to cart
+/// button (if product is available for purchase).
+Future<void> showProductInfoModalSheet({
+  required BuildContext context,
+  required ProductModel product,
+  Widget? trailing,
+  Widget? title,
+  Widget? footer,
+}) async {
+  return showCustomModalBottomSheet<void>(
+    context: context,
+    trailing: trailing,
+    title: title,
+    child: ProductInfoModalSheet(
+      product: product,
+      footer: footer,
+    ),
+  );
 }

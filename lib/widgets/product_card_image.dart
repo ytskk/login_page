@@ -10,6 +10,7 @@ class ProductCardImage extends StatelessWidget {
     this.trailing,
     this.width,
     this.height,
+    this.innerPadding,
     super.key,
   });
 
@@ -18,6 +19,7 @@ class ProductCardImage extends StatelessWidget {
   final double? height;
   final Widget? leading;
   final Widget? trailing;
+  final EdgeInsets? innerPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class ProductCardImage extends StatelessWidget {
           width: width,
           height: height,
           child: RoundedRectangleBox(
-            innerPadding: const EdgeInsets.all(padding16),
+            innerPadding: innerPadding,
             backgroundColor: cardBackgroundColor,
             borderRadius: borderRadius8,
             child: RemoteImage(

@@ -17,7 +17,7 @@ class ModalBottomSheetWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleStyled = _buildStyledTitle(context);
+    final titleStyled = _buildStyledTitle(context, title);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(
@@ -43,7 +43,10 @@ class ModalBottomSheetWrapper extends StatelessWidget {
     );
   }
 
-  Widget _buildStyledTitle(BuildContext context) {
+  Widget _buildStyledTitle(
+    BuildContext context,
+    Widget? title,
+  ) {
     if (title == null) {
       return const SizedBox.shrink();
     }
@@ -52,7 +55,7 @@ class ModalBottomSheetWrapper extends StatelessWidget {
 
     return DefaultTextStyle(
       style: theme.textTheme.h2.medium,
-      child: title!,
+      child: title,
     );
   }
 }

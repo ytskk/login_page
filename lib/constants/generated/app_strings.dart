@@ -48,4 +48,7 @@ abstract class AppStrings {
   static const isEmpty = 'isEmpty';
   static const youHaveNBonuses = 'youHaveNBonuses';
   static const spendBonusPoints = 'spendBonusPoints';
+  static const deleteAll = 'deleteAll';
+  static const addToCart = 'addToCart';
+  static const deleteFromCart = 'deleteFromCart';
 }
