@@ -58,8 +58,8 @@ class ProductCardButton extends StatelessWidget {
       );
     }
 
-    return Row(
-      children: const [
+    return const Row(
+      children: [
         Expanded(
           child: BrandButton(
             type: ButtonType.secondary,

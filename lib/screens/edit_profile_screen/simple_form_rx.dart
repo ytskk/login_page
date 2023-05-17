@@ -7,10 +7,10 @@ class SimpleFormRx extends StatelessWidget {
           'name': FormControl<String>(validators: [Validators.required]),
           'surname': FormControl<String>(validators: [Validators.required]),
           'email': FormControl<String>(
-              validators: [Validators.required, Validators.email]),
-          "mobilePhone": FormGroup({
-            "code": FormControl<String>(validators: [Validators.required]),
-            "number": FormControl<String>(validators: [Validators.required])
+              validators: [Validators.required, Validators.email],),
+          'mobilePhone': FormGroup({
+            'code': FormControl<String>(validators: [Validators.required]),
+            'number': FormControl<String>(validators: [Validators.required])
           }),
         });
 
@@ -65,7 +65,7 @@ class SimpleFormRx extends StatelessWidget {
                     ),
                   ),
                 ],
-              )),
+              ),),
           ElevatedButton(
             onPressed: () {
               if (form.valid) {

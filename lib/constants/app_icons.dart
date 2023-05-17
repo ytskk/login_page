@@ -31,4 +31,5 @@ abstract class AppIcons {
   static const String basketIcon = 'assets/icons/basket_icon.svg';
   static const String arrowBackIcon = 'assets/icons/arrow_back_icon.svg';
   static const String coloredCartIcon = 'assets/icons/colored_cart_icon.svg';
+  static const String trashIcon = 'assets/icons/trash_icon.svg';
 }

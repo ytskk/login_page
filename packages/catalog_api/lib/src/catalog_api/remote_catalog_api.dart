@@ -21,7 +21,7 @@ class RemoteCatalogApi implements CatalogApiInterface {
       return categories
           .map((json) => CategoryModel.fromJson(json as Map<String, dynamic>))
           .toList();
-    } on DioError catch (e) {
+    } on DioError {
       rethrow;
     }
   }
@@ -41,7 +41,7 @@ class RemoteCatalogApi implements CatalogApiInterface {
       return products
           .map((json) => ProductModel.fromJson(json as Map<String, dynamic>))
           .toList();
-    } on DioError catch (e) {
+    } on DioError {
       rethrow;
     }
   }

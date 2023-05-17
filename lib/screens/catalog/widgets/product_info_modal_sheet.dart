@@ -8,12 +8,12 @@ import 'package:training_and_testing/widgets/widgets.dart';
 class ProductInfoModalSheet extends StatelessWidget {
   const ProductInfoModalSheet({
     required this.product,
-    this.onAddToCartPressed,
+    this.footer,
     super.key,
   });
 
   final ProductModel product;
-  final VoidCallback? onAddToCartPressed;
+  final Widget? footer;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,9 @@ class ProductInfoModalSheet extends StatelessWidget {
               Text(
                 product.title,
                 style: textTheme.h2.medium,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
               ),
               if (product.price != null) ...[
                 const SizedBox(height: spacing8),
@@ -49,17 +52,15 @@ class ProductInfoModalSheet extends StatelessWidget {
                   style: textTheme.bodyM.light,
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
                 ),
               ],
             ],
           ),
-          // TODO: translate this
-          if (product.status != ProductStatus.soon)
-            BrandButton(
-              onPressed: onAddToCartPressed,
-              child: const Text('Add to cart'),
-            ),
-          const SizedBox(height: spacing44),
+          if (footer != null) ...[
+            const SizedBox(height: spacing40),
+            footer!,
+          ],
         ],
       ),
     );

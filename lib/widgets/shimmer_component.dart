@@ -29,17 +29,21 @@ class Shimmer extends StatelessWidget {
           BlendMode.src,
         ),
         child: ColoredBox(
-          color: Colors.transparent,
+          color: Colors.red,
           child: SizedBox(
             width: width,
             height: height,
+            child: Text('123'),
           ),
         ),
       )
           .animate(
             onPlay: (controller) => controller.repeat(),
           )
-          .shimmer(duration: const Duration(seconds: 1)),
+          .shimmer(
+            duration: 3.seconds,
+            curve: Curves.fastEaseInToSlowEaseOut,
+          ),
     );
   }
 }

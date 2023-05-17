@@ -31,22 +31,17 @@ class SvgAsset extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _defaultIconColor = IconTheme.of(context);
+    final defaultIconColor = IconTheme.of(context);
 
-    return SvgPicture.asset(assetName,
-        width: width,
-        height: height,
-        colorFilter: ColorFilter.mode(
-          color ?? _defaultIconColor.color!,
-          BlendMode.srcIn,
-        )
-        // colorFilter: color != null
-        //     ? ColorFilter.mode(
-        //         color!,
-        //         BlendMode.srcIn,
-        //       )
-        //     : null,
-        );
+    return SvgPicture.asset(
+      assetName,
+      width: width,
+      height: height,
+      colorFilter: ColorFilter.mode(
+        color ?? defaultIconColor.color!,
+        BlendMode.srcIn,
+      ),
+    );
   }
 }
 

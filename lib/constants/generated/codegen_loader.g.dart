@@ -55,7 +55,14 @@ class CodegenLoader extends AssetLoader{
   "newBadge": "New",
   "catalogFilters": "Catalog filters",
   "close": "Close",
-  "size": "Size"
+  "size": "Size",
+  "yourCart": "Your cart",
+  "isEmpty": "Is empty",
+  "youHaveNBonuses": "You have {n} bonus points",
+  "spendBonusPoints": "Spend them on items from the catalog",
+  "deleteAll": "Delete all",
+  "addToCart": "Add to cart",
+  "deleteFromCart": "Delete from cart"
 };
 static const Map<String,dynamic> en = {
   "myAchieves": "My achieves",
@@ -98,7 +105,14 @@ static const Map<String,dynamic> en = {
   "newBadge": "New",
   "catalogFilters": "Catalog filters",
   "close": "Close",
-  "size": "Size"
+  "size": "Size",
+  "yourCart": "Your cart",
+  "isEmpty": "Is empty",
+  "youHaveNBonuses": "You have {n} bonus points",
+  "spendBonusPoints": "Spend them on items from the catalog",
+  "deleteAll": "Delete all",
+  "addToCart": "Add to cart",
+  "deleteFromCart": "Delete from cart"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "en": en};
 }
