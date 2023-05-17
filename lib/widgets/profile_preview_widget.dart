@@ -5,10 +5,9 @@ import 'package:training_and_testing/screens/screens.dart';
 import 'package:training_and_testing/theme/theme.dart';
 import 'package:training_and_testing/utils/utils.dart';
 
-
 /// {@template profile_preview}
-/// [Row] showing the users profile icon and his full name.  
-/// 
+/// [Row] showing the users profile icon and his full name.
+///
 /// may contain an additional [trailer] displayed at the end of the [Row].
 ///
 /// used for:
@@ -22,15 +21,14 @@ class ProfilePreviewWidget extends StatelessWidget {
     required this.profileInfo,
     this.sizeAvatar,
     this.spacing,
-    // TODO: 
-    this.widthNameArea,
     this.trailer,
     this.textStyle,
+    this.transposition = false,
     super.key,
   });
 
   ///
-  /// Object with all information about the user 
+  /// Object with all information about the user
   ///
   final GoogleUserModel profileInfo;
 
@@ -45,9 +43,9 @@ class ProfilePreviewWidget extends StatelessWidget {
   final double? spacing;
 
   ///
-  /// full name display area size
+  /// display the first and last name in two lines
   ///
-  final double? widthNameArea;
+  final bool transposition;
 
   ///
   /// additional widget displayed at the end of the [Row]
@@ -55,7 +53,7 @@ class ProfilePreviewWidget extends StatelessWidget {
   final Widget? trailer;
 
   ///
-  /// text style for full name 
+  /// text style for full name
   ///
   final TextStyle? textStyle;
 
@@ -77,17 +75,14 @@ class ProfilePreviewWidget extends StatelessWidget {
         ),
         SizedBox(width: spacing),
         // full name
-        SizedBox(
-          width: widthNameArea,
-          child: Text(
-            '${profileInfo.firstName} ${profileInfo.lastName}',
-            style: textStyle ??
-                appTheme.textTheme.bodyM.medium
-                    .copyWith(color: appTheme.colorScheme.white),
-          ),
+        Text(
+          [profileInfo.firstName, profileInfo.lastName]
+              .join(transposition ? '\n' : ' '),
+          style: textStyle ??
+              appTheme.textTheme.bodyM.medium
+                  .copyWith(color: appTheme.colorScheme.white),
         ),
-
-        const Expanded(child: SizedBox()),
+        const Spacer(),
         // trailer
         trailer ?? const SizedBox()
       ],

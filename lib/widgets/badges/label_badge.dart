@@ -29,7 +29,7 @@ class LabelBadge extends StatelessWidget {
     required String content,
   }) = _LabelBadgeNew;
 
-  factory LabelBadge.typeLabel({
+  const factory LabelBadge.typeLabel({
     required String content,
   }) = _LabelBadgeType;
 
@@ -160,7 +160,7 @@ class _LabelBadgeNew extends LabelBadge {
 }
 
 class _LabelBadgeType extends LabelBadge {
-  _LabelBadgeType({
+  const _LabelBadgeType({
     required super.content,
   }) : super.custom(
           type: LabelBadgeType.typeLabel,

@@ -2,10 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' hide Trans;
-import 'package:go_router/go_router.dart';
 import 'package:training_and_testing/api/bonuses_api.dart';
 import 'package:training_and_testing/constants/constants.dart';
-import 'package:training_and_testing/constants/generated/app_strings.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/banner.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/profile_bar.dart';
@@ -14,14 +12,9 @@ import 'package:training_and_testing/widgets/future_widget.dart';
 import 'package:training_and_testing/widgets/snack_bar_notification.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   final AuthController authController = Get.find<AuthController>();
 
   final HomeScreenController homeScreenController =
@@ -35,20 +28,33 @@ class _HomeScreenState extends State<HomeScreen> {
           SvgPicture.asset(AppIcons.backgroundLine),
           ListView(
             children: [
+              // profile bar 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: padding16),
                 child: ProfileBar(authController),
               ),
+
+              // bunner
               MainBanner(homeScreenController: homeScreenController),
+              
+              // get bonuses button
               _buildGetBonusesButton(),
+
+              // get bonuses banner
               _buildGetBonusesBunner(context),
+              
+              // achieves
               const AchievementsBlock(
                 achievementsCount: 6,
-              ),
+              ).paddingSymmetric(horizontal: padding16),
+
+              // orders
               FutureWidget(
                 homeScreenController.updateUserOrders(),
                 OrdersBlock(homeScreenController: homeScreenController),
               ),
+
+              // operations
               FutureWidget(
                 homeScreenController.updateUserOperations(),
                 OperationsBlock(homeScreenController: homeScreenController),

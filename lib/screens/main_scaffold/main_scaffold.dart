@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:training_and_testing/constants/constants.dart';
@@ -6,23 +6,41 @@ import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/widgets/custom_navigation_bar/navigation_bar.dart';
 
 class MainScaffold extends StatefulWidget {
-  const MainScaffold(this.child, {super.key});
+  const MainScaffold({
+    required this.navigationShell,
+    required this.children,
+    super.key,
+  });
 
-  final Widget? child;
+  final StatefulNavigationShell navigationShell;
+  final List<Widget> children;
 
   @override
   State<MainScaffold> createState() => _MainScaffoldState();
 }
 
 class _MainScaffoldState extends State<MainScaffold> {
-  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+
+    final children = widget.children;
+
+    final navigationShell = widget.navigationShell;
+
     return Scaffold(
       extendBody: true,
-      body: widget.child,
+      body: Stack(
+        fit: StackFit.expand,
+        children: children.mapIndexed((int index, Widget view) {
+          if (index == navigationShell.currentIndex) {
+            return Offstage(offstage: false, child: view);
+          } else {
+            return Offstage(child: view);
+          }
+        }).toList(),
+      ),
       bottomNavigationBar: AppNavigationBar(
         selectedColor: appTheme.colorScheme.blue50,
         unSelectedColor: appTheme.colorScheme.grey10,
@@ -59,25 +77,8 @@ class _MainScaffoldState extends State<MainScaffold> {
             title: 'Profile',
           ),
         ],
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-            switch (index) {
-              case 0:
-                GoRouter.of(context).go('/home');
-                break;
-              case 1:
-                log('go to catalog');
-                break;
-              case 2:
-                log('go to basket');
-                break;
-              case 3:
-                GoRouter.of(context).go('/profile');
-            }
-          });
-        },
+        currentIndex: navigationShell.currentIndex,
+        onTap: (index) => widget.navigationShell.goBranch(index),
       ),
     );
   }

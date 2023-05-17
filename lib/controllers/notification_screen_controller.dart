@@ -87,7 +87,7 @@ class NotificationScreenController extends GetxController {
       final dio = Dio();
       final response = await dio.put(
         'http://185.232.169.195/notifications?userId=1',
-        data: {'notificationId': '$notificationId e', 'isNew': status},
+        data: {'notificationId': '$notificationId', 'isNew': status},
       );
       if (response.statusCode == 200) {
         log(response.data.toString());

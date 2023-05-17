@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:training_and_testing/api/bonuses_api.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
+import 'package:training_and_testing/router/router.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 class ProfileBar extends StatelessWidget {
@@ -25,7 +25,7 @@ class ProfileBar extends StatelessWidget {
               size: iconSize24,
               onTap: () {
                 Get.put(NotificationScreenController(BonusesApi(), '2'));
-                GoRouter.of(context).pushNamed('notification_screen');
+                GoRouter.of(context).pushNamed(AppRouteNames.notifications);
               },
             );
       }
@@ -33,7 +33,7 @@ class ProfileBar extends StatelessWidget {
       return ProfilePreviewWidget(
         profileInfo: profileInfo,
         spacing: spacing8,
-        widthNameArea: HomeScreenSized.profileNameAreaWidth,
+        transposition: true,
         trailer: buildNotificationIconButton(),
       );
     });

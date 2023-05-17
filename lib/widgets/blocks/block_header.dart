@@ -10,7 +10,7 @@ class BlockHeader extends StatelessWidget {
   /// {@macro block_header}
   const BlockHeader({
     required this.title,
-    required this.label,
+    this.label,
     this.trailing,
     this.padding = EdgeInsets.zero,
     super.key,

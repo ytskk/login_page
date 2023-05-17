@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
-import 'package:training_and_testing/constants/generated/app_strings.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/models/order_model.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
@@ -15,14 +14,11 @@ class OrdersBlock extends StatelessWidget {
     required this.homeScreenController,
     super.key,
     this.trailing,
-    this.padding,
   });
 
   final HomeScreenController homeScreenController;
 
   final Widget? trailing;
-
-  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -33,42 +29,40 @@ class OrdersBlock extends StatelessWidget {
 
       final appTheme = Theme.of(context);
 
-      return Padding(
-        padding: padding ?? const EdgeInsets.symmetric(vertical: padding20),
-        child: Column(
-          children: [
-            // Header
-            BlockHeader(
-              title: AppStrings.myOrders.tr(),
-              label: userOrders.totalOrders,
+      Widget buildOrderList(){
+
+        return SizedBox(
+            height: HomeScreenSized.orderBlockHeight,
+            child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: padding16),
-              trailing: trailing,
-            ),
-            const SizedBox(height: spacing16),
-            // Scroll
-            SizedBox(
-              height: HomeScreenSized.orderBlockHeight,
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: padding16),
-                scrollDirection: Axis.horizontal,
-                itemCount: userOrders.totalOrders + 1,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return _PlaceOrderButton(
-                      buttonWidth: HomeScreenSized.placeOrderButtonWidth,
-                      textStyle: appTheme.textTheme.buttonS,
-                      contentColor: appTheme.colorScheme.blue50,
-                    );
-                  }
-                  return _PreviewOrderWidget(
-                    userOrders.orders[index - 1],
-                    HomeScreenSized.lableLineMaxWidth,
+              scrollDirection: Axis.horizontal,
+              itemCount: userOrders.totalOrders + 1,
+              itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                  return _PlaceOrderButton(
+                    buttonWidth: HomeScreenSized.placeOrderButtonWidth,
+                    textStyle: appTheme.textTheme.buttonS,
+                    contentColor: appTheme.colorScheme.blue50,
                   );
-                },
-              ),
+                }
+                return _PreviewOrderWidget(
+                  userOrders.orders[index - 1],
+                  HomeScreenSized.lableLineMaxWidth,
+                );
+              },
             ),
-          ],
-        ),
+          ); 
+        
+      }
+
+      return BlockTemplate(
+        header: BlockHeader(
+            title: AppStrings.myOrders.tr(),
+            label: userOrders.totalOrders,
+            padding: const EdgeInsets.symmetric(horizontal: padding16),
+            trailing: trailing,
+          ),
+        body: buildOrderList(),
       );
     });
   }

@@ -13,6 +13,4 @@ abstract class HomeScreenSized {
   static const double placeOrderButtonWidth = 115;
   // [_PreviewOrderWidget] LisView max width
   static const double lableLineMaxWidth = 150;
-  // Width of full profile name display area
-  static const double profileNameAreaWidth = 68;
 }

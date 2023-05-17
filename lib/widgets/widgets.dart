@@ -7,6 +7,7 @@ export 'bonuses_option_button.dart';
 export 'brand_button.dart';
 export 'coin_icon.dart';
 export 'coin_icon_with_label.dart';
+export 'custom_text_form_field/custom_input_border.dart';
 export 'menu_item.dart';
 export 'modal_bottom_sheet_wrapper.dart';
 export 'profile_preview_widget.dart';

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 
@@ -45,6 +44,7 @@ class BrandButton extends StatelessWidget {
     ButtonSize size,
     VoidCallback? onPressed,
     double? gap,
+    EdgeInsets? padding,
     Color? backgroundColor,
     Color? foregroundColor,
     ButtonType type,
@@ -158,6 +158,8 @@ class BrandButton extends StatelessWidget {
           return null;
         },
       ),
+      minimumSize: MaterialStateProperty.all(Size.zero),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
 
@@ -202,6 +204,8 @@ class BrandButton extends StatelessWidget {
           return null;
         },
       ),
+      minimumSize: MaterialStateProperty.all(Size.zero),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
 }
@@ -213,6 +217,7 @@ class _BrandButtonWithIcon extends BrandButton {
     super.size,
     super.onPressed,
     double? gap = spacing4,
+    super.padding,
     super.backgroundColor,
     super.foregroundColor,
     super.type = ButtonType.primary,

@@ -32,6 +32,8 @@ dependencies:
   flutter_animate: ^4.1.1+1
   grouped_list: ^5.1.2
   flutter_sticky_header: ^0.6.5
+  reactive_forms_lbc: ^0.3.0
+  mask_text_input_formatter: ^2.4.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -10,69 +10,65 @@ class AchievementsBlock extends StatelessWidget {
     super.key,
     this.achievementsCount,
     this.trailing,
-    this.padding,
   });
 
   final int? achievementsCount;
 
   final Widget? trailing;
-  
-  final EdgeInsets? padding;
+
+  Widget _buildAchievesCard(BuildContext context) {
+    final appTheme = Theme.of(context);
+    return RoundedRectangleBox(
+      backgroundColor: appTheme.colorScheme.grey90,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AchievementCard(
+            achievementLable: 'Speaker',
+            textStyle: appTheme.textTheme.bodyM,
+            achievementIcon: AppIcons.writerAchieves,
+            achievementIconSize: iconSize80,
+            padding: padding16,
+          ),
+          AchievementCard(
+            achievementLable: 'Games',
+            textStyle: appTheme.textTheme.bodyM,
+            achievementIcon: AppIcons.writerAchieves,
+            achievementIconSize: iconSize80,
+            padding: padding16,
+            achievementStatus: PointsBadge(
+              content: '300 more',
+              contentColor: appTheme.colorScheme.yellow,
+              backgroundColor: appTheme.colorScheme.grey50,
+              padding: const EdgeInsets.symmetric(horizontal: padding8),
+            ),
+          ),
+          AchievementCard(
+            achievementLable: 'See all',
+            textStyle: appTheme.textTheme.bodyM,
+            achievementIcon: AppIcons.allAchieves,
+            achievementIconSize: iconSize80,
+            padding: padding16,
+          )
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Theme.of(context);
-    return Padding(
-      padding: padding ?? const EdgeInsets.symmetric(
-        horizontal: padding16,
-        vertical: padding20,
-      ),
-      child: Column(
-        children: [
-          BlockHeader(
+    return Column(
+      children: [
+        BlockTemplate(
+          header: BlockHeader(
             title: AppStrings.myAchieves.tr(),
             label: achievementsCount,
             trailing: trailing,
           ),
-          const SizedBox(height: spacing16),
-          RoundedRectangleBox(
-            backgroundColor: appTheme.colorScheme.grey90,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AchievementCard(
-                  achievementLable: 'Speaker',
-                  textStyle: appTheme.textTheme.bodyM,
-                  achievementIcon: AppIcons.writerAchieves,
-                  achievementIconSize: iconSize80,
-                  padding: padding16,
-                ),
-                AchievementCard(
-                  achievementLable: 'Games',
-                  textStyle: appTheme.textTheme.bodyM,
-                  achievementIcon: AppIcons.writerAchieves,
-                  achievementIconSize: iconSize80,
-                  padding: padding16,
-                  achievementStatus: PointsBadge(
-                    content: '300 more',
-                    contentColor: appTheme.colorScheme.yellow,
-                    backgroundColor: appTheme.colorScheme.grey50,
-                    padding: const EdgeInsets.symmetric(horizontal: padding8),
-                  ),
-                ),
-                AchievementCard(
-                  achievementLable: 'See all',
-                  textStyle: appTheme.textTheme.bodyM,
-                  achievementIcon: AppIcons.allAchieves,
-                  achievementIconSize: iconSize80,
-                  padding: padding16,
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
+          body: _buildAchievesCard(context),
+        ),
+      ],
     );
   }
 }

@@ -31,7 +31,7 @@ extension BrandTextTheme on TextTheme {
       );
 
   TextStyle get bodyL => baseTextStyle.copyWith(
-        fontSize: 16,
+        fontSize: 18,
         height: 1.4,
       );
 

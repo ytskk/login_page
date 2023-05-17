@@ -6,6 +6,8 @@ import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
 
+import '../widgets/widgets.dart';
+
 abstract class AppThemeBase {
   const AppThemeBase();
 
@@ -109,7 +111,46 @@ class BrandThemeData extends AppThemeBase {
       textTheme: _buildTextTheme(),
     );
 
+    // build input decoration theme
+    _themeData = _themeData.copyWith(
+      inputDecorationTheme: _buildInputDecorationTheme(),
+    );
+
     return _themeData;
+  }
+
+  InputDecorationTheme _buildInputDecorationTheme() {
+    final textTheme = _themeData.textTheme;
+    final colorSheme = _themeData.colorScheme;
+
+    return _themeData.inputDecorationTheme.copyWith(
+      labelStyle: textTheme.bodyL.light.copyWith(
+        color: colorSheme.white.withOpacity(0.4),
+      ),
+      hintStyle: textTheme.bodyL.light.copyWith(
+        color: colorScheme.white.withOpacity(0.4),
+      ),
+      // TODO:
+      floatingLabelStyle: textTheme.h3.light.copyWith(
+        color: colorSheme.white.withOpacity(0.4),
+      ),
+
+      // borders
+      border: const CustomInputBorder(),
+      enabledBorder: CustomInputBorder(
+        borderSide: BorderSide(color: colorScheme.white.withOpacity(0.4)),
+      ),
+      focusedBorder: CustomInputBorder(
+        borderSide: BorderSide(color: colorScheme.blue50),
+      ),
+      disabledBorder: CustomInputBorder(
+        borderSide: BorderSide(color: colorScheme.grey10.withOpacity(0.2)),
+      ),
+
+      //
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: padding2, vertical: padding16),
+    );
   }
 
   TextTheme _buildTextTheme() {
@@ -117,6 +158,8 @@ class BrandThemeData extends AppThemeBase {
 
     return _themeData.textTheme
         .copyWith(
+          // TODO:
+          titleMedium: textTheme.bodyL.light,
           bodyMedium: textTheme.bodyL,
         )
         .apply(

@@ -2,13 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
-import 'package:training_and_testing/constants/generated/app_strings.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/models/models.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
 import 'package:training_and_testing/utils/utils.dart';
-import 'package:training_and_testing/widgets/coin_icon.dart';
 import 'package:training_and_testing/widgets/description_card.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
@@ -66,39 +64,35 @@ class OperationsBlock extends StatelessWidget {
         );
       }
 
-      return Padding(
-        padding: padding ?? const EdgeInsets.symmetric(vertical: padding20),
-        child: Column(
-          children: [
-            // operations block header
-            BlockHeader(
-              title: AppStrings.lastOperations.tr(),
-              label: userOperations.totalOperations,
-              padding: const EdgeInsets.symmetric(horizontal: padding16),
-              trailing: trailing,
-            ),
-            const SizedBox(height: spacing16),
-            // Scroll operations block
-            SizedBox(
-              height: HomeScreenSized.operationsBlockHeight,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: padding16),
-                itemCount: userOperations.totalOperations,
-                itemBuilder: (BuildContext context, int index) {
-                  final operation = userOperations.operations[index];
-                  return DescriptionCard(
-                    description: operation.description,
-                    date: operation.date.trd(context.locale),
-                    width: HomeScreenSized.operationsBlockWidth,
-                    backgroundColor: appTheme.colorScheme.grey90,
-                    trailer: trailerCardBuilder(operation),
-                  ).paddingOnly(left: (index != 0) ? padding8 : 0);
-                },
-              ),
-            ),
-          ],
+      Widget buildOperationList() {
+        return SizedBox(
+          height: HomeScreenSized.operationsBlockHeight,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: padding16),
+            itemCount: userOperations.totalOperations,
+            itemBuilder: (BuildContext context, int index) {
+              final operation = userOperations.operations[index];
+              return DescriptionCard(
+                description: operation.description,
+                date: operation.date.trd(context.locale),
+                width: HomeScreenSized.operationsBlockWidth,
+                backgroundColor: appTheme.colorScheme.grey90,
+                trailer: trailerCardBuilder(operation),
+              ).paddingOnly(left: (index != 0) ? padding8 : 0);
+            },
+          ),
+        );
+      }
+
+      return BlockTemplate(
+        header: BlockHeader(
+          title: AppStrings.lastOperations.tr(),
+          label: userOperations.totalOperations,
+          padding: const EdgeInsets.symmetric(horizontal: padding16),
+          trailing: trailing,
         ),
+        body: buildOperationList(),
       );
     });
   }
