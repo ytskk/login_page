@@ -22,7 +22,6 @@ class CatalogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      // TODO(@Egor-OS): combine clients.
       init: CatalogController(
         catalogApiClient: RemoteCatalogApi(
           dio: Dio(

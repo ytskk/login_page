@@ -10,6 +10,7 @@ export 'coin_icon.dart';
 export 'coin_icon_with_label.dart';
 export 'constrained_content_box.dart';
 export 'custom_text_form_field/custom_input_border.dart';
+export 'gesture_icon.dart';
 export 'info_list.dart';
 export 'menu_item.dart';
 export 'modal_bottom_sheet_wrapper.dart';

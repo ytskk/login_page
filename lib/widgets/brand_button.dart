@@ -231,7 +231,6 @@ class _BrandButtonWithIcon extends BrandButton {
     super.foregroundColor,
     super.type = ButtonType.primary,
   }) : super(
-          // TODO: create a separate class for child creation.
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

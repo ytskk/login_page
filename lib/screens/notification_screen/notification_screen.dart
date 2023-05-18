@@ -44,7 +44,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.all(padding16),
-          child: SvgAsset.squared(
+          child: GestureIcon.fromAssetName(
             assetName: AppIcons.closingIcon,
             size: iconSize20,
             color: _appTheme.colorScheme.white,
@@ -110,4 +110,3 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 }
-
