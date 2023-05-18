@@ -234,7 +234,6 @@ class TestAppComponents extends StatelessWidget {
               child: const Text(AppStrings.getBonuses),
             ),
             BrandButton.icon(
-              type: ButtonType.primary,
               backgroundColor: theme.colorScheme.secondary,
               foregroundColor: theme.colorScheme.onSecondary,
               // onPressed: () => print('Get Bonuses'),

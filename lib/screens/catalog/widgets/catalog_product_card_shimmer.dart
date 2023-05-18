@@ -11,20 +11,20 @@ class CatalogProductCardShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Shimmer(
+        Shimmer(
           borderRadius: borderRadius8,
           width: 140,
           height: 140,
         ),
-        const SizedBox(width: spacing16),
+        SizedBox(width: spacing16),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Shimmer(
                 height: spacing24,
                 width: double.infinity,

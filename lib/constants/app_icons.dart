@@ -60,4 +60,5 @@ abstract class AppIcons {
   static const String addIcon = 'assets/icons/add_icon.svg';
   static const String minusIcon = 'assets/icons/minus_icon.svg';
   static const String logOutIcon = 'assets/icons/log_out_icon.svg';
+  static const String trashIcon = 'assets/icons/trash_icon.svg';
 }

@@ -45,13 +45,13 @@ class LabelBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final _backgroundColor = backgroundColor ??
+    final bgColor = backgroundColor ??
         _getBackgroundColorFromType(
           theme.colorScheme,
           type,
         );
 
-    final _contentColor = contentColor ??
+    final resolvedContentColor = contentColor ??
         _getContentColorFromType(
           theme.colorScheme,
           type,
@@ -59,8 +59,8 @@ class LabelBadge extends StatelessWidget {
 
     return InfoBadge(
       padding: padding,
-      backgroundColor: _backgroundColor,
-      contentColor: _contentColor,
+      backgroundColor: bgColor,
+      contentColor: resolvedContentColor,
       borderRadius: borderRadius,
       child: _buildChild(theme),
     );

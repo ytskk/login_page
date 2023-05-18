@@ -48,5 +48,12 @@ abstract class  AppStrings {
   static const catalogFilters = 'catalogFilters';
   static const close = 'close';
   static const size = 'size';
+  static const yourCart = 'yourCart';
+  static const isEmpty = 'isEmpty';
+  static const youHaveNBonuses = 'youHaveNBonuses';
+  static const spendBonusPoints = 'spendBonusPoints';
+  static const deleteAll = 'deleteAll';
+  static const addToCart = 'addToCart';
+  static const deleteFromCart = 'deleteFromCart';
 
 }

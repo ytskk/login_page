@@ -17,6 +17,8 @@ abstract class AppThemeBase {
 
   ButtonStyle? iconButtonStyle() => null;
 
+  ButtonStyle? textButtonStyle() => null;
+
   ColorScheme get colorScheme;
   Brightness get brightness;
   bool? get useMaterial3;
@@ -34,6 +36,9 @@ abstract class AppThemeBase {
       ),
       iconButtonTheme: IconButtonThemeData(
         style: iconButtonStyle(),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: textButtonStyle(),
       ),
     );
   }
@@ -84,10 +89,10 @@ class BrandThemeData extends AppThemeBase {
       'Rebuilding theme data...',
       name: 'BrandThemeData::themeData',
     );
-    final _useMaterial3 = useMaterial3 ?? true;
+    final resolvedUseMaterial3 = useMaterial3 ?? true;
 
     final theme = ThemeData(
-      useMaterial3: _useMaterial3,
+      useMaterial3: resolvedUseMaterial3,
       brightness: brightness,
     );
 
@@ -179,6 +184,9 @@ class BrandThemeData extends AppThemeBase {
   @override
   ButtonStyle? iconButtonStyle() => _buildIconButtonStyle();
 
+  @override
+  ButtonStyle? textButtonStyle() => _buildTextButtonStyle();
+
   /// Defines base style with common properties for both button types
   /// (elevated and outlined).
   ButtonStyle _buildBaseButtonStyle() {
@@ -186,6 +194,7 @@ class BrandThemeData extends AppThemeBase {
       textStyle: MaterialStatePropertyAll(
         _themeData.textTheme.bodyS.medium,
       ),
+      minimumSize: MaterialStateProperty.all(Size.zero),
       elevation: const MaterialStatePropertyAll(0),
       shape: MaterialStatePropertyAll(
         RoundedRectangleBorder(
@@ -200,6 +209,32 @@ class BrandThemeData extends AppThemeBase {
           }
 
           return null;
+        },
+      ),
+    );
+  }
+
+  ButtonStyle _buildTextButtonStyle() {
+    return _buildBaseButtonStyle().copyWith(
+      textStyle: MaterialStatePropertyAll(
+        _themeData.textTheme.bodyM.semibold,
+      ),
+      iconColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.disabled)) {
+            return colors.grey90;
+          }
+
+          return colors.blue50;
+        },
+      ),
+      foregroundColor: MaterialStateProperty.resolveWith(
+        (states) {
+          if (states.contains(MaterialState.disabled)) {
+            return colors.grey90;
+          }
+
+          return colors.blue50;
         },
       ),
     );
@@ -300,7 +335,6 @@ class BrandThemeData extends AppThemeBase {
 
 final brandLightColorScheme = ColorScheme.fromSeed(
   seedColor: const ColorScheme.light().blue50,
-  brightness: Brightness.light,
 );
 
 final brandDarkColorScheme = ColorScheme.fromSeed(

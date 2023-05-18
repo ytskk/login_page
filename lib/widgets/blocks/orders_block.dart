@@ -111,21 +111,23 @@ class _PlaceOrderButton extends StatelessWidget {
 }
 
 class _PreviewOrderWidget extends StatelessWidget {
-  _PreviewOrderWidget(this.order, this.lableLineMaxWidth);
+  const _PreviewOrderWidget(
+    this.order,
+    this.lableLineMaxWidth,
+  );
 
   final OrderModel order;
   final double lableLineMaxWidth;
 
-  late ThemeData _appTheme;
-
   @override
   Widget build(BuildContext context) {
-    _appTheme = Theme.of(context);
+    final theme = Theme.of(context);
+
     return Container(
       margin: const EdgeInsets.only(left: padding8),
       child: RoundedRectangleBox(
         innerPadding: const EdgeInsets.all(padding16),
-        backgroundColor: _appTheme.colorScheme.grey70,
+        backgroundColor: theme.colorScheme.grey70,
         child: Row(
           children: [
             const SvgAsset(assetName: AppIcons.speakerAchieves),
@@ -137,12 +139,12 @@ class _PreviewOrderWidget extends StatelessWidget {
                   // Order date display
                   Text(
                     order.orderDated.trd(context.locale),
-                    style: _appTheme.textTheme.bodyS.semibold.copyWith(
-                      color: _appTheme.colorScheme.white.withOpacity(0.5),
+                    style: theme.textTheme.bodyS.semibold.copyWith(
+                      color: theme.colorScheme.white.withOpacity(0.5),
                     ),
                   ),
-                  // Оrder lable with the count of items
-                  _buildOrderLableRow(lableLineMaxWidth, order),
+                  // Order label with the count of items
+                  _buildOrderLableRow(context, lableLineMaxWidth, order),
                   const SizedBox(height: spacing8),
                   // Order status display
                   StatusBadge(
@@ -162,7 +164,13 @@ class _PreviewOrderWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildOrderLableRow(double lableLineMaxWidth, OrderModel order) {
+  Widget _buildOrderLableRow(
+    BuildContext context,
+    double lableLineMaxWidth,
+    OrderModel order,
+  ) {
+    final theme = Theme.of(context);
+
     return Row(
       children: [
         ConstrainedBox(
@@ -171,16 +179,16 @@ class _PreviewOrderWidget extends StatelessWidget {
             order.items[0].name,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-            style: _appTheme.textTheme.bodyM
-                .copyWith(color: _appTheme.colorScheme.white),
+            style:
+                theme.textTheme.bodyM.copyWith(color: theme.colorScheme.white),
           ),
         ),
         if (order.totalItems > 1) ...[
           const SizedBox(width: spacing8),
           Text(
             ' +${order.totalItems - 1}',
-            style: _appTheme.textTheme.bodyM
-                .copyWith(color: _appTheme.colorScheme.white),
+            style:
+                theme.textTheme.bodyM.copyWith(color: theme.colorScheme.white),
           )
         ]
       ],

@@ -11,11 +11,11 @@ dependencies:
   easy_localization: ^3.0.1
   flutter:
     sdk: flutter
-  flutter_form_builder: ^8.0.0
+  flutter_form_builder: ^9.0.0
   flutter_slidable: ^3.0.0
   flutter_svg: ^2.0.4
   font_awesome_flutter: ^10.4.0
-  form_builder_validators: ^8.5.0
+  form_builder_validators: 9.0.0-dev.2
   get: ^4.6.5
   go_router:
     git:
@@ -23,7 +23,7 @@ dependencies:
       ref: nested-persistent-navigation
       path: packages/go_router
   google_sign_in: ^6.0.2
-  intl: 0.17.0
+  intl: 0.18.0
   reactive_forms: ^14.1.0
   shared_preferences: ^2.0.20
 

@@ -7,7 +7,7 @@ class FormsBuilder extends StatelessWidget {
   final GlobalKey<FormBuilderState> _formKey;
 
   List<Widget> _parseJsonMap(dynamic jsonMap) {
-    final List<Widget> parsedWidgets = [];
+    final parsedWidgets = <Widget>[];
     if (jsonMap is List) {
       for (final item in jsonMap) {
         parsedWidgets.addAll(_parseJsonMap(item));
@@ -47,14 +47,14 @@ class FormsBuilder extends StatelessWidget {
           child: const Text('Save'),
         );
 
-      case "flexible":
+      case 'flexible':
         return Flexible(
             flex: properties['flex'] as int,
-            child: _parseJsonMap(properties['child'])[0]);
+            child: _parseJsonMap(properties['child'])[0],);
       case 'text':
         return Text(properties['text'] as String);
       case 'container':
-        return Container(
+        return SizedBox(
           width: properties['width']?.toDouble() as double,
           height: properties['height']?.toDouble() as double,
           child: _parseJsonMap(properties['child'])[0],
@@ -86,49 +86,49 @@ class FormsBuilder extends StatelessWidget {
 abstract class _TestMap {
   static Map<String, dynamic> testMap() {
     return {
-      "type": "column",
-      "properties": {
-        "children": [
+      'type': 'column',
+      'properties': {
+        'children': [
           {
-            "type": "field",
-            "properties": {"name": "name"},
+            'type': 'field',
+            'properties': {'name': 'name'},
           },
           {
-            "type": "field",
-            "properties": {"name": "surname"},
+            'type': 'field',
+            'properties': {'name': 'surname'},
           },
           {
-            "type": "field",
-            "properties": {"name": "email"},
+            'type': 'field',
+            'properties': {'name': 'email'},
           },
           {
-            "type": "row",
-            "properties": {
-              "children": [
+            'type': 'row',
+            'properties': {
+              'children': [
                 {
-                  "type": "flexible",
-                  "properties": {
-                    "flex": 1,
-                    "child": {
-                      "type": "field",
-                      "properties": {"name": "code"},
+                  'type': 'flexible',
+                  'properties': {
+                    'flex': 1,
+                    'child': {
+                      'type': 'field',
+                      'properties': {'name': 'code'},
                     }
                   },
                 },
                 {
-                  "type": "flexible",
-                  "properties": {
-                    "flex": 3,
-                    "child": {
-                      "type": "field",
-                      "properties": {"name": "number"},
+                  'type': 'flexible',
+                  'properties': {
+                    'flex': 3,
+                    'child': {
+                      'type': 'field',
+                      'properties': {'name': 'number'},
                     }
                   },
                 },
               ]
             },
           },
-          {"type": "submitButton"}
+          {'type': 'submitButton'}
         ]
       },
     };

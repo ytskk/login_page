@@ -17,11 +17,20 @@ class ShimmerLoadingList extends StatelessWidget {
     this.itemCount = 4,
     this.shrinkWrap = true,
     this.item,
-  });
+    this.scrollDirection = Axis.vertical,
+    this.height,
+    this.gap = spacing8,
+  }) : assert(
+          scrollDirection == Axis.vertical || height != null,
+          'If scrollDirection is horizontal, height must be provided',
+        );
 
   final int itemCount;
   final bool shrinkWrap;
   final Widget? item;
+  final Axis scrollDirection;
+  final double? height;
+  final double gap;
 
   static const _defaultChild = SizedBox(
     height: 64,
@@ -34,12 +43,19 @@ class ShimmerLoadingList extends StatelessWidget {
   Widget build(BuildContext context) {
     final child = item ?? _defaultChild;
 
-    return ListView.separated(
-      shrinkWrap: shrinkWrap,
-      physics: const ScrollPhysics(),
-      itemBuilder: (_, __) => child,
-      itemCount: itemCount,
-      separatorBuilder: (_, __) => const SizedBox(height: spacing8),
+    return SizedBox(
+      height: height,
+      child: ListView.separated(
+        scrollDirection: scrollDirection,
+        shrinkWrap: shrinkWrap,
+        physics: const ScrollPhysics(),
+        itemBuilder: (_, __) => child,
+        itemCount: itemCount,
+        separatorBuilder: (_, __) => SizedBox(
+          height: scrollDirection == Axis.vertical ? gap : null,
+          width: scrollDirection == Axis.horizontal ? gap : null,
+        ),
+      ),
     );
   }
 }

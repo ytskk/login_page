@@ -63,14 +63,14 @@ class FormsBuilderRx extends StatelessWidget {
           child: const Text('Submit'),
         );
 
-      case "flexible":
+      case 'flexible':
         return Flexible(
             flex: properties['flex'] as int,
-            child: _parseJsonMap(properties['child'], formGr)[0]);
+            child: _parseJsonMap(properties['child'], formGr)[0],);
       case 'text':
         return Text(properties['text'] as String);
       case 'container':
-        return Container(
+        return SizedBox(
           width: properties['width']?.toDouble() as double,
           height: properties['height']?.toDouble() as double,
           child: _parseJsonMap(properties['child'], formGr)[0],
@@ -102,46 +102,46 @@ class FormsBuilderRx extends StatelessWidget {
 abstract class _TestMap {
   static Map<String, dynamic> testMap() {
     return {
-      "type": "column",
-      "properties": {
-        "children": [
+      'type': 'column',
+      'properties': {
+        'children': [
           {
-            "type": "field",
-            "properties": {"name": "name"},
+            'type': 'field',
+            'properties': {'name': 'name'},
           },
           {
-            "type": "field",
-            "properties": {"name": "surname"},
+            'type': 'field',
+            'properties': {'name': 'surname'},
           },
           {
-            "type": "field",
-            "properties": {"name": "email"},
+            'type': 'field',
+            'properties': {'name': 'email'},
           },
           {
-            "type": "form",
-            "properties": {
-              "name": "mobilePhone",
-              "child": {
-                "type": "row",
-                "properties": {
-                  "children": [
+            'type': 'form',
+            'properties': {
+              'name': 'mobilePhone',
+              'child': {
+                'type': 'row',
+                'properties': {
+                  'children': [
                     {
-                      "type": "flexible",
-                      "properties": {
-                        "flex": 1,
-                        "child": {
-                          "type": "field",
-                          "properties": {"name": "code"},
+                      'type': 'flexible',
+                      'properties': {
+                        'flex': 1,
+                        'child': {
+                          'type': 'field',
+                          'properties': {'name': 'code'},
                         }
                       },
                     },
                     {
-                      "type": "flexible",
-                      "properties": {
-                        "flex": 3,
-                        "child": {
-                          "type": "field",
-                          "properties": {"name": "number"},
+                      'type': 'flexible',
+                      'properties': {
+                        'flex': 3,
+                        'child': {
+                          'type': 'field',
+                          'properties': {'name': 'number'},
                         }
                       },
                     },
@@ -150,7 +150,7 @@ abstract class _TestMap {
               },
             },
           },
-          {"type": "submitButton"}
+          {'type': 'submitButton'}
         ]
       },
     };

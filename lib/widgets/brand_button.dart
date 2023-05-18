@@ -40,7 +40,7 @@ class BrandButton extends StatelessWidget {
 
   factory BrandButton.icon({
     required Widget icon,
-    required Widget child,
+    Widget child,
     ButtonSize size,
     VoidCallback? onPressed,
     double? gap,
@@ -48,6 +48,8 @@ class BrandButton extends StatelessWidget {
     Color? backgroundColor,
     Color? foregroundColor,
     ButtonType type,
+    IconPosition iconPosition,
+    EdgeInsets? padding,
   }) = _BrandButtonWithIcon;
 
   final ButtonSize size;
@@ -211,9 +213,17 @@ class BrandButton extends StatelessWidget {
 }
 
 class _BrandButtonWithIcon extends BrandButton {
+  /// Overrides the child property by adding an icon to the button.
+  ///
+  /// Icon can be placed on the left or right side of the button.
+  ///
+  /// Positioning logic: if [child] is null, the [icon] will be the only child.
+  /// If [child] is not null, determine the position of the icon relative to
+  /// the child.
   _BrandButtonWithIcon({
     required Widget icon,
-    required Widget child,
+    IconPosition iconPosition = IconPosition.left,
+    Widget? child,
     super.size,
     super.onPressed,
     double? gap = spacing4,
@@ -221,14 +231,31 @@ class _BrandButtonWithIcon extends BrandButton {
     super.backgroundColor,
     super.foregroundColor,
     super.type = ButtonType.primary,
+    super.padding,
   }) : super(
+          // TODO: create a separate class for child creation.
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              icon,
-              SizedBox(width: gap),
-              child,
+              if (child == null)
+                icon
+              else ...[
+                if (iconPosition == IconPosition.right) ...[
+                  child,
+                  SizedBox(width: gap),
+                ],
+                icon,
+                if (iconPosition == IconPosition.left) ...[
+                  SizedBox(width: gap),
+                  child,
+                ],
+              ],
             ],
           ),
         );
+}
+
+enum IconPosition {
+  left,
+  right,
 }
