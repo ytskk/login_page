@@ -5,8 +5,6 @@ import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/api/bonuses_api.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
-import 'package:training_and_testing/screens/home_screen/widgets/banner.dart';
-import 'package:training_and_testing/screens/home_screen/widgets/profile_bar.dart';
 import 'package:training_and_testing/screens/home_screen/widgets/widgets.dart';
 import 'package:training_and_testing/widgets/future_widget.dart';
 import 'package:training_and_testing/widgets/snack_bar_notification.dart';

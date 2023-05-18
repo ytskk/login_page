@@ -68,10 +68,10 @@ packages:
     dependency: "direct main"
     description:
       name: easy_localization
-      sha256: f30e9b20ed4d1b890171c30241d9b9c43efe21fee55dee7bd68f94daf269ea75
+      sha256: "30ebf25448ffe169e0bd9bc4b5da94faa8398967a2ad2ca09f438be8b6953645"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.2-dev.2"
+    version: "3.0.2"
   easy_logger:
     dependency: transitive
     description:
@@ -207,11 +207,12 @@ packages:
   go_router:
     dependency: "direct main"
     description:
-      name: go_router
-      sha256: "50bc08b72ede07daaf897deb4c00ca8fd8976c8821a4c84d7aeef0e92d1c5620"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.5.6"
+      path: "packages/go_router"
+      ref: nested-persistent-navigation
+      resolved-ref: "86a72e1a699d8b56988fb204a0563f7e3481c373"
+      url: "https://github.com/tolo/flutter_packages.git"
+    source: git
+    version: "7.1.0"
   google_identity_services_web:
     dependency: transitive
     description:
@@ -347,7 +348,15 @@ packages:
       sha256: "3c74dbf8763d36539f114c799d8a2d87343b5067e9d796ca22b5eb8437090ee3"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.0"
+    version: "1.9.1"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -435,7 +444,15 @@ packages:
       sha256: "5aa9c48a0626c20d00a005e597cb10efbdebbfeecb9c4227b03a5945fbb91ec4"
       url: "https://pub.dev"
     source: hosted
-    version: "14.1.0"
+    version: "14.3.0"
+  reactive_forms_lbc:
+    dependency: "direct main"
+    description:
+      name: reactive_forms_lbc
+      sha256: "704420596960c2d40fb58f7bbf6b884d02c146184c24d2996ca6ace0922a0295"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   shared_preferences:
     dependency: "direct main"
     description:

@@ -10,62 +10,11 @@ class CodegenLoader extends AssetLoader{
   const CodegenLoader();
 
   @override
-  Future<Map<String, dynamic>> load(String fullPath, Locale locale ) {
+  Future<Map<String, dynamic>?> load(String path, Locale locale) {
     return Future.value(mapLocales[locale.toString()]);
   }
 
   static const Map<String,dynamic> en = {
-  static const Map<String,dynamic> ru = {
-  "myAchieves": "Мои достижения",
-  "youHaventOrderedInAWhile": "Вы давно ничего не заказовали",
-  "youHaveALotOfBonusesYouCanOrderSomethingForYourself": "У вас есть множество бонусов. Вы могли бы заказать что-то себе",
-  "goToCatalog": "Открыть каталог",
-  "getBonuses": "Заработать бонусы",
-  "learnMoreAboutHowToGetBonusesAndWhatYouCanSpendThemOn": "Узнайте больше о том, как получить бонусы и на что их можно потратить",
-  "howToGetTheBonuses": "Как получить бонусы",
-  "lastOperations": "Последние операции",
-  "myOrders": "Мои заказы",
-  "placeNewOrder": "Сделать заказ",
-  "bonusBalance": "Бонусный остаток",
-  "today": "Сегодня:",
-  "authorizationWasSuccessful": "Авторизация успешна",
-  "authorizationFailed": "Авторизация не пройдена",
-  "loginWithGoogle": "Войти через Google",
-  "getBonusesAndExchangeThemForBrandedProducts": "Получайте бонусы и обменивайте их на фирменные товары",
-  "canceled": "Отменен",
-  "delivered": "Доставлен",
-  "waitingForDelivery": "В процессе доставки",
-  "unknown": "Неизвестно",
-  "toGetMoreBonuses": "Чтобы получить больше бонусов, ",
-  "youCanDo": "вы можете",
-  "writeAnArticle": "Написать статью",
-  "speakAtTheConference": "Выступить на конференции",
-  "toSpendBonuses": "Выберете на что",
-  "selectSomething": "потратить бонусы",
-  "toBuySomething": "Чтобы что-то купить",
-  "needToGetBonuses": "необходимо заработать бонусы",
-  "enums": {
-    "OrderStatus": {
-      "canceled": "Отменен",
-      "delivered": "Доставлен",
-      "waitingForDelivery": "В процессе доставки",
-      "unknown": "Неизвестно"
-    }
-  },
-  "yourBalance": "Your balance",
-  "newBadge": "New",
-  "catalogFilters": "Catalog filters",
-  "close": "Close",
-  "size": "Size",
-  "yourCart": "Your cart",
-  "isEmpty": "Is empty",
-  "youHaveNBonuses": "You have {n} bonus points",
-  "spendBonusPoints": "Spend them on items from the catalog",
-  "deleteAll": "Delete all",
-  "addToCart": "Add to cart",
-  "deleteFromCart": "Delete from cart"
-};
-static const Map<String,dynamic> en = {
   "myAchieves": "My achieves",
   "youHaventOrderedInAWhile": "You haven't ordered in a while",
   "youHaveALotOfBonusesYouCanOrderSomethingForYourself": "You have a lot of bonuses. You can order something for yourself",
@@ -116,7 +65,14 @@ static const Map<String,dynamic> en = {
   "newBadge": "New",
   "catalogFilters": "Catalog filters",
   "close": "Close",
-  "size": "Size"
+  "size": "Size",
+  "yourCart": "Your cart",
+  "isEmpty": "Is empty",
+  "youHaveNBonuses": "You have {n} bonus points",
+  "spendBonusPoints": "Spend them on items from the catalog",
+  "deleteAll": "Delete all",
+  "addToCart": "Add to cart",
+  "deleteFromCart": "Delete from cart"
 };
 static const Map<String,dynamic> ru = {
   "myAchieves": "Мои достижения",

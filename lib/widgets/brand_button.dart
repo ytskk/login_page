@@ -44,7 +44,6 @@ class BrandButton extends StatelessWidget {
     ButtonSize size,
     VoidCallback? onPressed,
     double? gap,
-    EdgeInsets? padding,
     Color? backgroundColor,
     Color? foregroundColor,
     ButtonType type,
@@ -231,7 +230,6 @@ class _BrandButtonWithIcon extends BrandButton {
     super.backgroundColor,
     super.foregroundColor,
     super.type = ButtonType.primary,
-    super.padding,
   }) : super(
           // TODO: create a separate class for child creation.
           child: Row(
