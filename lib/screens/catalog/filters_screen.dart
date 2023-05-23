@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/theme/theme.dart';
-import 'package:training_and_testing/utils/utils.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
 class FiltersScreen extends StatelessWidget {
@@ -25,7 +24,7 @@ class FiltersScreen extends StatelessWidget {
         ),
         title: Text(
           tr(AppStrings.catalogFilters),
-          style: textTheme.h3.medium,
+          style: textTheme.h3,
         ),
       ),
     );

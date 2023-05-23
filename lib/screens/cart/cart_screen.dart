@@ -76,7 +76,7 @@ final cartProducts = [
     "categorySlug": "clothes",
     "categoryName": "Clothes",
     "quantity": 1,
-    "selectedSize": "L"
+    "option": "L"
   },
   {
     "id": "8ab211a3-c72e-40e3-9024-c1a514a2af6f",

@@ -64,25 +64,30 @@ class ShimmerLoadingSliverList extends StatelessWidget {
   const ShimmerLoadingSliverList({
     required this.itemCount,
     this.item,
+    this.padding,
     super.key,
   });
 
   final int itemCount;
   final Widget? item;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (_, index) {
-          // should be right ;)
-          if (index.isOdd) {
-            return _buildSeparator();
-          }
+    return SliverPadding(
+      padding: padding ?? const EdgeInsets.symmetric(vertical: spacing24),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (_, index) {
+            // should be right ;)
+            if (index.isOdd) {
+              return _buildSeparator();
+            }
 
-          return item;
-        },
-        childCount: itemCount + itemCount - 1,
+            return item;
+          },
+          childCount: itemCount + itemCount - 1,
+        ),
       ),
     );
   }

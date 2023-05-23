@@ -34,16 +34,15 @@ class SvgAsset extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return SvgPicture.asset(
       assetName,
       width: width,
       height: height,
-      colorFilter: color != null
-          ? ColorFilter.mode(
-              color!,
-              BlendMode.srcIn,
-            )
-          : null,
+      colorFilter: color != null ? ColorFilter.mode(
+        color!,
+        BlendMode.srcIn,
+      ) : null,
     );
   }
 }

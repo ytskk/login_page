@@ -36,6 +36,7 @@ class ProductCardLarge extends StatelessWidget {
             imageUrl: imageUrl,
             width: _imageSize,
             height: _imageSize,
+            innerPadding: const EdgeInsets.all(padding8),
             leading: isNew
                 ? const Positioned(
                     top: spacing4,

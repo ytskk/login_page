@@ -20,7 +20,6 @@ class MainScaffold extends StatefulWidget {
 }
 
 class _MainScaffoldState extends State<MainScaffold> {
-
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
@@ -30,7 +29,8 @@ class _MainScaffoldState extends State<MainScaffold> {
     final navigationShell = widget.navigationShell;
 
     return Scaffold(
-      extendBody: true,
+      // TODO: pass as a parameter
+      extendBody: false,
       body: Stack(
         fit: StackFit.expand,
         children: children.mapIndexed((int index, Widget view) {

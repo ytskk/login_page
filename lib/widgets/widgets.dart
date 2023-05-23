@@ -24,4 +24,5 @@ export 'shimmer_loader.dart';
 export 'shimmer_loader_switch_widget.dart';
 export 'shimmer_loading_list.dart';
 export 'slider_card_widget.dart';
+export 'sliver_grouped_list.dart';
 export 'svg_asset.dart';

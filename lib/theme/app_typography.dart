@@ -14,19 +14,19 @@ extension BrandTextTheme on TextTheme {
 
   TextStyle get h1 => baseTextStyle.copyWith(
         fontWeight: FontWeight.w500,
-        fontSize: 22,
+        fontSize: 28,
         height: 1.2,
       );
 
   TextStyle get h2 => baseTextStyle.copyWith(
         fontWeight: FontWeight.w500,
-        fontSize: 18,
+        fontSize: 22,
         height: 1.2,
       );
 
   TextStyle get h3 => baseTextStyle.copyWith(
         fontWeight: FontWeight.w500,
-        fontSize: 16,
+        fontSize: 18,
         height: 1.2,
       );
 

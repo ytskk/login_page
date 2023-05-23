@@ -23,6 +23,7 @@ class CatalogController extends GetxController {
   final _isBalanceLoading = true.obs;
   final _isCategoriesLoading = true.obs;
   final _isProductsLoading = false.obs;
+  final _error = Rx<Object?>(null);
 
   // getters.
 
@@ -33,6 +34,8 @@ class CatalogController extends GetxController {
   bool get isBalanceLoading => _isBalanceLoading.value;
   bool get isCategoriesLoading => _isCategoriesLoading.value;
   bool get isProductsLoading => _isProductsLoading.value;
+  Object? get error => _error;
+  bool get hasError => _error.value != null;
 
   // methods.
 
@@ -68,21 +71,28 @@ class CatalogController extends GetxController {
   }
 
   Future<void> _getCategories() async {
-    final allCategories = await _catalogApiClient.getAllCategories();
+    try {
+      // simulate network delay.
+      await Future<void>.delayed(const Duration(seconds: 3));
 
-    // simulate network delay.
-    await Future<void>.delayed(const Duration(seconds: 3));
+      final allCategories = await _catalogApiClient.getAllCategories();
 
-    _wrapUpWithDefaultCategory();
-    _categories.addAll(allCategories);
+      _wrapUpWithDefaultCategory();
+      _categories.addAll(allCategories);
 
-    _isCategoriesLoading.value = false;
+      _selectedCategory.value = categories.first;
+    } catch (e) {
+      _error.value = e;
+      log('Error: $e', name: 'CatalogController::getCategories');
+    } finally {
+      _isCategoriesLoading.value = false;
+    }
 
-    _selectedCategory.value = categories.first;
     update();
   }
 
   void _wrapUpWithDefaultCategory() {
+    // TODO: add typography support and use it here.
     const defaultCategory = CategoryModel(
       id: 'all',
       name: 'All Products',
@@ -100,12 +110,12 @@ class CatalogController extends GetxController {
 
     _isProductsLoading.value = true;
 
+    // simulate network delay.
+    await Future<void>.delayed(const Duration(seconds: 3));
+
     final products = await _catalogApiClient.getProducts(
       category?.slug,
     );
-
-    // simulate network delay.
-    await Future<void>.delayed(const Duration(seconds: 3));
 
     _products.value = products;
 
@@ -127,17 +137,20 @@ class CatalogController extends GetxController {
   }
 }
 
-Map<String, List<ProductModel>> groupProductsByCategory(
-  List<ProductModel> products,
+Map<T, List<E>> groupListBy<T, E>(
+  List<E> list,
+  T Function(E) groupBy,
 ) {
-  final groupedProducts = <String, List<ProductModel>>{};
+  final groupedProducts = <T, List<E>>{};
 
-  for (final product in products) {
-    if (!groupedProducts.containsKey(product.categorySlug)) {
-      groupedProducts[product.categorySlug] = [];
+  for (final item in list) {
+    final key = groupBy(item);
+
+    if (!groupedProducts.containsKey(key)) {
+      groupedProducts[key] = [];
     }
 
-    groupedProducts[product.categorySlug]!.add(product);
+    groupedProducts[key]!.add(item);
   }
 
   return groupedProducts;

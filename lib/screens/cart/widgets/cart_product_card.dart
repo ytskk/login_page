@@ -73,11 +73,12 @@ class CartProductCard extends StatelessWidget {
                         label: 'QTY:',
                         value: quantity.toString(),
                       ),
-                      CounterPill(
-                        onPressed: () {},
-                        label: 'SIZE:',
-                        value: selectedOption.toString(),
-                      ),
+                      if (selectedOption != null)
+                        CounterPill(
+                          onPressed: () {},
+                          label: 'SIZE:',
+                          value: selectedOption.toString(),
+                        ),
                     ],
                   ),
                 ],

@@ -16,6 +16,7 @@ Future<T?> showCustomModalBottomSheet<T>({
 
   return showModalBottomSheet(
     context: context,
+    useRootNavigator: true,
     backgroundColor: backgroundColor,
     isScrollControlled: isScrollControlled,
     constraints: BoxConstraints(

@@ -6,7 +6,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:get/get.dart';
-import 'package:grouped_list/sliver_grouped_list.dart';
 import 'package:training_and_testing/api/config.dart';
 import 'package:training_and_testing/api/requests/get_requests.dart';
 import 'package:training_and_testing/api/services/dio_client.dart';
@@ -22,6 +21,7 @@ class CatalogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
+      // TODO: universal api wrapper and api client DI
       init: CatalogController(
         catalogApiClient: RemoteCatalogApi(
           dio: Dio(
@@ -65,12 +65,14 @@ class CatalogScreen extends StatelessWidget {
                       item: CatalogProductCardShimmer(),
                       itemCount: 4,
                     ),
-                    child: SliverGroupedListView(
-                      elements: controller.products,
-                      groupBy: (product) => product.categorySlug,
+                    child: SliverGroupedList(
+                      items: groupListBy(
+                        controller.products,
+                        (product) => product.categoryName,
+                      ),
                       groupHeaderBuilder: _buildGroupHeader,
-                      separator: const SizedBox(height: spacing24),
                       itemBuilder: _buildProductCardLarge,
+                      separator: const SizedBox(height: spacing24),
                     ),
                   ),
                 ),
@@ -86,38 +88,46 @@ class CatalogScreen extends StatelessWidget {
   }
 
   Widget _buildGroupHeader(
-    ProductModel product,
+    String categoryName,
+    int count,
   ) =>
       BlockHeader(
         padding: const EdgeInsets.only(
           top: spacing40,
           bottom: spacing24,
         ),
-        title: product.categoryName,
-        label: 2,
+        title: categoryName,
+        label: count,
       );
 
   Widget _buildProductCardLarge(
     BuildContext context,
     ProductModel product,
+    int index,
   ) =>
       ProductCardLarge(
         onPressed: () {
           showProductInfoModalSheet(
             context: context,
             product: product,
-            footer: BrandButton(
-              onPressed: () async {
-                final wasAdded = await _onAddToCartPressed(context, product);
-                print('wasAdded: $wasAdded');
+            footer: Row(
+              children: [
+                Expanded(
+                  child: BrandButton(
+                    size: ButtonSize.large,
+                    onPressed: () async {
+                      final wasAdded =
+                          await _onAddToCartPressed(context, product);
+                      print('wasAdded: $wasAdded');
 
-                if (wasAdded) {
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(
-                'Add to cart',
-              ),
+                      if (wasAdded) {
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: Text('Add to cart'),
+                  ),
+                ),
+              ],
             ),
           );
         },
@@ -201,24 +211,4 @@ class CatalogScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Shows product info modal sheet with product info and add to cart
-/// button (if product is available for purchase).
-Future<void> showProductInfoModalSheet({
-  required BuildContext context,
-  required ProductModel product,
-  Widget? trailing,
-  Widget? title,
-  Widget? footer,
-}) async {
-  return showCustomModalBottomSheet<void>(
-    context: context,
-    trailing: trailing,
-    title: title,
-    child: ProductInfoModalSheet(
-      product: product,
-      footer: footer,
-    ),
-  );
 }
