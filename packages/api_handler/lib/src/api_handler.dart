@@ -9,9 +9,6 @@ final class ApiHandler {
 
       return result;
     } on DioError catch (e) {
-      print(
-          'throwing ApiNetworkDioException with message: ${e.message} and error: ${e.error}');
-
       if (e.type == DioErrorType.unknown) {
         if (e.error is SocketException) {
           throw ApiNetworkDioSocketException();
@@ -30,7 +27,7 @@ final class ApiHandler {
   }
 }
 
-interface class ApiNetworkException implements Exception {
+class ApiNetworkException implements Exception {
   const ApiNetworkException({
     this.message,
   });
@@ -49,13 +46,13 @@ interface class ApiNetworkException implements Exception {
 
 class ApiNetworkParsingException extends ApiNetworkException {
   const ApiNetworkParsingException({
-    required super.message,
+    super.message,
   });
 }
 
 class ApiNetworkDioException extends ApiNetworkException {
   const ApiNetworkDioException({
-    required super.message,
+    super.message,
     this.error,
   });
 
@@ -63,11 +60,9 @@ class ApiNetworkDioException extends ApiNetworkException {
 
   @override
   String get localizedMessage {
-    String errorString = '';
+    final errorString =
+        [message, error].where((messageType) => messageType != null).join(',');
 
-    if (error != null) {
-      errorString = ', error: $error';
-    }
     return errorString;
   }
 }
