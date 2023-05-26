@@ -29,6 +29,10 @@ dependencies:
 
   catalog_api:
     path: packages/catalog_api
+
+  api_handler:
+    path: packages/api_handler
+
   flutter_animate: ^4.1.1+1
   grouped_list: ^5.1.2
   flutter_sticky_header: ^0.6.5

@@ -1,6 +1,9 @@
 import 'dart:developer';
 
+import 'package:api_handler/api_handler.dart';
 import 'package:catalog_api/catalog_api.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:training_and_testing/api/requests/get_requests_interface.dart';
 
@@ -23,18 +26,26 @@ class CatalogController extends GetxController {
   final _isBalanceLoading = true.obs;
   final _isCategoriesLoading = true.obs;
   final _isProductsLoading = false.obs;
-  final _error = Rx<Object?>(null);
+  final _error = Rxn<ApiNetworkException>();
 
   // getters.
 
   int get balance => _balance.value;
+
   List<ProductModel> get products => _products;
+
   List<CategoryModel> get categories => _categories;
+
   CategoryModel? get selectedCategory => _selectedCategory.value;
+
   bool get isBalanceLoading => _isBalanceLoading.value;
+
   bool get isCategoriesLoading => _isCategoriesLoading.value;
+
   bool get isProductsLoading => _isProductsLoading.value;
-  Object? get error => _error;
+
+  Rxn<ApiNetworkException> get error => _error;
+
   bool get hasError => _error.value != null;
 
   // methods.
@@ -50,11 +61,21 @@ class CatalogController extends GetxController {
     getBalance();
     _getCategories();
 
+    /// Load products every time the selected category changes and its value is
+    /// not null.
     ever(
       _selectedCategory,
       _getProducts,
       condition: () => _selectedCategory.value != null,
     );
+  }
+
+  void handleError(BuildContext context) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text(_error.value?.message ?? 'Error')),
+      );
   }
 
   Future<void> getBalance() async {
@@ -71,24 +92,28 @@ class CatalogController extends GetxController {
   }
 
   Future<void> _getCategories() async {
-    try {
-      // simulate network delay.
-      await Future<void>.delayed(const Duration(seconds: 3));
-
-      final allCategories = await _catalogApiClient.getAllCategories();
-
-      _wrapUpWithDefaultCategory();
-      _categories.addAll(allCategories);
-
-      _selectedCategory.value = categories.first;
-    } catch (e) {
-      _error.value = e;
-      log('Error: $e', name: 'CatalogController::getCategories');
-    } finally {
-      _isCategoriesLoading.value = false;
-    }
+    await performRequest(
+      callback: fetchCategories,
+      loadingIndicator: _isCategoriesLoading,
+      error: _error,
+    );
 
     update();
+  }
+
+  Future<void> fetchCategories() async {
+    final allCategories = await _catalogApiClient.getAllCategories();
+
+    _wrapUpWithDefaultCategory();
+    _categories.addAll(allCategories);
+
+    _selectedCategory.value = categories.first;
+
+    // throw DioError(
+    //   requestOptions: RequestOptions(path: 'path'),
+    //   type: DioErrorType.badCertificate,
+    //   message: 'Check your internet connection.',
+    // );
   }
 
   void _wrapUpWithDefaultCategory() {
@@ -110,16 +135,23 @@ class CatalogController extends GetxController {
 
     _isProductsLoading.value = true;
 
-    // simulate network delay.
-    await Future<void>.delayed(const Duration(seconds: 3));
+    try {
+      // simulate network delay.
+      await Future<void>.delayed(const Duration(seconds: 3));
 
-    final products = await _catalogApiClient.getProducts(
-      category?.slug,
-    );
+      final products = await ApiHandler.get(
+        () => _catalogApiClient.getProducts(
+          category?.slug,
+        ),
+      );
 
-    _products.value = products;
-
-    _isProductsLoading.value = false;
+      _products.value = products;
+    } on ApiNetworkException catch (e) {
+      _error.value = e;
+      log('Error: $e', name: 'CatalogController::getProducts');
+    } finally {
+      _isProductsLoading.value = false;
+    }
 
     update();
   }
@@ -154,4 +186,23 @@ Map<T, List<E>> groupListBy<T, E>(
   }
 
   return groupedProducts;
+}
+
+/// Wrap the requests, updates the loading values and errors.
+Future<void> performRequest<T>({
+  required Future<T> Function() callback,
+  Rx<bool>? loadingIndicator,
+  Rxn<ApiNetworkException>? error,
+}) async {
+  error?.value = null;
+
+  try {
+    loadingIndicator?.value = true;
+
+    await ApiHandler.get(callback);
+  } on ApiNetworkException catch (e) {
+    error?.value = e;
+  } finally {
+    loadingIndicator?.value = false;
+  }
 }

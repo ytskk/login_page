@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:catalog_api/catalog_api.dart';
@@ -40,6 +41,26 @@ class CatalogScreen extends StatelessWidget {
           ),
         ),
       ),
+      builder: (controller) => GetListener<CatalogController>(
+        reactive: controller.error,
+        listenWhen: (controller) => controller.error.value != null,
+        listener: (context, controller) {
+          if (controller.error.value != null) {
+            controller.handleError(context);
+          }
+        },
+        child: const CatalogScreenView(),
+      ),
+    );
+  }
+}
+
+class CatalogScreenView extends StatelessWidget {
+  const CatalogScreenView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<CatalogController>(
       builder: (controller) {
         return Scaffold(
           body: SafeArea(
@@ -50,6 +71,7 @@ class CatalogScreen extends StatelessWidget {
                   isLoading: controller.isBalanceLoading,
                   balance: controller.balance,
                 ),
+
                 // categories + products
                 SliverStickyHeader(
                   header: CategoriesTabs(

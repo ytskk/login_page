@@ -11,38 +11,30 @@ class RemoteCatalogApi implements CatalogApiInterface {
 
   @override
   Future<List<CategoryModel>> getAllCategories() async {
-    try {
-      final response = await _apiClient.get<List<dynamic>>(
-        CatalogApiEndpoints.getAllCategories,
-      );
+    final response = await _apiClient.get<List<dynamic>>(
+      CatalogApiEndpoints.getAllCategories,
+    );
 
-      final categories = response.data!;
+    final categories = response.data!;
 
-      return categories
-          .map((json) => CategoryModel.fromJson(json as Map<String, dynamic>))
-          .toList();
-    } on DioError {
-      rethrow;
-    }
+    return categories
+        .map((json) => CategoryModel.fromJson(json as Map<String, dynamic>))
+        .toList();
   }
 
   @override
   Future<List<ProductModel>> getProducts([String? categorySlug]) async {
-    try {
-      final response = await _apiClient.get<List<dynamic>>(
-        CatalogApiEndpoints.getAllProducts,
-        queryParameters: {
-          'category': categorySlug,
-        },
-      );
+    final response = await _apiClient.get<List<dynamic>>(
+      CatalogApiEndpoints.getAllProducts,
+      queryParameters: {
+        'category': categorySlug,
+      },
+    );
 
-      final products = response.data!;
+    final products = response.data!;
 
-      return products
-          .map((json) => ProductModel.fromJson(json as Map<String, dynamic>))
-          .toList();
-    } on DioError {
-      rethrow;
-    }
+    return products
+        .map((json) => ProductModel.fromJson(json as Map<String, dynamic>))
+        .toList();
   }
 }
