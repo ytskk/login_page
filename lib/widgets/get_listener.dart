@@ -18,7 +18,8 @@ class GetListener<C extends GetxController> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<C>(
-      filter: (_) => false,
+      // to get updated controller instance.
+      filter: (controller) => listenWhen?.call(controller) ?? false,
       builder: (controller) {
         // Called every time [reactive] changes! As long as the [condition]
         // returns true.

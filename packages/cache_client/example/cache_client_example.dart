@@ -12,9 +12,18 @@ void main() async {
     value: 'Hello, world!',
   );
 
+  await cacheClient.write(
+    key: 'timestamped',
+    value: CacheEntity('Hello, world!'),
+  );
+
   final numbers = await cacheClient.read<List<int>>(key: 'numbers');
   final string = await cacheClient.read<String>(key: 'string');
+  final timestamped = await cacheClient.read<CacheEntity>(
+    key: 'timestamped',
+  );
 
   print('numbers: $numbers');
   print('string: $string');
+  print('timestamped: $timestamped');
 }
