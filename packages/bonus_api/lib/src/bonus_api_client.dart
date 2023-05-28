@@ -18,6 +18,9 @@ abstract class BonusApiClient {
     @Query('userId') String userId,
   );
 
+  @GET(BonusApiEndpoints.getCatalogCategories)
+  Future<List<CatalogCategoryModel>> getCategories();
+
   @GET(BonusApiEndpoints.getCatalogProducts)
   Future<List<CatalogProductModel>> getCatalogProducts({
     @Query('category') String? category,
