@@ -22,10 +22,10 @@ class BlockTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding ?? const EdgeInsets.symmetric(vertical: padding16),
+      padding: padding ?? EdgeInsets.zero,
       child: Column(
         children: [
-          if (header != null) header!.paddingOnly(bottom: inner ?? 16),
+          if (header != null) header!.paddingOnly(bottom: inner ?? padding16),
           if (body != null) body!,
         ],
       ),

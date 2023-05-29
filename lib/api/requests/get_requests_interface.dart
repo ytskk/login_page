@@ -1,8 +1,5 @@
 import 'package:training_and_testing/models/achievements_model.dart';
-import 'package:training_and_testing/models/balance_model.dart';
-import 'package:training_and_testing/models/notifications_model.dart';
-import 'package:training_and_testing/models/operations_model.dart';
-import 'package:training_and_testing/models/orders_model.dart';
+import 'package:training_and_testing/models/models.dart';
 
 abstract class BonusesApiInterface {
   /// Returns a [BalanceModel] with the current balance of the user by [userId].
@@ -22,5 +19,20 @@ abstract class BonusesApiInterface {
 
   /// Returns a [NotificationsModel] with the list of notifications of the user
   /// by [userId].
-  Future<NotificationsModel> getNotifications({required String userId});
+  /// [filter] - filter by category
+  /// [count] - amount of loaded
+  Future<NotificationsModel> getNotificationsByCategory({
+    required String userId,
+    String? filter,
+    int? count,
+  });
+
+  /// Returns [NotificationCategoryListModel] with the list of categories
+  /// by [locale].
+  Future<NotificationCategoryListModel> getNotificationCategoryList({
+    String locale,
+  });
+
+  /// Returns [FaqModel] with the list of FAQ by [locale].
+  Future<FaqModel> getFAQ({String locale});
 }

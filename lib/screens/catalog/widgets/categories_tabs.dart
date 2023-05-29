@@ -32,6 +32,7 @@ class CategoriesTabs extends StatelessWidget {
       ),
       child: QuickFilterTabs(
         itemCount: categories.length,
+        hight: 72,
         itemBuilder: (_, index) {
           final category = categories[index];
 

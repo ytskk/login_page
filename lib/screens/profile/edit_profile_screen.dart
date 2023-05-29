@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -8,9 +7,10 @@ import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/screens/profile/widgets/log_out_button.dart';
 import 'package:training_and_testing/screens/profile/widgets/trailer_button_template.dart';
 import 'package:training_and_testing/theme/theme.dart';
-import 'package:training_and_testing/widgets/custom_text_form_field/text_form_fields.dart';
 import 'package:training_and_testing/widgets/segmented_button/segmented_button.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
+
+import '../../widgets/custom_fields/description_field.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
@@ -109,35 +109,35 @@ class EditProfileScreen extends StatelessWidget {
             formGroup: form,
             child: Column(
               children: [
-                CustomTextFormField.basic(
+                BasicFormField(
                   controlName: 'Name',
                   form: form,
                 ),
-                CustomTextFormField.basic(
+                BasicFormField(
                   controlName: 'Surname',
                   form: form,
                 ),
-                CustomTextFormField.basic(
+                BasicFormField(
                   controlName: 'E-mail',
                   form: form,
                   disabled: true,
-                  initalValue: 'test@test.com',
+                  initialValue: 'test@test.com',
                 ),
-                CustomTextFormField.button(
+                ButtonFormField(
                   form: form,
                   controlName: 'Mobile phone',
                   buttonText: 'Confirm',
                   formatters: [maskFormatter],
-                  initalValue: '+7 (000) 000-00-00',
+                  initialValue: '+7 (000) 000-00-00',
                 ),
-                CustomTextFormField.action(
+                ActionFormField(
                   controlName: 'Country',
                   form: form,
-                  onTap: (_) => showBottomSheet(context),
+                  onTap: () => showBottomSheet(context),
                 ),
               ],
             ),
-          ),
+          )
         ],
       );
     }

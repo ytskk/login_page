@@ -14,7 +14,7 @@ class MainBanner extends StatelessWidget {
 
   final HomeScreenController homeScreenController;
 
-  late ThemeData _appTheme;
+  late final ThemeData _appTheme;
 
   @override
   Widget build(BuildContext context) {

@@ -26,7 +26,10 @@ class HomeScreen extends StatelessWidget {
           SvgPicture.asset(AppIcons.backgroundLine),
           ListView(
             children: [
-              // profile bar 
+              //top indent
+              const SizedBox(height: spacing24),
+
+              // profile bar
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: padding16),
                 child: ProfileBar(authController),
@@ -34,29 +37,29 @@ class HomeScreen extends StatelessWidget {
 
               // bunner
               MainBanner(homeScreenController: homeScreenController),
-              
+
               // get bonuses button
               _buildGetBonusesButton(),
 
               // get bonuses banner
               _buildGetBonusesBunner(context),
-              
+
               // achieves
               const AchievementsBlock(
                 achievementsCount: 6,
-              ).paddingSymmetric(horizontal: padding16),
+              ).paddingSymmetric(horizontal: padding16, vertical: padding20),
 
               // orders
               FutureWidget(
                 homeScreenController.updateUserOrders(),
                 OrdersBlock(homeScreenController: homeScreenController),
-              ),
+              ).paddingSymmetric(vertical: padding20),
 
               // operations
               FutureWidget(
                 homeScreenController.updateUserOperations(),
                 OperationsBlock(homeScreenController: homeScreenController),
-              )
+              ).paddingSymmetric(vertical: padding20)
             ],
           ),
         ],

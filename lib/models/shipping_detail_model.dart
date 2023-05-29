@@ -11,7 +11,7 @@ class ShippingDetailModel {
       name: json['name'] as String,
       phone: json['phone'] as String,
       type: json['type'] as String,
-      address: json['address'] as String,
+      address: json['address'] as String?,
     );
   }
 
@@ -31,6 +31,12 @@ class ShippingDetailModel {
 
   @override
   String toString() {
-    return 'ShippingDetailModel(name: $name, phone: $phone, type: $type, address: $address)';
+    return <String>[
+      'ShippingDetailModel(',
+      'name: $name,',
+      'phone: $phone,',
+      'type: $type,',
+      'address: $address)',
+    ].join();
   }
 }

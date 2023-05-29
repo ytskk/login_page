@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/router/app_route_names.dart';
+import 'package:training_and_testing/screens/faq/faq_screen.dart';
 import 'package:training_and_testing/screens/profile/edit_profile_screen.dart';
 import 'package:training_and_testing/screens/screens.dart';
 
@@ -63,16 +64,20 @@ class RoutesBonusesApp {
           StatefulShellBranch(
             routes: [
               AppRoute.root(
-                path: AppRouteNames.profile,
-                widget: ProfileScreen(),
-                routes: [
-                  AppRoute(
-                    parentNavigatorKey: _rootNavigatorKey,
-                    path: AppRouteNames.editProfile,
-                    widget: EditProfileScreen(),
-                  )
-                ],
-              ),
+                  path: AppRouteNames.profile,
+                  widget: ProfileScreen(),
+                  routes: [
+                    AppRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: AppRouteNames.editProfile,
+                      widget: EditProfileScreen(),
+                    ),
+                    AppRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: AppRouteNames.faq,
+                      widget: FaqScreen(),
+                    )
+                  ]),
             ],
           )
         ],

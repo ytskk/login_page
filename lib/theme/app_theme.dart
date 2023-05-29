@@ -135,7 +135,6 @@ class BrandThemeData extends AppThemeBase {
       hintStyle: textTheme.bodyL.light.copyWith(
         color: colorScheme.white.withOpacity(0.4),
       ),
-      // TODO:
       floatingLabelStyle: textTheme.h3.light.copyWith(
         color: colorSheme.white.withOpacity(0.4),
       ),
@@ -163,8 +162,9 @@ class BrandThemeData extends AppThemeBase {
 
     return _themeData.textTheme
         .copyWith(
-          // TODO:
-          titleMedium: textTheme.bodyL.light,
+          // InputDecoration text style 
+          bodyLarge: textTheme.bodyL.light,
+
           bodyMedium: textTheme.bodyL,
         )
         .apply(
