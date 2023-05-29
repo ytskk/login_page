@@ -57,12 +57,12 @@ class CartPopulatedScreen extends StatelessWidget {
   ) {
     return CartProductCard(
       onCardPressed: () {
-        showProductInfoModalSheet(
-          context: context,
-          trailing: const CloseTextButton(),
-          product: cartProduct,
-          footer: _buildProductDeleteFromCartButton(cartProduct),
-        );
+        // showProductInfoModalSheet(
+        //   context: context,
+        //   trailing: const CloseTextButton(),
+        //   product: cartProduct,
+        //   footer: _buildProductDeleteFromCartButton(cartProduct),
+        // );
       },
       imageUrl: cartProduct.imageUrl,
       title: cartProduct.title,

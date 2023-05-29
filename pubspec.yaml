@@ -33,6 +33,12 @@ dependencies:
   api_handler:
     path: packages/api_handler
 
+  bonus_api:
+    path: packages/bonus_api
+
+  bonus_repository:
+    path: packages/bonus_repository
+
   flutter_animate: ^4.1.1+1
   grouped_list: ^5.1.2
   flutter_sticky_header: ^0.6.5

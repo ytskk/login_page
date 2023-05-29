@@ -1,4 +1,4 @@
-import 'package:catalog_api/catalog_api.dart';
+import 'package:bonus_api/bonus_api.dart';
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/theme/theme.dart';
@@ -12,7 +12,7 @@ class ProductInfoModalSheet extends StatelessWidget {
     super.key,
   });
 
-  final ProductModel product;
+  final CatalogProductModel product;
   final Widget? footer;
 
   @override

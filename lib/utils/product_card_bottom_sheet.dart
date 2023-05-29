@@ -1,4 +1,4 @@
-import 'package:catalog_api/catalog_api.dart';
+import 'package:bonus_api/bonus_api.dart';
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/screens/screens.dart';
 import 'package:training_and_testing/utils/utils.dart';
@@ -7,7 +7,7 @@ import 'package:training_and_testing/utils/utils.dart';
 /// button (if product is available for purchase).
 Future<void> showProductInfoModalSheet({
   required BuildContext context,
-  required ProductModel product,
+  required CatalogProductModel product,
   Widget? trailing,
   Widget? title,
   Widget? footer,

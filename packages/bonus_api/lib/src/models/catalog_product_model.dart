@@ -21,7 +21,7 @@ class CatalogProductModel {
   final String imageUrl;
   final String? description;
   final int? price;
-  final int status;
+  final CatalogProductStatus status;
   final bool isNew;
   final String categorySlug;
   final String categoryName;
@@ -30,4 +30,13 @@ class CatalogProductModel {
       _$CatalogProductModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CatalogProductModelToJson(this);
+}
+
+enum CatalogProductStatus {
+  @JsonValue(0)
+  available,
+  @JsonValue(1)
+  soon,
+  @JsonValue(2)
+  addedToCart,
 }

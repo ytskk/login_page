@@ -13,7 +13,7 @@ CatalogProductModel _$CatalogProductModelFromJson(Map<String, dynamic> json) =>
       imageUrl: json['imageUrl'] as String,
       description: json['description'] as String?,
       price: json['price'] as int?,
-      status: json['status'] as int,
+      status: $enumDecode(_$CatalogStatusEnumMap, json['status']),
       isNew: json['isNew'] as bool,
       categorySlug: json['categorySlug'] as String,
       categoryName: json['categoryName'] as String,
@@ -27,8 +27,14 @@ Map<String, dynamic> _$CatalogProductModelToJson(
       'imageUrl': instance.imageUrl,
       'description': instance.description,
       'price': instance.price,
-      'status': instance.status,
+      'status': _$CatalogStatusEnumMap[instance.status]!,
       'isNew': instance.isNew,
       'categorySlug': instance.categorySlug,
       'categoryName': instance.categoryName,
     };
+
+const _$CatalogStatusEnumMap = {
+  CatalogProductStatus.available: 0,
+  CatalogProductStatus.soon: 1,
+  CatalogProductStatus.addedToCart: 2,
+};

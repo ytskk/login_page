@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:bonus_api/bonus_api.dart';
+import 'package:bonus_repository/bonus_repository.dart';
 import 'package:catalog_api/catalog_api.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -23,21 +25,34 @@ class CatalogScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
       // TODO: universal api wrapper and api client DI
+      // init: CatalogController(
+      //   catalogApiClient: RemoteCatalogApi(
+      //     dio: Dio(
+      //       BaseOptions(
+      //         // android base url
+      //         // baseUrl: 'http://10.0.2.2:8080/',
+      //         // ios base url
+      //         baseUrl: 'http://localhost:8080/',
+      //       ),
+      //     ),
+      //   ),
+      //   bonusesApiClient: GetRequests(
+      //     dioClient: DioClient.client(
+      //       baseUrl: BonusesApiConfig.baseUrl,
+      //       debug: true,
+      //     ),
+      //   ),
+      // ),
       init: CatalogController(
-        catalogApiClient: RemoteCatalogApi(
-          dio: Dio(
-            BaseOptions(
-              // android base url
-              // baseUrl: 'http://10.0.2.2:8080/',
-              // ios base url
-              baseUrl: 'http://localhost:8080/',
+        catalogRepository: CatalogBonusRepository(
+          bonusesRepository: NetworkBonusRepository(
+            bonusApi: BonusApiClient(
+              Dio(
+                BaseOptions(
+                  baseUrl: 'http://localhost:8080/',
+                ),
+              ),
             ),
-          ),
-        ),
-        bonusesApiClient: GetRequests(
-          dioClient: DioClient.client(
-            baseUrl: BonusesApiConfig.baseUrl,
-            debug: true,
           ),
         ),
       ),
@@ -79,7 +94,7 @@ class CatalogScreenView extends StatelessWidget {
                     isLoading: controller.isCategoriesLoading,
                     selectedCategory: controller.selectedCategory,
                     onCategorySelected: (category) =>
-                        controller.changeSelectedCategory(category),
+                        controller.selectedCategory = category,
                   ),
                   sliver: ShimmerSwitchWidget(
                     isShimmerActive: controller.isProductsLoading,
@@ -124,7 +139,7 @@ class CatalogScreenView extends StatelessWidget {
 
   Widget _buildProductCardLarge(
     BuildContext context,
-    ProductModel product,
+    CatalogProductModel product,
     int index,
   ) =>
       ProductCardLarge(
@@ -170,20 +185,20 @@ class CatalogScreenView extends StatelessWidget {
   /// close modal sheet after product was added.
   Future<bool> _onAddToCartPressed(
     BuildContext context,
-    ProductModel product,
+    CatalogProductModel product,
   ) async {
-    final option = await _selectOption(
-      context,
-      product.options,
-    );
+    // final option = await _selectOption(
+    //   context,
+    //   product.options,
+    // );
 
-    // If product has options and user didn't select any, don't add it to cart.
-    if (product.options != null && option == null) {
-      return false;
-    }
+    // // If product has options and user didn't select any, don't add it to cart.
+    // if (product.options != null && option == null) {
+    //   return false;
+    // }
 
-    // TODO: implement add to cart logic.
-    log('Product: $product${product.options != null ? ' with option: $option' : ''} was added to cart.');
+    // // TODO: implement add to cart logic.
+    // log('Product: $product${product.options != null ? ' with option: $option' : ''} was added to cart.');
 
     return true;
   }

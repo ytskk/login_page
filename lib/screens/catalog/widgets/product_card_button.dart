@@ -1,4 +1,4 @@
-import 'package:catalog_api/catalog_api.dart';
+import 'package:bonus_api/bonus_api.dart';
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/theme/theme.dart';
@@ -6,13 +6,13 @@ import 'package:training_and_testing/widgets/widgets.dart';
 
 class ProductCardButton extends StatelessWidget {
   const ProductCardButton({
-    this.productStatus = ProductStatus.available,
+    this.productStatus = CatalogProductStatus.available,
     super.key,
     this.price,
     this.onAddToCartPressed,
   });
 
-  final ProductStatus productStatus;
+  final CatalogProductStatus productStatus;
   final int? price;
   final VoidCallback? onAddToCartPressed;
 
@@ -20,7 +20,7 @@ class ProductCardButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final backgroundColor = Theme.of(context).colorScheme.grey90;
 
-    if (productStatus == ProductStatus.available) {
+    if (productStatus == CatalogProductStatus.available) {
       return RoundedRectangleBox(
         backgroundColor: backgroundColor,
         borderRadius: 100,
@@ -44,7 +44,7 @@ class ProductCardButton extends StatelessWidget {
       );
     }
 
-    if (productStatus == ProductStatus.addedToCart) {
+    if (productStatus == CatalogProductStatus.addedToCart) {
       return Row(
         children: [
           Expanded(

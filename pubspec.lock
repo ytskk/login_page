@@ -24,6 +24,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  bonus_api:
+    dependency: "direct main"
+    description:
+      path: "packages/bonus_api"
+      relative: true
+    source: path
+    version: "0.1.0"
+  bonus_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/bonus_repository"
+      relative: true
+    source: path
+    version: "0.1.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -308,6 +322,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.8.1"
   lints:
     dependency: transitive
     description:
@@ -460,6 +482,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
+  retrofit:
+    dependency: transitive
+    description:
+      name: retrofit
+      sha256: "5eedbd8f73697f190dabc88520e0bcf2d3b2d9b9ad5c837f1dbb3ee6172d7709"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
   shared_preferences:
     dependency: "direct main"
     description:

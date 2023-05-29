@@ -1,29 +1,23 @@
-import 'dart:developer';
-
 import 'package:api_handler/api_handler.dart';
-import 'package:catalog_api/catalog_api.dart';
-import 'package:dio/dio.dart';
+import 'package:bonus_api/bonus_api.dart';
+import 'package:bonus_repository/bonus_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:training_and_testing/api/requests/get_requests_interface.dart';
 
 class CatalogController extends GetxController {
   CatalogController({
-    required CatalogApiInterface catalogApiClient,
-    required BonusesApiInterface bonusesApiClient,
-  })  : _catalogApiClient = catalogApiClient,
-        _bonusesApiClient = bonusesApiClient;
+    required CatalogBonusRepository catalogRepository,
+  }) : _catalogRepository = catalogRepository;
 
-  final CatalogApiInterface _catalogApiClient;
-  final BonusesApiInterface _bonusesApiClient;
+  final CatalogBonusRepository _catalogRepository;
 
   // definitions.
 
   final _balance = 0.obs;
-  final _products = RxList<ProductModel>([]);
-  final _categories = RxList<CategoryModel>([]);
-  final _selectedCategory = Rx<CategoryModel?>(null);
-  final _isBalanceLoading = true.obs;
+  final _categories = RxList<CatalogCategoryModel>([]);
+  final _products = RxList<CatalogProductModel>([]);
+  final _selectedCategory = Rxn<CatalogCategoryModel>();
+  final _isBalanceLoading = false.obs;
   final _isCategoriesLoading = true.obs;
   final _isProductsLoading = false.obs;
   final _error = Rxn<ApiNetworkException>();
@@ -31,42 +25,33 @@ class CatalogController extends GetxController {
   // getters.
 
   int get balance => _balance.value;
-
-  List<ProductModel> get products => _products;
-
-  List<CategoryModel> get categories => _categories;
-
-  CategoryModel? get selectedCategory => _selectedCategory.value;
-
+  List<CatalogCategoryModel> get categories => _categories;
+  List<CatalogProductModel> get products => _products;
+  CatalogCategoryModel? get selectedCategory => _selectedCategory.value;
   bool get isBalanceLoading => _isBalanceLoading.value;
-
   bool get isCategoriesLoading => _isCategoriesLoading.value;
-
   bool get isProductsLoading => _isProductsLoading.value;
-
   Rxn<ApiNetworkException> get error => _error;
 
-  bool get hasError => _error.value != null;
+  // setters.
+
+  set selectedCategory(CatalogCategoryModel? value) {
+    _selectedCategory.value = value;
+  }
 
   // methods.
 
   @override
   void onInit() {
     super.onInit();
-    log(
-      'CatalogController initialized',
-      name: 'CatalogController::onInit',
-    );
 
-    getBalance();
-    _getCategories();
+    _fetchCategories();
+    _getProducts();
 
-    /// Load products every time the selected category changes and its value is
-    /// not null.
+    /// Load products every time the selected category changes.
     ever(
       _selectedCategory,
       _getProducts,
-      condition: () => _selectedCategory.value != null,
     );
   }
 
@@ -78,94 +63,44 @@ class CatalogController extends GetxController {
       );
   }
 
-  Future<void> getBalance() async {
-    log('getBalance called', name: 'CatalogController::getBalance');
-    final balance = await _bonusesApiClient.getBalance(userId: '1');
-
-    // simulate network delay.
-    await Future<void>.delayed(const Duration(seconds: 3));
-
-    _balance.value = balance.totalBalance;
-    _isBalanceLoading.value = false;
-
-    update();
-  }
-
-  Future<void> _getCategories() async {
+  Future<void> _fetchCategories() async {
     await performRequest(
-      callback: fetchCategories,
-      loadingIndicator: _isCategoriesLoading,
       error: _error,
+      loadingIndicator: _isCategoriesLoading,
+      callback: () async {
+        // load categories.
+        final categories = await _catalogRepository.getCatalogCategories();
+
+        // update categories list.
+        _categories
+          ..clear()
+          ..addAll(categories);
+      },
     );
 
     update();
   }
 
-  Future<void> fetchCategories() async {
-    final allCategories = await _catalogApiClient.getAllCategories();
+  Future<void> _getProducts([CatalogCategoryModel? category]) async {
+    await performRequest(
+      error: _error,
+      loadingIndicator: _isProductsLoading,
+      callback: () async {
+        // load products.
+        final products = await _catalogRepository.getCatalogProducts(
+          category: category?.slug,
+        );
 
-    _wrapUpWithDefaultCategory();
-    _categories.addAll(allCategories);
-
-    _selectedCategory.value = categories.first;
-
-    // throw DioError(
-    //   requestOptions: RequestOptions(path: 'path'),
-    //   type: DioErrorType.badCertificate,
-    //   message: 'Check your internet connection.',
-    // );
-  }
-
-  void _wrapUpWithDefaultCategory() {
-    // TODO: add typography support and use it here.
-    const defaultCategory = CategoryModel(
-      id: 'all',
-      name: 'All Products',
-      slug: '',
+        // update products list.
+        _products
+          ..clear()
+          ..addAll(products);
+      },
     );
 
-    _categories.add(defaultCategory);
-  }
-
-  Future<void> _getProducts([CategoryModel? category]) async {
-    log(
-      'getProducts called',
-      name: 'CatalogController::getProducts',
-    );
-
-    _isProductsLoading.value = true;
-
-    try {
-      // simulate network delay.
-      await Future<void>.delayed(const Duration(seconds: 3));
-
-      final products = await ApiHandler.get(
-        () => _catalogApiClient.getProducts(
-          category?.slug,
-        ),
-      );
-
-      _products.value = products;
-    } on ApiNetworkException catch (e) {
-      _error.value = e;
-      log('Error: $e', name: 'CatalogController::getProducts');
-    } finally {
-      _isProductsLoading.value = false;
-    }
+    print('products: ${_products}');
 
     update();
-  }
-
-  void changeSelectedCategory(CategoryModel category) {
-    // change category only if it's not loading.
-    if (!_isProductsLoading.value) {
-      log(
-        'changeSelectedCategory called',
-        name: 'CatalogController::changeSelectedCategory',
-      );
-      _selectedCategory.value = category;
-      update();
-    }
   }
 }
 
@@ -199,7 +134,7 @@ Future<void> performRequest<T>({
   try {
     loadingIndicator?.value = true;
 
-    await ApiHandler.get(callback);
+    await callback();
   } on ApiNetworkException catch (e) {
     error?.value = e;
   } finally {

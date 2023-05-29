@@ -1,4 +1,4 @@
-import 'package:catalog_api/catalog_api.dart';
+import 'package:bonus_api/bonus_api.dart';
 import 'package:flutter/material.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
@@ -13,9 +13,9 @@ class CategoriesTabs extends StatelessWidget {
   });
 
   final bool isLoading;
-  final List<CategoryModel> categories;
-  final CategoryModel? selectedCategory;
-  final void Function(CategoryModel category)? onCategorySelected;
+  final List<CatalogCategoryModel> categories;
+  final CatalogCategoryModel? selectedCategory;
+  final void Function(CatalogCategoryModel category)? onCategorySelected;
 
   @override
   Widget build(BuildContext context) {
