@@ -57,6 +57,9 @@ abstract class AppIcons {
   static const String coloredCartIcon = 'assets/icons/colored_cart_icon.svg';
 
   static const String chevronRight = 'assets/icons/chevron_right.svg';
+  static const String chevronDown = 'assets/icons/chevron_down.svg';
+  static const String chevronUp = 'assets/icons/chevron_up.svg';
+
   static const String addIcon = 'assets/icons/add_icon.svg';
   static const String minusIcon = 'assets/icons/minus_icon.svg';
   static const String logOutIcon = 'assets/icons/log_out_icon.svg';

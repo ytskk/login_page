@@ -9,7 +9,7 @@ abstract class GetRequestHandler {
   Future<T> performRequest<T>(
     String path,
     T Function(Map<String, dynamic> data) fromJson, {
-    required String userId,
+    String userId = '1',
     Map<String, String>? queryParams,
   }) async {
     try {

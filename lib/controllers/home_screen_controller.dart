@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 import 'package:training_and_testing/api/bonuses_api.dart';

@@ -5,6 +5,8 @@ import 'package:training_and_testing/screens/screens.dart';
 import 'package:training_and_testing/theme/theme.dart';
 import 'package:training_and_testing/utils/utils.dart';
 
+import 'widgets.dart';
+
 /// {@template profile_preview}
 /// [Row] showing the users profile icon and his full name.
 ///
@@ -67,9 +69,9 @@ class ProfilePreviewWidget extends StatelessWidget {
           dimension: sizeAvatar ?? iconSize50,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: Image.network(
-              profileInfo.photoUrl,
+            child: CachedImage(
               fit: BoxFit.cover,
+              imageUrl: profileInfo.photoUrl,
             ),
           ),
         ),

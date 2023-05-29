@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Trans;
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
+import 'package:training_and_testing/models/models.dart';
 import 'package:training_and_testing/models/order_model.dart';
 import 'package:training_and_testing/theme/app_colors.dart';
 import 'package:training_and_testing/theme/app_typography.dart';
@@ -20,17 +21,7 @@ class OrdersBlock extends StatelessWidget {
 
   final Widget? trailing;
 
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      final userOrders = homeScreenController.userOrders.value;
-
-      if (userOrders == null) return const SizedBox();
-
-      final appTheme = Theme.of(context);
-
-      Widget buildOrderList(){
-
+  Widget _buildOrderList(OrdersModel userOrders){
         return SizedBox(
             height: HomeScreenSized.orderBlockHeight,
             child: ListView.builder(
@@ -41,8 +32,8 @@ class OrdersBlock extends StatelessWidget {
                 if (index == 0) {
                   return _PlaceOrderButton(
                     buttonWidth: HomeScreenSized.placeOrderButtonWidth,
-                    textStyle: appTheme.textTheme.buttonS,
-                    contentColor: appTheme.colorScheme.blue50,
+                    textStyle: Theme.of(context).textTheme.buttonS,
+                    contentColor: Theme.of(context).colorScheme.blue50,
                   );
                 }
                 return _PreviewOrderWidget(
@@ -55,6 +46,13 @@ class OrdersBlock extends StatelessWidget {
         
       }
 
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      final userOrders = homeScreenController.userOrders.value;
+
+      if (userOrders == null) return const SizedBox();
+
       return BlockTemplate(
         header: BlockHeader(
             title: AppStrings.myOrders.tr(),
@@ -62,7 +60,7 @@ class OrdersBlock extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: padding16),
             trailing: trailing,
           ),
-        body: buildOrderList(),
+        body: _buildOrderList(userOrders),
       );
     });
   }

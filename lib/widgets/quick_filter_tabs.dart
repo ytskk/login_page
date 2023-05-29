@@ -6,11 +6,17 @@ class QuickFilterTabs extends StatelessWidget {
   const QuickFilterTabs({
     required this.itemBuilder,
     required this.itemCount,
+    required this.hight,
+    this.padding,
     super.key,
   });
 
   final Widget? Function(BuildContext, int) itemBuilder;
   final int itemCount;
+  final double hight;
+  final EdgeInsets? padding;
+
+  EdgeInsets get _padding => padding ?? const EdgeInsets.all(padding16);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +25,9 @@ class QuickFilterTabs extends StatelessWidget {
     return ColoredBox(
       color: backgroundColor,
       child: SizedBox(
-        height: 72,
+        height: hight,
         child: ListView.separated(
-          padding: const EdgeInsets.symmetric(
-            horizontal: spacing16,
-            vertical: spacing16,
-          ),
+          padding: _padding,
           scrollDirection: Axis.horizontal,
           itemBuilder: itemBuilder,
           itemCount: itemCount,

@@ -14,3 +14,8 @@ abstract class HomeScreenSized {
   // [_PreviewOrderWidget] LisView max width
   static const double lableLineMaxWidth = 150;
 }
+
+abstract class NotificationsScreenSized{
+  // [QuickFilterTabs] height
+  static const double quickFilterTabsHeight = 36;
+}

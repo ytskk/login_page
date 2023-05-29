@@ -46,23 +46,36 @@ class GetRequests extends GetRequestHandler implements BonusesApiInterface {
   }
 
   @override
-  Future<NotificationsModel> getNotifications({required String userId}) async {
+  Future<NotificationsModel> getNotificationsByCategory({
+    required String userId,
+    String? filter,
+    int? count,
+  }) async {
+    final queryParams = <String, String>{};
+    if (filter != null) queryParams.addAll({'filter': filter});
+    if (count != null) queryParams.addAll({'count': '$count'});
     return performRequest(
       BonusesApiEndpoints.notifications,
       NotificationsModel.fromJson,
       userId: userId,
+      queryParams: queryParams,
     );
   }
 
-  Future<NotificationsModel> getNotificationsByType({
-    required String userId,
-    required List<String> types,
-  }) async {
+  @override
+  Future<NotificationCategoryListModel> getNotificationCategoryList(
+      {String? locale}) async {
     return performRequest(
-      BonusesApiEndpoints.notifications,
-      NotificationsModel.fromJson,
-      userId: userId,
-      queryParams: {'type': types.join(',')},
+      BonusesApiEndpoints.notificationsCategory,
+      NotificationCategoryListModel.fromJson,
+    );
+  }
+
+  @override
+  Future<FaqModel> getFAQ({String? locale}) async {
+    return performRequest(
+      BonusesApiEndpoints.faq,
+      FaqModel.fromJson,
     );
   }
 }

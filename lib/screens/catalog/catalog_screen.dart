@@ -30,7 +30,7 @@ class CatalogScreen extends StatelessWidget {
               // android base url
               // baseUrl: 'http://10.0.2.2:8080/',
               // ios base url
-              baseUrl: 'http://localhost:8080/',
+              baseUrl: 'http://185.232.169.195',
             ),
           ),
         ),
