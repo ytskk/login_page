@@ -1,17 +1,12 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bonus_api/bonus_api.dart';
 import 'package:bonus_repository/bonus_repository.dart';
-import 'package:catalog_api/catalog_api.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:get/get.dart';
-import 'package:training_and_testing/api/config.dart';
-import 'package:training_and_testing/api/requests/get_requests.dart';
-import 'package:training_and_testing/api/services/dio_client.dart';
 import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/controllers/controllers.dart';
 import 'package:training_and_testing/screens/screens.dart';
@@ -24,7 +19,6 @@ class CatalogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      // TODO: universal api wrapper and api client DI
       // init: CatalogController(
       //   catalogApiClient: RemoteCatalogApi(
       //     dio: Dio(
@@ -49,6 +43,9 @@ class CatalogScreen extends StatelessWidget {
             bonusApi: BonusApiClient(
               Dio(
                 BaseOptions(
+                  // //  android base url
+                  // baseUrl: 'http://10.0.2.2:8080/',
+                  // // ios base url
                   baseUrl: 'http://localhost:8080/',
                 ),
               ),
@@ -87,32 +84,94 @@ class CatalogScreenView extends StatelessWidget {
                   balance: controller.balance,
                 ),
 
-                // categories + products
                 SliverStickyHeader(
-                  header: CategoriesTabs(
-                    categories: controller.categories,
-                    isLoading: controller.isCategoriesLoading,
-                    selectedCategory: controller.selectedCategory,
-                    onCategorySelected: (category) =>
-                        controller.selectedCategory = category,
+                  header: FutureBuilder(
+                    future: controller.categoriesFuture.value,
+                    builder: (context, snapshot) {
+                      print('categories snapshot: $snapshot');
+                      final isLoading =
+                          snapshot.connectionState != ConnectionState.done &&
+                              snapshot.connectionState != ConnectionState.none;
+
+                      if (snapshot.hasError && !isLoading) {
+                        return TextButton(
+                          onPressed: () {
+                            controller.fetchCategories();
+                          },
+                          child: Text('Error, try again'),
+                        );
+                      }
+
+                      return CategoriesTabs(
+                        isLoading: isLoading,
+                        categories: snapshot.data,
+                        selectedCategory: controller.selectedCategory,
+                        onCategorySelected: (category) =>
+                            controller.selectedCategory = category,
+                      );
+                    },
                   ),
-                  sliver: ShimmerSwitchWidget(
-                    isShimmerActive: controller.isProductsLoading,
-                    shimmer: const ShimmerLoadingSliverList(
-                      item: CatalogProductCardShimmer(),
-                      itemCount: 4,
-                    ),
-                    child: SliverGroupedList(
-                      items: groupListBy(
-                        controller.products,
-                        (product) => product.categoryName,
-                      ),
-                      groupHeaderBuilder: _buildGroupHeader,
-                      itemBuilder: _buildProductCardLarge,
-                      separator: const SizedBox(height: spacing24),
-                    ),
+                  sliver: FutureBuilder(
+                    future: controller.productsFuture.value,
+                    builder: (context, snapshot) {
+                      final isLoading =
+                          snapshot.connectionState != ConnectionState.done &&
+                              snapshot.connectionState != ConnectionState.none;
+
+                      if (snapshot.hasError && !isLoading) {
+                        return SliverToBoxAdapter(
+                          child: SizedBox(
+                            child: Text('Error: ${snapshot.error}'),
+                          ),
+                        );
+                      }
+
+                      return ShimmerSwitchWidget(
+                        isShimmerActive: isLoading,
+                        shimmer: const ShimmerLoadingSliverList(
+                          item: CatalogProductCardShimmer(),
+                          itemCount: 4,
+                        ),
+                        child: SliverGroupedList(
+                          items: groupListBy(
+                            snapshot.data ?? <CatalogProductModel>[],
+                            (product) => product.categoryName,
+                          ),
+                          groupHeaderBuilder: _buildGroupHeader,
+                          itemBuilder: _buildProductCardLarge,
+                          separator: const SizedBox(height: spacing24),
+                        ),
+                      );
+                    },
                   ),
                 ),
+
+                // // categories + products
+                // SliverStickyHeader(
+                //   header: CategoriesTabs(
+                //     categories: controller.categories,
+                //     isLoading: controller.isCategoriesLoading,
+                //     selectedCategory: controller.selectedCategory,
+                //     onCategorySelected: (category) =>
+                //         controller.selectedCategory = category,
+                //   ),
+                //   sliver: ShimmerSwitchWidget(
+                //     isShimmerActive: controller.isProductsLoading,
+                //     shimmer: const ShimmerLoadingSliverList(
+                //       item: CatalogProductCardShimmer(),
+                //       itemCount: 4,
+                //     ),
+                //     child: SliverGroupedList(
+                //       items: groupListBy(
+                //         controller.products,
+                //         (product) => product.categoryName,
+                //       ),
+                //       groupHeaderBuilder: _buildGroupHeader,
+                //       itemBuilder: _buildProductCardLarge,
+                //       separator: const SizedBox(height: spacing24),
+                //     ),
+                //   ),
+                // ),
                 const SliverToBoxAdapter(
                   child: SizedBox(height: spacing80),
                 ),

@@ -10,6 +10,7 @@ dependencies:
   dio: ^5.1.2
   json_annotation: ^4.8.1
   retrofit: ^4.0.1
+  equatable: ^2.0.5
 
 dev_dependencies:
   lints: ^2.0.0

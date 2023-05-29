@@ -6,16 +6,16 @@ import 'package:training_and_testing/widgets/widgets.dart';
 class CategoriesTabs extends StatelessWidget {
   const CategoriesTabs({
     required this.isLoading,
-    required this.categories,
+    this.categories,
     this.selectedCategory,
     this.onCategorySelected,
     super.key,
   });
 
   final bool isLoading;
-  final List<CatalogCategoryModel> categories;
+  final List<CatalogCategoryModel>? categories;
   final CatalogCategoryModel? selectedCategory;
-  final void Function(CatalogCategoryModel category)? onCategorySelected;
+  final ValueChanged<CatalogCategoryModel>? onCategorySelected;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +31,9 @@ class CategoriesTabs extends StatelessWidget {
         ),
       ),
       child: QuickFilterTabs(
-        itemCount: categories.length,
+        itemCount: categories?.length ?? 0,
         itemBuilder: (_, index) {
-          final category = categories[index];
+          final category = categories![index];
 
           return TagBadge(
             onPressed: () => onCategorySelected?.call(category),
