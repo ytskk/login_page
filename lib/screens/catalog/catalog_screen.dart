@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bonus_api/bonus_api.dart';
 import 'package:bonus_repository/bonus_repository.dart';
+import 'package:cache_client/cache_client.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,8 @@ class CatalogScreen extends StatelessWidget {
       // ),
       init: CatalogController(
         catalogRepository: CatalogBonusRepository(
-          bonusesRepository: NetworkBonusRepository(
+          bonusesRepository: NetworkCacheableBonusRepository(
+            cacheClient: InMemoryCacheClient(),
             bonusApi: BonusApiClient(
               Dio(
                 BaseOptions(
@@ -53,16 +55,8 @@ class CatalogScreen extends StatelessWidget {
           ),
         ),
       ),
-      builder: (controller) => GetListener<CatalogController>(
-        reactive: controller.error,
-        listenWhen: (controller) => controller.error.value != null,
-        listener: (context, controller) {
-          if (controller.error.value != null) {
-            controller.handleError(context);
-          }
-        },
-        child: const CatalogScreenView(),
-      ),
+      filter: (_) => false,
+      builder: (_) => const CatalogScreenView(),
     );
   }
 }
@@ -72,48 +66,37 @@ class CatalogScreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CatalogController>(
-      builder: (controller) {
-        return Scaffold(
-          body: SafeArea(
-            bottom: false,
-            child: CustomScrollView(
-              slivers: [
-                CatalogAppBar(
-                  isLoading: controller.isBalanceLoading,
-                  balance: controller.balance,
-                ),
+    return Scaffold(
+      body: SafeArea(
+        bottom: false,
+        child: CustomScrollView(
+          slivers: [
+            GetBuilder<CatalogController>(
+              builder: (controller) {
+                print('updating balance widget');
+                // return CatalogAppBar(
+                //   isLoading: true,
+                //   balance: controller.balance,
+                // );
+                return SliverAppBar(
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.replay_outlined),
+                      onPressed: () => controller.fetchCategories(),
+                    ),
+                  ],
+                );
+              },
+            ),
+            SliverStickyHeader(
+              header: const CatalogCategoriesTabsView(),
+              sliver: GetX<CatalogController>(
+                builder: (controller) {
+                  print('updating products list');
 
-                SliverStickyHeader(
-                  header: FutureBuilder(
-                    future: controller.categoriesFuture.value,
-                    builder: (context, snapshot) {
-                      print('categories snapshot: $snapshot');
-                      final isLoading =
-                          snapshot.connectionState != ConnectionState.done &&
-                              snapshot.connectionState != ConnectionState.none;
-
-                      if (snapshot.hasError && !isLoading) {
-                        return TextButton(
-                          onPressed: () {
-                            controller.fetchCategories();
-                          },
-                          child: Text('Error, try again'),
-                        );
-                      }
-
-                      return CategoriesTabs(
-                        isLoading: isLoading,
-                        categories: snapshot.data,
-                        selectedCategory: controller.selectedCategory,
-                        onCategorySelected: (category) =>
-                            controller.selectedCategory = category,
-                      );
-                    },
-                  ),
-                  sliver: FutureBuilder(
+                  return FutureBuilder(
                     future: controller.productsFuture.value,
-                    builder: (context, snapshot) {
+                    builder: (_, snapshot) {
                       final isLoading =
                           snapshot.connectionState != ConnectionState.done &&
                               snapshot.connectionState != ConnectionState.none;
@@ -143,43 +126,16 @@ class CatalogScreenView extends StatelessWidget {
                         ),
                       );
                     },
-                  ),
-                ),
-
-                // // categories + products
-                // SliverStickyHeader(
-                //   header: CategoriesTabs(
-                //     categories: controller.categories,
-                //     isLoading: controller.isCategoriesLoading,
-                //     selectedCategory: controller.selectedCategory,
-                //     onCategorySelected: (category) =>
-                //         controller.selectedCategory = category,
-                //   ),
-                //   sliver: ShimmerSwitchWidget(
-                //     isShimmerActive: controller.isProductsLoading,
-                //     shimmer: const ShimmerLoadingSliverList(
-                //       item: CatalogProductCardShimmer(),
-                //       itemCount: 4,
-                //     ),
-                //     child: SliverGroupedList(
-                //       items: groupListBy(
-                //         controller.products,
-                //         (product) => product.categoryName,
-                //       ),
-                //       groupHeaderBuilder: _buildGroupHeader,
-                //       itemBuilder: _buildProductCardLarge,
-                //       separator: const SizedBox(height: spacing24),
-                //     ),
-                //   ),
-                // ),
-                const SliverToBoxAdapter(
-                  child: SizedBox(height: spacing80),
-                ),
-              ],
+                  );
+                },
+              ),
             ),
-          ),
-        );
-      },
+            const SliverToBoxAdapter(
+              child: SizedBox(height: spacing80),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -305,6 +261,46 @@ class CatalogScreenView extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class CatalogCategoriesTabsView extends StatelessWidget {
+  const CatalogCategoriesTabsView({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GetX<CatalogController>(
+      builder: (controller) {
+        print('updating categories tabs');
+        // to make GetX reactive to changes in selectedCategory
+        final selectedCategory = controller.selectedCategory.value;
+
+        return FutureBuilder(
+          future: controller.categoriesFuture.value,
+          builder: (_, snapshot) {
+            final isLoading =
+                snapshot.connectionState != ConnectionState.done &&
+                    snapshot.connectionState != ConnectionState.none;
+
+            if (snapshot.hasError && !isLoading) {
+              return TextButton(
+                onPressed: controller.fetchCategories,
+                child: Text('Error, try again'),
+              );
+            }
+
+            return CategoriesTabs(
+              isLoading: isLoading,
+              categories: snapshot.data,
+              selectedCategory: selectedCategory,
+              onCategorySelected: controller.updateSelectedCategory,
+            );
+          },
+        );
+      },
     );
   }
 }

@@ -41,7 +41,7 @@ class Shimmer extends StatelessWidget {
             onPlay: (controller) => controller.repeat(),
           )
           .shimmer(
-            duration: 3.seconds,
+            duration: 4.seconds,
             curve: Curves.fastEaseInToSlowEaseOut,
           ),
     );

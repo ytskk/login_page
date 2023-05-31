@@ -30,6 +30,9 @@ dependencies:
   catalog_api:
     path: packages/catalog_api
 
+  cache_client:
+    path: packages/cache_client
+
   api_handler:
     path: packages/api_handler
 

@@ -29,7 +29,13 @@ final class InMemoryCacheClient implements ICacheClient {
     required String key,
   }) async {
     final value = _cache[key];
+
+    if (value is CacheEntity) {
+      return value.value as T?;
+    }
+
     if (value is T) return value;
+
     return null;
   }
 }

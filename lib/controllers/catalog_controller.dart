@@ -16,36 +16,24 @@ class CatalogController extends GetxController {
   // definitions.
 
   final _balance = 0.obs;
-  final _categories = RxList<CatalogCategoryModel>([]);
-  final _products = RxList<CatalogProductModel>([]);
   final _selectedCategory = Rxn<CatalogCategoryModel>();
-  final _isBalanceLoading = false.obs;
-  final _isCategoriesLoading = true.obs;
-  final _isProductsLoading = false.obs;
   final _error = Rxn<ApiNetworkException>();
 
   // getters.
 
   int get balance => _balance.value;
-  List<CatalogCategoryModel> get categories => _categories;
-  List<CatalogProductModel> get products => _products;
-  CatalogCategoryModel? get selectedCategory => _selectedCategory.value;
-  bool get isBalanceLoading => _isBalanceLoading.value;
-  bool get isCategoriesLoading => _isCategoriesLoading.value;
-  bool get isProductsLoading => _isProductsLoading.value;
+  Rxn<CatalogCategoryModel> get selectedCategory => _selectedCategory;
   Rxn<ApiNetworkException> get error => _error;
-  bool get isControllerLoading => [
-        _isBalanceLoading,
-        _isCategoriesLoading,
-        _isProductsLoading,
-      ].any((element) => element.value);
 
+  /// Future to get list of categories.
   final categoriesFuture = Rxn<Future<List<CatalogCategoryModel>>>();
+
+  /// Future to get list of products.
   final productsFuture = Rxn<Future<List<CatalogProductModel>>>();
 
   // setters.
 
-  set selectedCategory(CatalogCategoryModel? value) {
+  void updateSelectedCategory([CatalogCategoryModel? value]) {
     if (value?.id == _selectedCategory.value?.id) {
       _selectedCategory.value = null;
     } else {
@@ -60,18 +48,9 @@ class CatalogController extends GetxController {
     super.onInit();
 
     fetchCategories();
-    // _getProducts();
 
-    /// Load products every time the selected category changes.
-    // ever(
-    //   _selectedCategory,
-    //   _getProducts,
-    // );
-    _selectedCategory.listenAndPump((category) {
-      getProducts(category);
-
-      update();
-    });
+    /// Listen to changes in the selected category and load products.
+    _selectedCategory.listen(getProducts);
   }
 
   void handleError(BuildContext context) {
@@ -101,8 +80,12 @@ class CatalogController extends GetxController {
     //   },
     // );
 
-    categoriesFuture.trigger(_catalogRepository.getCatalogCategories());
-    _selectedCategory.trigger(null);
+    categoriesFuture.value =
+        _catalogRepository.getCatalogCategories().then((value) {
+      // force to update the selected category.
+      _selectedCategory.trigger(_selectedCategory.value);
+      return value;
+    });
   }
 
   Future<void> getProducts([CatalogCategoryModel? category]) async {
@@ -111,26 +94,8 @@ class CatalogController extends GetxController {
       name: 'CatalogController::_getProducts',
     );
 
-    // await performRequest(
-    //   error: _error,
-    //   loadingIndicator: _isProductsLoading,
-    //   callback: () async {
-    //     // load products.
-    //     final products = await _catalogRepository.getCatalogProducts(
-    //       category: category?.slug,
-    //     );
-
-    //     // update products list.
-    //     _products.value = products;
-    //   },
-    // );
-
-    // print('products: ${_products.length}');
-
-    productsFuture.trigger(
-      _catalogRepository.getCatalogProducts(
-        category: category?.slug,
-      ),
+    productsFuture.value = _catalogRepository.getCatalogProducts(
+      category: category?.slug,
     );
   }
 }
