@@ -18,24 +18,23 @@ class ProductCardButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = Theme.of(context).colorScheme.grey90;
+    final colorScheme = Theme.of(context).colorScheme;
 
     if (productStatus == CatalogProductStatus.available) {
       return RoundedRectangleBox(
-        backgroundColor: backgroundColor,
+        backgroundColor: colorScheme.grey90,
         borderRadius: 100,
         child: Row(
           children: [
             const SizedBox(width: spacing12),
-            CoinIconWithLabel(
-              label: price!.toString(),
-            ),
+            CoinIconWithLabel(label: price!.toString()),
             const SizedBox(width: spacing16),
             Expanded(
               child: BrandButton(
                 onPressed: onAddToCartPressed,
-                child: const SvgAsset.squared(
+                child: SvgAsset.squared(
                   assetName: AppIcons.basketIcon,
+                  color: colorScheme.onBackground,
                 ),
               ),
             ),

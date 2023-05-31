@@ -48,7 +48,7 @@ class CatalogScreen extends StatelessWidget {
                   // //  android base url
                   // baseUrl: 'http://10.0.2.2:8080/',
                   // // ios base url
-                  baseUrl: 'http://localhost:8080/',
+                  baseUrl: 'http://localhost:8081/',
                 ),
               ),
             ),
@@ -74,61 +74,15 @@ class CatalogScreenView extends StatelessWidget {
             GetBuilder<CatalogController>(
               builder: (controller) {
                 print('updating balance widget');
-                // return CatalogAppBar(
-                //   isLoading: true,
-                //   balance: controller.balance,
-                // );
-                return SliverAppBar(
-                  actions: [
-                    IconButton(
-                      icon: const Icon(Icons.replay_outlined),
-                      onPressed: () => controller.fetchCategories(),
-                    ),
-                  ],
+                return CatalogAppBar(
+                  isLoading: true,
+                  balance: controller.balance,
                 );
               },
             ),
             SliverStickyHeader(
               header: const CatalogCategoriesTabsView(),
-              sliver: GetX<CatalogController>(
-                builder: (controller) {
-                  print('updating products list');
-
-                  return FutureBuilder(
-                    future: controller.productsFuture.value,
-                    builder: (_, snapshot) {
-                      final isLoading =
-                          snapshot.connectionState != ConnectionState.done &&
-                              snapshot.connectionState != ConnectionState.none;
-
-                      if (snapshot.hasError && !isLoading) {
-                        return SliverToBoxAdapter(
-                          child: SizedBox(
-                            child: Text('Error: ${snapshot.error}'),
-                          ),
-                        );
-                      }
-
-                      return ShimmerSwitchWidget(
-                        isShimmerActive: isLoading,
-                        shimmer: const ShimmerLoadingSliverList(
-                          item: CatalogProductCardShimmer(),
-                          itemCount: 4,
-                        ),
-                        child: SliverGroupedList(
-                          items: groupListBy(
-                            snapshot.data ?? <CatalogProductModel>[],
-                            (product) => product.categoryName,
-                          ),
-                          groupHeaderBuilder: _buildGroupHeader,
-                          itemBuilder: _buildProductCardLarge,
-                          separator: const SizedBox(height: spacing24),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+              sliver: const CatalogProductsListView(),
             ),
             const SliverToBoxAdapter(
               child: SizedBox(height: spacing80),
@@ -136,171 +90,6 @@ class CatalogScreenView extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildGroupHeader(
-    String categoryName,
-    int count,
-  ) =>
-      BlockHeader(
-        padding: const EdgeInsets.only(
-          top: spacing40,
-          bottom: spacing24,
-        ),
-        title: categoryName,
-        label: count,
-      );
-
-  Widget _buildProductCardLarge(
-    BuildContext context,
-    CatalogProductModel product,
-    int index,
-  ) =>
-      ProductCardLarge(
-        onPressed: () {
-          showProductInfoModalSheet(
-            context: context,
-            product: product,
-            footer: Row(
-              children: [
-                Expanded(
-                  child: BrandButton(
-                    size: ButtonSize.large,
-                    onPressed: () async {
-                      final wasAdded =
-                          await _onAddToCartPressed(context, product);
-                      print('wasAdded: $wasAdded');
-
-                      if (wasAdded) {
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    child: Text('Add to cart'),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-        imageUrl: product.imageUrl,
-        title: product.title,
-        description: product.description,
-        isNew: product.isNew,
-        button: ProductCardButton(
-          productStatus: product.status,
-          price: product.price,
-          onAddToCartPressed: () async {
-            await _onAddToCartPressed(context, product);
-          },
-        ),
-      );
-
-  /// Returns true if product can be successfully added to cart. Useful to
-  /// close modal sheet after product was added.
-  Future<bool> _onAddToCartPressed(
-    BuildContext context,
-    CatalogProductModel product,
-  ) async {
-    // final option = await _selectOption(
-    //   context,
-    //   product.options,
-    // );
-
-    // // If product has options and user didn't select any, don't add it to cart.
-    // if (product.options != null && option == null) {
-    //   return false;
-    // }
-
-    // // TODO: implement add to cart logic.
-    // log('Product: $product${product.options != null ? ' with option: $option' : ''} was added to cart.');
-
-    return true;
-  }
-
-  /// Returns selected option or null if user didn't select any. Or null if
-  /// product doesn't have any options.
-  Future<String?> _selectOption(
-    BuildContext context,
-    List<String>? options,
-  ) async {
-    if (options == null) {
-      return null;
-    }
-
-    final option = await _showSelectOptionModalSheet(
-      context,
-      options,
-    );
-
-    return option;
-  }
-
-  Future<String?> _showSelectOptionModalSheet(
-    BuildContext context,
-    List<String> options,
-  ) async {
-    return showCustomModalBottomSheet<String?>(
-      context: context,
-      trailing: TextButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        child: Text(tr(AppStrings.close)),
-      ),
-      title: Text(tr(AppStrings.size)),
-      child: Column(
-        children: [
-          ...options.map(
-            (option) => MenuItem(
-              title: option,
-              onPressed: () {
-                Navigator.of(context).pop(option);
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CatalogCategoriesTabsView extends StatelessWidget {
-  const CatalogCategoriesTabsView({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GetX<CatalogController>(
-      builder: (controller) {
-        print('updating categories tabs');
-        // to make GetX reactive to changes in selectedCategory
-        final selectedCategory = controller.selectedCategory.value;
-
-        return FutureBuilder(
-          future: controller.categoriesFuture.value,
-          builder: (_, snapshot) {
-            final isLoading =
-                snapshot.connectionState != ConnectionState.done &&
-                    snapshot.connectionState != ConnectionState.none;
-
-            if (snapshot.hasError && !isLoading) {
-              return TextButton(
-                onPressed: controller.fetchCategories,
-                child: Text('Error, try again'),
-              );
-            }
-
-            return CategoriesTabs(
-              isLoading: isLoading,
-              categories: snapshot.data,
-              selectedCategory: selectedCategory,
-              onCategorySelected: controller.updateSelectedCategory,
-            );
-          },
-        );
-      },
     );
   }
 }

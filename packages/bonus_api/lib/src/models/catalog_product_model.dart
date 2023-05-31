@@ -1,3 +1,4 @@
+import 'package:bonus_api/bonus_api.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'catalog_product_model.g.dart';
@@ -12,8 +13,7 @@ class CatalogProductModel {
     this.price,
     required this.status,
     required this.isNew,
-    required this.categorySlug,
-    required this.categoryName,
+    required this.category,
   });
 
   final String id;
@@ -23,8 +23,7 @@ class CatalogProductModel {
   final int? price;
   final CatalogProductStatus status;
   final bool isNew;
-  final String categorySlug;
-  final String categoryName;
+  final CatalogCategoryModel category;
 
   factory CatalogProductModel.fromJson(Map<String, dynamic> json) =>
       _$CatalogProductModelFromJson(json);

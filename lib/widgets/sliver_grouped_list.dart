@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-typedef GroupedMap<T, E> = Map<T, List<E>>;
-
 class SliverGroupedList<T, E> extends StatelessWidget {
   const SliverGroupedList({
     required this.items,
@@ -11,7 +9,7 @@ class SliverGroupedList<T, E> extends StatelessWidget {
     super.key,
   });
 
-  final GroupedMap<T, E> items;
+  final Map<T, List<E>> items;
   final Widget Function(T value, int count)? groupHeaderBuilder;
   final Widget Function(BuildContext context, E element, int index) itemBuilder;
 
@@ -39,28 +37,6 @@ class SliverGroupedList<T, E> extends StatelessWidget {
         childCount: items.length,
       ),
     );
-  }
-
-  // Calculates the total number of items in the list. Includes items count
-  // for each group headers and separators.
-  //
-  // TODO: use that method in [SliverGroupedList].
-  int calculateItemsCount(GroupedMap<T, E> items) {
-    var itemsCount = 0;
-
-    for (final key in items.keys) {
-      itemsCount += items[key]!.length;
-
-      if (groupHeaderBuilder != null) {
-        itemsCount += 1;
-      }
-
-      if (separator != null) {
-        itemsCount += items[key]!.length - 1;
-      }
-    }
-
-    return itemsCount;
   }
 
   Widget _buildCategoryItems(

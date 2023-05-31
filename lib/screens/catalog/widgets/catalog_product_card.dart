@@ -3,8 +3,8 @@ import 'package:training_and_testing/constants/constants.dart';
 import 'package:training_and_testing/screens/screens.dart';
 import 'package:training_and_testing/widgets/widgets.dart';
 
-class ProductCardLarge extends StatelessWidget {
-  const ProductCardLarge({
+class CatalogProductCard extends StatelessWidget {
+  const CatalogProductCard({
     required this.imageUrl,
     required this.title,
     this.description,
