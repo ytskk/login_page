@@ -27,21 +27,19 @@
     "selectSomething": "Select something",
     "toBuySomething": "To buy something",
     "needToGetBonuses": "you need to get bonuses",
-
-    "notifications" : "Notifications",
+    "notifications": "Notifications",
     "youHave": "You have",
-    "noMessages" : "no messages",
+    "noMessages": "no messages",
     "new_": "New",
-
     "enums": {
-        "OrderStatus":{
-            "canceled" : "Canceled",
-            "delivered" : "Delivered",
-            "waitingForDelivery" : "Waiting For Delivery",
-            "unknown" : "Unknown"
+        "OrderStatus": {
+            "canceled": "Canceled",
+            "delivered": "Delivered",
+            "waitingForDelivery": "Waiting For Delivery",
+            "unknown": "Unknown"
         },
-        "NotificationType":{
-            "orders" : "Orders",
+        "NotificationType": {
+            "orders": "Orders",
             "system": "System",
             "profile": "Profile",
             "other": "Other"
@@ -58,5 +56,7 @@
     "spendBonusPoints": "Spend them on items from the catalog",
     "deleteAll": "Delete all",
     "addToCart": "Add to cart",
-    "deleteFromCart": "Delete from cart"
+    "deleteFromCart": "Delete from cart",
+    "catalogErrorTitle": "Error loading products",
+    "catalogErrorRetryButtonText": "Try again"
 }

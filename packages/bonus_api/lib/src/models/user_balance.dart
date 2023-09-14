@@ -5,11 +5,11 @@ part 'user_balance.g.dart';
 @JsonSerializable()
 class UserBalanceModel {
   const UserBalanceModel({
-    required this.totalBalance,
+    required this.balance,
     required this.todayChanges,
   });
 
-  final int totalBalance;
+  final int balance;
   final int todayChanges;
 
   factory UserBalanceModel.fromJson(Map<String, dynamic> json) =>

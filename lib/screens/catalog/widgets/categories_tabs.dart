@@ -22,8 +22,12 @@ class CategoriesTabs extends StatelessWidget {
     return ShimmerSwitchWidget(
       isShimmerActive: isLoading,
       shimmer: ShimmerLoadingList(
+        padding: const EdgeInsets.symmetric(
+          horizontal: spacing16,
+          vertical: spacing16,
+        ),
         scrollDirection: Axis.horizontal,
-        height: 32,
+        height: 72,
         gap: spacing16,
         item: const Shimmer(
           borderRadius: borderRadius24,
@@ -36,7 +40,9 @@ class CategoriesTabs extends StatelessWidget {
           final category = categories![index];
 
           return TagBadge(
-            onPressed: () => onCategorySelected?.call(category),
+            onPressed: onCategorySelected == null
+                ? null
+                : () => onCategorySelected!(category),
             isSelected: category.id == selectedCategory?.id,
             child: Text(category.name),
           );

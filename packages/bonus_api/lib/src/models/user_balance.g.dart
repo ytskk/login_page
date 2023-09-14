@@ -8,12 +8,12 @@ part of 'user_balance.dart';
 
 UserBalanceModel _$UserBalanceModelFromJson(Map<String, dynamic> json) =>
     UserBalanceModel(
-      totalBalance: json['totalBalance'] as int,
+      balance: json['balance'] as int,
       todayChanges: json['todayChanges'] as int,
     );
 
 Map<String, dynamic> _$UserBalanceModelToJson(UserBalanceModel instance) =>
     <String, dynamic>{
-      'totalBalance': instance.totalBalance,
+      'balance': instance.balance,
       'todayChanges': instance.todayChanges,
     };

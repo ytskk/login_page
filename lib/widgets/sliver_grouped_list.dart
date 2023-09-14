@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:training_and_testing/constants/constants.dart';
 
 class SliverGroupedList<T, E> extends StatelessWidget {
   const SliverGroupedList({
@@ -18,23 +19,26 @@ class SliverGroupedList<T, E> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) {
-          final item = items.keys.elementAt(index);
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: padding16),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            final item = items.keys.elementAt(index);
 
-          if (groupHeaderBuilder != null) {
-            return Column(
-              children: [
-                groupHeaderBuilder!(item, items[item]!.length),
-                _buildCategoryItems(context, items[item]!),
-              ],
-            );
-          }
+            if (groupHeaderBuilder != null) {
+              return Column(
+                children: [
+                  groupHeaderBuilder!(item, items[item]!.length),
+                  _buildCategoryItems(context, items[item]!),
+                ],
+              );
+            }
 
-          return _buildCategoryItems(context, items[item]!);
-        },
-        childCount: items.length,
+            return _buildCategoryItems(context, items[item]!);
+          },
+          childCount: items.length,
+        ),
       ),
     );
   }

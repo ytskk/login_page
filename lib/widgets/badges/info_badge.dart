@@ -36,14 +36,14 @@ class InfoBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Theme.of(context);
+    final theme = Theme.of(context);
     final childWithDefaultTheme = DefaultTextStyle(
       style: textStyle ??
-          appTheme.textTheme.bodyS.semibold.copyWith(
-            color: contentColor ?? appTheme.colorScheme.white,
+          theme.textTheme.bodyS.semibold.copyWith(
+            color: contentColor ?? theme.colorScheme.white,
           ),
       child: IconTheme(
-        data: IconThemeData(color: contentColor ?? appTheme.colorScheme.white),
+        data: IconThemeData(color: contentColor ?? theme.colorScheme.white),
         child: Center(
           child: child,
         ),

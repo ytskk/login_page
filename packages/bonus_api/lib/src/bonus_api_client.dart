@@ -9,8 +9,8 @@ abstract class BonusApiClient {
   factory BonusApiClient(Dio dio, {String baseUrl}) = _BonusApiClient;
 
   @GET(BonusApiEndpoints.getUserBalance)
-  Future<UserBalanceResponseModel> getUserBalance(
-    @Query('userId') String userId,
+  Future<UserBalanceModel> getUserBalance(
+    @Path('id') String userId,
   );
 
   @GET(BonusApiEndpoints.getUserOperations)

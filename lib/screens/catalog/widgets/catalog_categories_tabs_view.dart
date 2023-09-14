@@ -15,6 +15,7 @@ class CatalogCategoriesTabsView extends StatelessWidget {
         print('updating categories tabs');
         // to make GetX reactive to changes in selectedCategory
         final selectedCategory = controller.selectedCategory.value;
+        final isCategoryLoading = controller.isCategoriesLoading;
 
         return FutureBuilder(
           future: controller.categoriesFuture.value,
@@ -24,17 +25,14 @@ class CatalogCategoriesTabsView extends StatelessWidget {
                     snapshot.connectionState != ConnectionState.none;
 
             if (snapshot.hasError && !isLoading) {
-              return TextButton(
-                onPressed: controller.fetchCategories,
-                child: Text('Error, try again'),
-              );
+              return const SizedBox.shrink();
             }
 
             return CategoriesTabs(
               isLoading: isLoading,
               categories: snapshot.data,
               selectedCategory: selectedCategory,
-              onCategorySelected: controller.updateSelectedCategory,
+              onCategorySelected: isLoading ? null : controller.loadProducts,
             );
           },
         );

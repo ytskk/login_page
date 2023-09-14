@@ -19,25 +19,25 @@ class _BonusApiClient implements BonusApiClient {
   String? baseUrl;
 
   @override
-  Future<UserBalanceResponseModel> getUserBalance(String userId) async {
+  Future<UserBalanceModel> getUserBalance(String userId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'userId': userId};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<UserBalanceResponseModel>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<UserBalanceModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'balance',
+              'user/balance/${userId}',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = UserBalanceResponseModel.fromJson(_result.data!);
+    final value = UserBalanceModel.fromJson(_result.data!);
     return value;
   }
 

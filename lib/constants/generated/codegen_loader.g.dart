@@ -14,67 +14,7 @@ class CodegenLoader extends AssetLoader{
     return Future.value(mapLocales[locale.toString()]);
   }
 
-  static const Map<String,dynamic> en = {
-  "myAchieves": "My achieves",
-  "youHaventOrderedInAWhile": "You haven't ordered in a while",
-  "youHaveALotOfBonusesYouCanOrderSomethingForYourself": "You have a lot of bonuses. You can order something for yourself",
-  "goToCatalog": "Go to catalog",
-  "getBonuses": "Get bonuses",
-  "learnMoreAboutHowToGetBonusesAndWhatYouCanSpendThemOn": "Learn more about how to get bonuses and what you can spend them on",
-  "howToGetTheBonuses": "How to get the bonuses",
-  "lastOperations": "Last operations",
-  "myOrders": "My orders",
-  "placeNewOrder": "Place new order",
-  "bonusBalance": "Bonus balance",
-  "today": "Today:",
-  "authorizationWasSuccessful": "Authorization was successful",
-  "authorizationFailed": "Authorization failed",
-  "loginWithGoogle": "Login with Google",
-  "getBonusesAndExchangeThemForBrandedProducts": "Get bonuses and exchange them for branded products",
-  "canceled": "Canceled",
-  "delivered": "Delivered",
-  "waitingForDelivery": "Waiting for delivery",
-  "unknown": "Unknown",
-  "toGetMoreBonuses": "To get more bonuses, ",
-  "youCanDo": "you can do",
-  "writeAnArticle": "Write an article",
-  "speakAtTheConference": "To speak at the conference",
-  "toSpendBonuses": "To spend bonuses",
-  "selectSomething": "Select something",
-  "toBuySomething": "To buy something",
-  "needToGetBonuses": "you need to get bonuses",
-  "notifications": "Notifications",
-  "youHave": "You have",
-  "noMessages": "no messages",
-  "new_": "New",
-  "enums": {
-    "OrderStatus": {
-      "canceled": "Canceled",
-      "delivered": "Delivered",
-      "waitingForDelivery": "Waiting For Delivery",
-      "unknown": "Unknown"
-    },
-    "NotificationType": {
-      "orders": "Orders",
-      "system": "System",
-      "profile": "Profile",
-      "other": "Other"
-    }
-  },
-  "yourBalance": "Your balance",
-  "newBadge": "New",
-  "catalogFilters": "Catalog filters",
-  "close": "Close",
-  "size": "Size",
-  "yourCart": "Your cart",
-  "isEmpty": "Is empty",
-  "youHaveNBonuses": "You have {n} bonus points",
-  "spendBonusPoints": "Spend them on items from the catalog",
-  "deleteAll": "Delete all",
-  "addToCart": "Add to cart",
-  "deleteFromCart": "Delete from cart"
-};
-static const Map<String,dynamic> ru = {
+  static const Map<String,dynamic> ru = {
   "myAchieves": "Мои достижения",
   "youHaventOrderedInAWhile": "Вы давно ничего не заказовали",
   "youHaveALotOfBonusesYouCanOrderSomethingForYourself": "У вас есть множество бонусов. Вы могли бы заказать что-то себе",
@@ -132,7 +72,71 @@ static const Map<String,dynamic> ru = {
   "spendBonusPoints": "Spend them on items from the catalog",
   "deleteAll": "Delete all",
   "addToCart": "Add to cart",
-  "deleteFromCart": "Delete from cart"
+  "deleteFromCart": "Delete from cart",
+  "catalogErrorTitle": "Error loading products",
+  "catalogErrorRetryButtonText": "Try again"
 };
-static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ru": ru};
+static const Map<String,dynamic> en = {
+  "myAchieves": "My achieves",
+  "youHaventOrderedInAWhile": "You haven't ordered in a while",
+  "youHaveALotOfBonusesYouCanOrderSomethingForYourself": "You have a lot of bonuses. You can order something for yourself",
+  "goToCatalog": "Go to catalog",
+  "getBonuses": "Get bonuses",
+  "learnMoreAboutHowToGetBonusesAndWhatYouCanSpendThemOn": "Learn more about how to get bonuses and what you can spend them on",
+  "howToGetTheBonuses": "How to get the bonuses",
+  "lastOperations": "Last operations",
+  "myOrders": "My orders",
+  "placeNewOrder": "Place new order",
+  "bonusBalance": "Bonus balance",
+  "today": "Today:",
+  "authorizationWasSuccessful": "Authorization was successful",
+  "authorizationFailed": "Authorization failed",
+  "loginWithGoogle": "Login with Google",
+  "getBonusesAndExchangeThemForBrandedProducts": "Get bonuses and exchange them for branded products",
+  "canceled": "Canceled",
+  "delivered": "Delivered",
+  "waitingForDelivery": "Waiting for delivery",
+  "unknown": "Unknown",
+  "toGetMoreBonuses": "To get more bonuses, ",
+  "youCanDo": "you can do",
+  "writeAnArticle": "Write an article",
+  "speakAtTheConference": "To speak at the conference",
+  "toSpendBonuses": "To spend bonuses",
+  "selectSomething": "Select something",
+  "toBuySomething": "To buy something",
+  "needToGetBonuses": "you need to get bonuses",
+  "notifications": "Notifications",
+  "youHave": "You have",
+  "noMessages": "no messages",
+  "new_": "New",
+  "enums": {
+    "OrderStatus": {
+      "canceled": "Canceled",
+      "delivered": "Delivered",
+      "waitingForDelivery": "Waiting For Delivery",
+      "unknown": "Unknown"
+    },
+    "NotificationType": {
+      "orders": "Orders",
+      "system": "System",
+      "profile": "Profile",
+      "other": "Other"
+    }
+  },
+  "yourBalance": "Your balance",
+  "newBadge": "New",
+  "catalogFilters": "Catalog filters",
+  "close": "Close",
+  "size": "Size",
+  "yourCart": "Your cart",
+  "isEmpty": "Is empty",
+  "youHaveNBonuses": "You have {n} bonus points",
+  "spendBonusPoints": "Spend them on items from the catalog",
+  "deleteAll": "Delete all",
+  "addToCart": "Add to cart",
+  "deleteFromCart": "Delete from cart",
+  "catalogErrorTitle": "Error loading products",
+  "catalogErrorRetryButtonText": "Try again"
+};
+static const Map<String, Map<String,dynamic>> mapLocales = {"ru": ru, "en": en};
 }

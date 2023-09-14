@@ -31,11 +31,9 @@ class NetworkBonusRepository implements IBonusRepository {
   Future<UserBalanceModel> getUserBalance({
     required String userId,
   }) async {
-    final response = await ApiHandler.get(
+    return ApiHandler.get(
       () => _bonusApi.getUserBalance(userId),
     );
-
-    return response.data;
   }
 
   @override

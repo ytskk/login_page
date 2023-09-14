@@ -20,6 +20,7 @@ class ShimmerLoadingList extends StatelessWidget {
     this.scrollDirection = Axis.vertical,
     this.height,
     this.gap = spacing8,
+    this.padding,
   }) : assert(
           scrollDirection == Axis.vertical || height != null,
           'If scrollDirection is horizontal, height must be provided',
@@ -31,6 +32,7 @@ class ShimmerLoadingList extends StatelessWidget {
   final Axis scrollDirection;
   final double? height;
   final double gap;
+  final EdgeInsets? padding;
 
   static const _defaultChild = SizedBox(
     height: 64,
@@ -46,6 +48,7 @@ class ShimmerLoadingList extends StatelessWidget {
     return SizedBox(
       height: height,
       child: ListView.separated(
+        padding: padding,
         scrollDirection: scrollDirection,
         shrinkWrap: shrinkWrap,
         physics: const ScrollPhysics(),

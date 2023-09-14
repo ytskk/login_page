@@ -25,9 +25,16 @@ class CatalogProductsListView extends StatelessWidget {
                     snapshot.connectionState != ConnectionState.none;
 
             if (snapshot.hasError && !isLoading) {
-              return SliverToBoxAdapter(
-                child: SizedBox(
-                  child: Text('Error: ${snapshot.error}'),
+              print('has error and not loading');
+              return SliverFillRemaining(
+                child: Center(
+                  child: InfoList(
+                    title: Text(tr(AppStrings.catalogErrorTitle)),
+                    content: TextButton(
+                      onPressed: controller.reload,
+                      child: Text(tr(AppStrings.catalogErrorRetryButtonText)),
+                    ),
+                  ),
                 ),
               );
             }
@@ -35,6 +42,7 @@ class CatalogProductsListView extends StatelessWidget {
             return ShimmerSwitchWidget(
               isShimmerActive: isLoading,
               shimmer: const ShimmerLoadingSliverList(
+                padding: EdgeInsets.symmetric(horizontal: padding16),
                 item: CatalogProductCardShimmer(),
                 itemCount: 4,
               ),

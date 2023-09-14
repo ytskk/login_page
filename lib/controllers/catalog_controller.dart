@@ -3,27 +3,29 @@ import 'dart:developer';
 import 'package:api_handler/api_handler.dart';
 import 'package:bonus_api/bonus_api.dart';
 import 'package:bonus_repository/bonus_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:training_and_testing/controllers/controllers.dart';
 
 class CatalogController extends GetxController {
   CatalogController({
-    required CatalogBonusRepository catalogRepository,
-  }) : _catalogRepository = catalogRepository;
+    required IBonusRepository bonusRepository,
+    required UserController userController,
+  })  : _bonusRepository = bonusRepository,
+        _userController = userController;
 
-  final CatalogBonusRepository _catalogRepository;
+  final IBonusRepository _bonusRepository;
+  final UserController _userController;
 
   // definitions.
 
-  final _balance = 0.obs;
   final _selectedCategory = Rxn<CatalogCategoryModel>();
-  final _error = Rxn<ApiNetworkException>();
+  final _isProductsLoading = Rx<bool>(false);
 
   // getters.
 
-  int get balance => _balance.value;
   Rxn<CatalogCategoryModel> get selectedCategory => _selectedCategory;
-  Rxn<ApiNetworkException> get error => _error;
+  Rx<Future<UserBalanceModel>> get userBalance => _userController.userBalance;
+  bool get isCategoriesLoading => _isProductsLoading.value;
 
   /// Future to get list of categories.
   final categoriesFuture = Rxn<Future<List<CatalogCategoryModel>>>();
@@ -34,7 +36,7 @@ class CatalogController extends GetxController {
   // setters.
 
   void updateSelectedCategory([CatalogCategoryModel? value]) {
-    if (value?.id == _selectedCategory.value?.id) {
+    if (value == _selectedCategory.value) {
       _selectedCategory.value = null;
     } else {
       _selectedCategory.value = value;
@@ -47,56 +49,40 @@ class CatalogController extends GetxController {
   void onInit() {
     super.onInit();
 
-    fetchCategories();
-
-    /// Listen to changes in the selected category and load products.
-    _selectedCategory.listen(getProducts);
+    reload();
   }
 
-  void handleError(BuildContext context) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text(_error.value?.message ?? 'Error')),
-      );
+  Future<void> reload() async {
+    await loadCategories();
+    await loadProducts(_selectedCategory.value);
   }
 
-  Future<void> fetchCategories() async {
+  Future<void> loadCategories() async {
     log(
       'Fetching categories...',
       name: 'CatalogController::_fetchCategories',
     );
-    // await performRequest(
-    //   error: _error,
-    //   loadingIndicator: _isCategoriesLoading,
-    //   callback: () async {
-    //     // load categories.
-    //     final categories = await _catalogRepository.getCatalogCategories();
 
-    //     // update categories list.
-    //     _categories
-    //       ..clear()
-    //       ..addAll(categories);
-    //   },
-    // );
-
-    categoriesFuture.value =
-        _catalogRepository.getCatalogCategories().then((value) {
-      // force to update the selected category.
-      _selectedCategory.trigger(_selectedCategory.value);
-      return value;
-    });
+    categoriesFuture.value = _bonusRepository.getCatalogCategories();
   }
 
-  Future<void> getProducts([CatalogCategoryModel? category]) async {
+  Future<void> loadProducts([CatalogCategoryModel? category]) async {
     log(
       'Getting products...',
       name: 'CatalogController::_getProducts',
     );
 
-    productsFuture.value = _catalogRepository.getCatalogProducts(
-      category: category?.slug,
-    );
+    _isProductsLoading.value = true;
+
+    try {
+      productsFuture.value = _bonusRepository.getCatalogProducts(
+        category: category?.slug,
+      );
+      await productsFuture.value;
+    } finally {
+      updateSelectedCategory(category);
+      _isProductsLoading.value = false;
+    }
   }
 }
 

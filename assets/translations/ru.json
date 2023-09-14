@@ -27,21 +27,19 @@
     "selectSomething": "потратить бонусы",
     "toBuySomething": "Чтобы что-то купить",
     "needToGetBonuses": "необходимо заработать бонусы",
-
-    "notifications" : "Уведомления", 
+    "notifications": "Уведомления",
     "youHave": "У вас",
-    "noMessages" : "нет сообщений",
+    "noMessages": "нет сообщений",
     "new_": "Новое",
-    
     "enums": {
-        "OrderStatus":{
-            "canceled" : "Отменен",
-            "delivered" : "Доставлен",
-            "waitingForDelivery" : "В процессе доставки",
-            "unknown" : "Неизвестно"
+        "OrderStatus": {
+            "canceled": "Отменен",
+            "delivered": "Доставлен",
+            "waitingForDelivery": "В процессе доставки",
+            "unknown": "Неизвестно"
         },
-        "NotificationType":{
-            "orders" : "Заказы",
+        "NotificationType": {
+            "orders": "Заказы",
             "system": "Система",
             "profile": "Профиль",
             "other": "Другое"
@@ -58,5 +56,7 @@
     "spendBonusPoints": "Spend them on items from the catalog",
     "deleteAll": "Delete all",
     "addToCart": "Add to cart",
-    "deleteFromCart": "Delete from cart"
+    "deleteFromCart": "Delete from cart",
+    "catalogErrorTitle": "Error loading products",
+    "catalogErrorRetryButtonText": "Try again"
 }

@@ -41,7 +41,7 @@ final class NetworkCacheableBonusRepository implements IBonusRepository {
       key: cacheKey,
       value: CacheEntity.dated(
         products,
-        cacheDuration: const Duration(minutes: 5),
+        cacheDuration: const Duration(seconds: 10),
       ),
     );
 
@@ -49,9 +49,8 @@ final class NetworkCacheableBonusRepository implements IBonusRepository {
   }
 
   @override
-  Future<UserBalanceModel> getUserBalance({required String userId}) {
-    // TODO: implement getUserBalance
-    throw UnimplementedError();
+  Future<UserBalanceModel> getUserBalance({required String userId}) async {
+    return ApiHandler.get(() => _bonusApi.getUserBalance(userId));
   }
 
   @override
